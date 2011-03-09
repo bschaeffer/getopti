@@ -55,9 +55,16 @@ class Base {
 	 * @access  public
 	 * @return  int     the number of columns to use for wrapping
 	 */
-	public static function get_cols()
+	public static function get_columns()
 	{
-	  return (int)exec("tput cols") - \Getopti::$padding;
+	  if(\Getopti::$columns > 0)
+	  {
+	    return \Getopti::$columns;
+	  }
+	  
+    $columns = (php_sapi_name() === 'cli') ? (int)exec("tput cols") : 80;
+	  \Getopti::$columns = $columns;
+	  return $columns;
 	}
 }
 
