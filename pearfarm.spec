@@ -40,7 +40,7 @@ $spec->setReleaseStability('alpha');
 $spec->setApiVersion('0.1.0');
 $spec->setApiStability('alpha');
 
-$spec->setNotes('Initial release.');
+$spec->setNotes('See http://github.com/bschaeffer/getopti for more information.');
 
 #---------------------------
 # File Inclusion Information
@@ -48,8 +48,6 @@ $spec->setNotes('Initial release.');
 
 $spec->addFilesSimple('Getopti.php');
 $spec->addFilesRegex('/^Getopti\/.*/');
-
-$spec->addFilesRegex('/^Test\/.*/', 'test');
 
 $spec->addFilesSimple('README.md', 'doc');
 $spec->addFilesSimple('LICENSE', 'doc');
