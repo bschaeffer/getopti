@@ -80,9 +80,6 @@ We might set up our application like so:
       }
     );
     
-    // Set a final line of output text
-    $opts->footer("use 'cmd help makefile [-v]' for more information");
-    
     // Read the command-line arguments
     // And parse the command
     $args = Getopti::read_args();
