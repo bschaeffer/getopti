@@ -2,6 +2,8 @@
 
 namespace Getopti;
 
+class Exception extends \Exception {}
+
 class Base {
   
   /**
