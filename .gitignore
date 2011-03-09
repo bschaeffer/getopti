@@ -1,3 +1,5 @@
-tmp/**
 Test/reports/**
-testing.php
+*_test.php
+
+package.xml
+*.tgz
