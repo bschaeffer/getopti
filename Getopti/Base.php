@@ -10,9 +10,9 @@ class Base {
 	 * Read Args
 	 * 
 	 * @static
-	 * @access public
-	 * @param  int    the number of arguments to trim off the top
-	 * @return array  the arguments
+	 * @access  public
+	 * @param   int    the number of arguments to trim off the top
+	 * @return  array  the arguments
 	 */
 	public static function read_args($trim = 0)
 	{
