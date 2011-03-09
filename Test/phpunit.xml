@@ -1,12 +1,4 @@
 <phpunit
   colors="true"
   bootstrap="bootstrap.php">
-  
-  <logging>
-    <log
-      type="coverage-html"
-      target="reports"
-      charset="UTF-8"
-      yui="true"/>
-  </logging>
 </phpunit>
