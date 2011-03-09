@@ -261,14 +261,14 @@ class Parser {
 	 * 
 	 * Valid short option examples:
 	 * 
-	 * - '-a'
-	 * - '-0'
+	 *   -a
+	 *   -0
 	 * 
 	 * Invalid short option examples:
 	 * 
-	 * - '-aa'
-	 * - '-01'
-	 * - '-a='
+	 *   -aa
+	 *   -01
+	 *   -a=
 	 * 
 	 * @static
 	 * @access  public
@@ -293,15 +293,17 @@ class Parser {
 	 * 
 	 * Valid long option examples:
 	 * 
-	 * - '--abcd'
-	 * - '--ab01='
-	 * - '--ab-cd'
-	 * - '--ab-01='
+	 *   --abcd
+	 *   --ab01=
+	 *   --ab-c
+	 *   --ab-0=
+	 *   --ab-cd
+	 *   --ab-01=
 	 * 
 	 * Invalid long option examples:
 	 * 
-	 * - '--a'
-	 * - '--0='
+	 *   --a
+	 *   --0=
 	 * 
 	 * @static
 	 * @access  public
