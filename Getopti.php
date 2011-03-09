@@ -86,8 +86,13 @@ class Getopti extends Getopti\Base {
    * @access public
    * @return void
    */
-  public function on(array $opts, $parameter = NULL, $description = '', $callback = NULL)
-  {    
+  public function on($opts, $parameter = NULL, $description = '', $callback = NULL)
+  { 
+    if( ! is_array($opts))
+    {
+      $opts = array($opts);
+    }
+       
     $short = $opts[0];
     $long = (isset($opts[1])) ? $opts[1] : FALSE;
     

@@ -64,7 +64,7 @@ We might set up our application like so:
     $opts->banner("global options:");
     
     // Watch only the '--help' flags
-    $opts->on(array('help'), FALSE, 'show help information for a given command',
+    $opts->on('help', FALSE, 'show help information for a given command',
       function ($help) use ($opts) {
           echo $opts->help();
           exit();
