@@ -24,11 +24,11 @@ Because I have listed this as an 'alpha' relase, you have to include the version
 
     require 'Getopti/Getopti.php';
 
-## Usage
+## Example Usage
 
 Assuming a CLI that can handle the following command:
 
-    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt -v
+    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt
 
 We might set up our application like so:
 
@@ -63,20 +63,11 @@ We might set up our application like so:
     // Set a banner to indicate global options
     $opts->banner("global options:");
     
-    // Watch for the '-v' and '--verbose' flags
-    $opts->on(array('v', 'verbose'), FALSE, 'output more information',
-      function ($verbose) use ($APP) {
-        $APP->verbose = $verbose;
-        // Usefull when indicating a usage using $opts->usage($text, TRUE)
-        // to indicate output for verbose and non-verbose settings (TODO)
-        Getopti::$verbose = true;
-      }
-    );
-    
-    // Register the '-h' and '--help' flags
-    $opts->on(array('h', 'help'), FALSE, 'show help information for a given command',
-      function ($help) {
-        Getopti\Output::help();
+    // Watch only the '--help' flags
+    $opts->on(array('help'), FALSE, 'show help information for a given command',
+      function ($help) use ($opts) {
+          echo $opts->help();
+          exit();
       }
     );
     
@@ -94,7 +85,6 @@ After setting up your command, running `$opts->parse()` would default to returni
         0 => array('C', 'I love PHP!'),
         1 => array('content', 'Getopti rules!'),
         2 => array('N', 'filename.txt')
-        3 => array('v', NULL)
       ),
       1 => array(
         0 => 'makefile'
@@ -108,7 +98,6 @@ The default is behavior due to the fact that some CLI applications might prefer 
     array(
       'name'    => array('filename.txt'),
       'content' => array('I love PHP!', 'Getopti rules!'),
-      'verbose' => TRUE,
       'help'    => FALSE
     )
 
