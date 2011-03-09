@@ -116,6 +116,18 @@ class Getopti extends Getopti\Base {
   {
     return $this->switcher->parse($args, $flatten);
   }
+  
+  /**
+   * Returns the flattened array of options from the results of parsing the
+   * command-line arguments.
+   * 
+   * @access  public
+   * @return  array   the flattened, parsed options
+   */
+  public function flat_opts()
+  {
+    return $this->switcher->options;
+  }
 }
 
 /* End of file Getopti.php */
