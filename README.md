@@ -190,6 +190,10 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 * Should we run the 'callbacks' even if the option wasn't specified by the user?
 * Add functionality that would allow indicating which options are allowed to be specified multiple times. Something like "ITEM+" or "[ITEM]+" (see Mercurial's help output as an example).
 
+## License
+
+Getopti is Copyright © 2011 Braden Schaeffer. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+
 [optparser]: http://www.ruby-doc.org/stdlib/libdoc/optparse/rdoc/index.html
 [console-getopt]: http://pear.php.net/package/Console_Getopt
 [phpdoc-closures]: http://php.net/manual/en/functions.anonymous.php
