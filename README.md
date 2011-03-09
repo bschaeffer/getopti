@@ -78,13 +78,20 @@ We might set up our application like so:
 After setting up your command, running `$opts->parse()` would default to returning an array similar to this:
 
     array(
-      0 => array('C', 'I love PHP!'),
-      1 => array('content', 'Getopti rules!'),
-      2 => array('N', 'filename.txt')
-      3 => array('v', NULL)
+      0 => array(
+        0 => array('C', 'I love PHP!'),
+        1 => array('content', 'Getopti rules!'),
+        2 => array('N', 'filename.txt')
+        3 => array('v', NULL)
+      ),
+      1 => array(
+        0 => 'makefile'
+      )
     )
 
-The default is to return the results as if you were parsing the arguments using the `Getopti\Parser::parse` method (which is based on PHP/PEAR's [Console_Getopt][console-getopt] class). This is due to the fact that some CLI applications might prefer to know in what order the options were called, exactly what flag was used... etc. If you do not care, using `$opts->flat_opts()` (or passing `TRUE` as a second parameter to `$opts->parse()`) will return a flattened, smartly populated array of options (regardless of whether they were included in the arguments or not). For example:
+The first array (`$results[0]`) is populated with all the matched options from the command-line argument. The second (`$results[1]`) contains all the options that the parser was not able to match with any rules.
+
+The default is behavior due to the fact that some CLI applications might prefer to know in what order the options were called, exactly what flag was used... etc. If you do not care, using `$opts->flat_opts()` (or passing `TRUE` as a second parameter to `$opts->parse()`) will return a flattened, smartly populated array of options regardless of whether they were included in the arguments or not. *This method does not return the non-options*. For example:
 
     array(
       'name'    => array('filename.txt'),
