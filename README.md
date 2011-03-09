@@ -9,6 +9,17 @@
 * Automated help output
 * Callbacks (see the *Using Callbacks* section of this README)
 
+## PEAR Installation
+
+To install using PEAR, you first have to discover my [Pearfarm Channel](http://bschaeffer.pearfarm.org/), then you can install the library (*please note, installation via this channel may only be a temporary solution.*). All you have to do is hit up your command-line and type the following:
+
+    [sudo] pear channel-discover bschaeffer.pearfarm.org
+    [sudo] pear install bschaeffer/Getotpi-0.1.0
+
+Because I have listed this as an 'alpha' relase, you have to include the version when retrieving the package. After installation, all you have to do is require it in your application:
+
+    require 'Getopti/Getopti.php';
+
 ## Usage
 
 Assuming a CLI that can handle the following command:
