@@ -114,27 +114,27 @@ class Output {
   {
     $width = \Getopti::get_columns() - \Getopti::$padding;
     
-		$break = str_replace(array("\t", "\s"), array("    ", " "), $break);
-		
-		if(preg_match_all("/(\n)/", $break, $matches))
-		{
-			$width = $width - (strlen($break)) - count($matches[0]);
-		}
+    $break = str_replace(array("\t", "\s"), array("    ", " "), $break);
+
+    if(preg_match_all("/(\n)/", $break, $matches))
+    {
+      $width = $width - (strlen($break)) - count($matches[0]);
+    }
+
+    $string = wordwrap($string, $width, $break, FALSE);
+    $string = preg_replace("/{$break}\s/", $break, $string);
+
+    $pad = '';
+
+    if( ! empty($append))
+    {
+      $finish = strlen($pad);
+      $start = $finish - strlen($append);
 	
-		$string = wordwrap($string, $width, $break, FALSE);
-		$string = preg_replace("/{$break}\s/", $break, $string);
-		
-		$pad = '';
-		
-		if( ! empty($append))
-		{
-			$finish = strlen($pad);
-			$start = $finish - strlen($append);
-			
-			$pad = substr_replace($pad, $append, $start, $finish);
-		}
-		
-		return $pad.$string;
+      $pad = substr_replace($pad, $append, $start, $finish);
+    }
+
+    return $pad.$string;
   }
 }
 
