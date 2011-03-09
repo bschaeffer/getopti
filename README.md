@@ -2,6 +2,10 @@
 
 **Get Options Improved** (or **Getopti**) is written to be a better command-line parsing tool for PHP programs. Inspired by the [Optparser][optparser] library for Ruby, as well as the [Console_Getopt][console-getopt] library for PEAR/PHP, **Getopti** aims to make interacting with the command-line inside your PHP applications a much more enjoyable experience.
 
+## Requirements
+
+* PHP 5.3 or greater
+
 ## Features
 
 * PHP 5.3 Only (which is, in fact, a feature)
