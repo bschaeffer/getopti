@@ -80,11 +80,15 @@ class Getopti extends Getopti\Base {
   }
   
   /**
-   * Adds options to the builder and registers them with the automated
+   * Adds options to the switcher and registers them with the automated
    * help output.
    * 
-   * @access public
-   * @return void
+   * @access  public
+   * @param   mixed   string (single option), or array (single option or two options)
+   * @param   string  the name for the parameter it accepts (i.e... "ITEM" or "[ITEM]")
+   * @param   string  description of what the option does
+   * @param   closure a callback function to be invoked when the option is specified
+   * @return  void
    */
   public function on($opts, $parameter = NULL, $description = '', $callback = NULL)
   { 
