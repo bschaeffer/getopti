@@ -128,6 +128,17 @@ class Getopti extends Getopti\Base {
   {
     return $this->switcher->options;
   }
+  
+  /**
+   * Retrieve non-options from the parsed arguments
+   * 
+   * @access  public
+   * @return  array   the non-options from the parsed arguments
+   */
+  public function nonopts()
+  {
+    return $this->switcher->nonopts;
+  }
 }
 
 /* End of file Getopti.php */

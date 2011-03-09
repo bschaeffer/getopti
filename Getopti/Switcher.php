@@ -84,6 +84,8 @@ class Switcher {
   {
     $this->results = Parser::parse($args, $this->_shortopts, $this->_longopts);
     
+    $this->nonopts = $this->results[1]; 
+    
     foreach($this->results[0] as $opt)
     {
       $this->_run_option($opt[0], $opt[1]);
