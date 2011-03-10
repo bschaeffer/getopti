@@ -35,6 +35,8 @@ require GETOPTI_BASEPATH.'Output.php';
 // --------------------------------------------------------------------
 
 class Getopti extends Getopti\Base {
+  
+  const VERSION = '0.1.0';
     
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";
