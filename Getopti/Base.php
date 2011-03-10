@@ -80,7 +80,7 @@ class Base {
 	    return \Getopti::$columns;
 	  }
 	  
-    $columns = (php_sapi_name() === 'cli') ? (int)exec("tput cols") : 80;
+	  $columns = (php_sapi_name() === 'cli') ? (int)exec("tput cols") : 80;
 	  \Getopti::$columns = $columns;
 	  return $columns;
 	}
