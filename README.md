@@ -33,8 +33,6 @@ Just require the library and get a new instance:
     require 'Getopti/Getopti.php'; // PEAR Installation
     $opts = new Getopti();
 
----
-
 ### banner
 
 Banners are simply lines of text to be added to the automated help output.
@@ -49,35 +47,28 @@ This would add the following line to the command output:
 
 The `\n`'s are representative of the automatic line-spacing added by the output class.
 
----
-
 ### on
 
 This method is used to add options. Option data is automatically added to the automated help output.
 
     $opts->on(mixed $opts, [string $parameter, string $description, closure $callback]);
 
-See the following examples for usage.
-
----
+**Examples**
 
 Specify only the short option `-v` for indicating verbose output in your app:
 
     $opts->on('v', NULL, 'output more information where applicable');
 
----
 
 Specify only the long option `--verbose` for indicating verbose output in your app:
 
     $opts->on('verbose', NULL, 'output more information where applicable');
 
----
 
 Specify both `-v` and `--verbose` options for indicating verbose output in your app:
 
     $opts->on(array('v', 'verbose'), NULL, 'output more information where applicable');
 
----
 
 Specify the option `--revision` that expects a REQUIRED revision number as a parameter:
 
@@ -85,13 +76,10 @@ Specify the option `--revision` that expects a REQUIRED revision number as a par
 
 *Getopti will raise a `Getopti\Exception` if the parameter is missing.*
 
----
-
 Specify the option `--revision` that expects an [OPTIONAL] revision number as parameter:
 
     $opts->on('revision', '[REV]', 'specify the revision number to operate on');
 
----
 
 Specify both the `-h` and `--help` options, using a callback to display automated help output:
 
@@ -107,8 +95,6 @@ Specify both the `-h` and `--help` options, using a callback to display automate
 
 *Please note: The default is not to run the callback unless the options is specified. This may change based on the needs presented by real world usage.*
 
----
-
 ### read_args
 
 A **static** function that attempts to retrieve the command-line arguments from various global PHP variables:
@@ -119,8 +105,6 @@ The optional `$trim` parameter simply removes `n` number of arguments from the b
 
     // $ cmd my great arguments 
     $args = Getopti::read_args(1); // array('great', 'arguments')
-
----
 
 ### parse
 
@@ -135,21 +119,19 @@ This method requires that you pass the `$arguments` array directly to it. Fortun
 
 The optional `$flatten` parameter is described in the *Results* section of this README.
 
----
-
-### options
+### options (variable)
 
 A variable holding the flattened results from the parsed options:
 
     $opts->options
 
-### nonopts
+### nonopts (variable)
 
 A variable holding the non-option results (options which weren't matched by any rules):
 
     $opts->nonopts
 
-### results
+### results (variable)
 
 A variable holding the untouched parsed options. This data is the same as the returned data from the static method `Getopti\Parser::parse`:
 
