@@ -49,6 +49,9 @@ class Getopti extends Getopti\Base {
   public $switcher = NULL;
   public $output =  NULL;
   
+  public $results = array();
+  public $options = array();
+  
   // --------------------------------------------------------------------
   
   /**
@@ -125,30 +128,16 @@ class Getopti extends Getopti\Base {
    */
   public function parse(array $args, $flatten = FALSE)
   {
-    return $this->switcher->parse($args, $flatten);
-  }
-  
-  /**
-   * Returns the flattened array of options from the results of parsing the
-   * command-line arguments.
-   * 
-   * @access  public
-   * @return  array   the flattened, parsed options
-   */
-  public function flat_opts()
-  {
-    return $this->switcher->options;
-  }
-  
-  /**
-   * Retrieve non-options from the parsed arguments
-   * 
-   * @access  public
-   * @return  array   the non-options from the parsed arguments
-   */
-  public function nonopts()
-  {
-    return $this->switcher->nonopts;
+    $this->results = $this->switcher->parse($args);
+    $this->options = $this->switcher->options;
+    $this->nonopts = $this->switcher->nonopts;
+    
+    if($flatten)
+    {
+      return $this->options;
+    }
+    
+    return $this->results;
   }
 }
 

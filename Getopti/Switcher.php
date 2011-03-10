@@ -77,10 +77,9 @@ class Switcher {
    * 
    * @access  public
    * @param   array   the array of arguments to parse
-   * @param   bool    whether or not to return the Parser results or the flattened ones
    * @return  void
    */
-  public function parse(array $args, $flatten = FALSE)
+  public function parse(array $args)
   {
     $this->results = Parser::parse($args, $this->_shortopts, $this->_longopts);
     
@@ -89,11 +88,6 @@ class Switcher {
     foreach($this->results[0] as $opt)
     {
       $this->_run_option($opt[0], $opt[1]);
-    }
-    
-    if($flatten == TRUE)
-    {
-      return $this->options;
     }
     
     return $this->results;
