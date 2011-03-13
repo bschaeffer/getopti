@@ -289,7 +289,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @test
    * @dataProvider  illegalOptionProvider
    * 
-   * @expectedException Getopti\IllegalOptionException
+   * @expectedException Getopti\Exception
    * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
@@ -320,7 +320,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @test
    * @dataProvider  optionMissingParameterProvider
    * 
-   * @expectedException Getopti\ParameterMissingException
+   * @expectedException Getopti\Exception
    *
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
