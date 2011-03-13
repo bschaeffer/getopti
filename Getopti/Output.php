@@ -97,7 +97,7 @@ class Output {
    */
   public static function help()
   {
-    return static::$output.PHP_EOL;
+    return static::$output;
   }
   
   /**
