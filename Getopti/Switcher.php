@@ -23,10 +23,10 @@ class Switcher {
   const INDICATOR_SHORT = ':';
   const INDICATOR_LONG  = "=";
   
-  private $_short2long = array();
-  private $_shortopts = '';
-  private $_longopts = array();
-  private $_callbacks = array();
+  public $_short2long = array();
+  public $_shortopts = '';
+  public $_longopts = array();
+  public $_callbacks = array();
   
   public $options = array();
   public $results = array();
