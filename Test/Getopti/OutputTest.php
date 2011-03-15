@@ -2,6 +2,22 @@
 
 class OutputTest extends PHPUnit_Framework_TestCase 
 {
+  /**
+   * @test
+   * 
+   * @covers  Getopti\Output::__construct
+   * 
+   * @author  bschaeffer
+   */
+  public function setsStaticOuputVariableToEmptyStringOnNew()
+  {
+    Getopti\Output::$output = "non empty string";
+    $out = new Getopti\Output();
+    $this->assertSame('', $out::$output);
+  }
+  
+  // --------------------------------------------------------------------
+   
   public function optionProvider()
   {
     return array(
