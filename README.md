@@ -70,11 +70,9 @@ Specify both `-v` and `--verbose` options for indicating verbose output in your 
     $opts->on(array('v', 'verbose'), NULL, 'output more information where applicable');
 
 
-Specify the option `--revision` that expects a REQUIRED revision number as a parameter:
+Specify the option `--revision` that expects a REQUIRED revision number as a parameter (*Getopti will raise a `Getopti\Exception` if the parameter is missing.*):
 
     $opts->on('revision', 'REV', 'specify the revision number to operate on');
-
-*Getopti will raise a `Getopti\Exception` if the parameter is missing.*
 
 Specify the option `--revision` that expects an [OPTIONAL] revision number as parameter:
 
