@@ -131,6 +131,10 @@ class Switcher {
       // see note above about defaulting to FALSE
       $this->options[$long] = FALSE;
     }
+    else
+    {
+      $this->options[$short] = FALSE;
+    }
     
     return array($short, $long);
   }
