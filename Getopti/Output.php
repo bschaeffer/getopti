@@ -79,6 +79,7 @@ class Output {
    * 
    * Automatically add a text to the automated output, followed by a new-line break
    * 
+   * @static
    * @access  public
    * @param   string  the text to add to the output
    * @return  void
