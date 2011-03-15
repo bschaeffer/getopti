@@ -9,19 +9,19 @@ class BaseTest extends PHPUnit_Framework_TestCase {
     $this->argv = array('arg1', 'arg2', 'arg3'); 
     $this->argv_trimmed = array('arg2', 'arg3');
     
-    $argv = $_SERVER['argv'] = $GLOBALS['HTTP_SERVER_VARS']['argv'] = $this->argv;
+    $argv = $_SERVER['argv'] = $this->argv;
   }
   
   /**
    * @test
    * 
-   * @covers  Getopti::read_args
+   * @covers  Getopti\Exception
    * 
    * @author  bschaeffer
    */
-  public function readsGlobalArgv()
+  public function containsGetoptiExceptions()
   { 
-    $this->assertSame($this->argv, Getopti\Base::read_args());
+    $this->assertInstanceOf('Exception', new Getopti\Exception);
   }
   
   /**
@@ -34,6 +34,46 @@ class BaseTest extends PHPUnit_Framework_TestCase {
   public function trimsFirstArgumentFromGlobalArgs()
   {
     $this->assertSame($this->argv_trimmed, Getopti\Base::read_args(1));
+  }
+  
+  /**
+   * @test
+   * 
+   * @covers  Getopti::read_args
+   * 
+   * @author  bschaeffer
+   */
+  public function readsArgv()
+  { 
+    $this->assertSame($this->argv, Getopti\Base::read_args());
+  }
+  
+  /**
+   * @test
+   * 
+   * @covers  Getopti::read_args
+   * 
+   * @author  bschaeffer
+   */
+  public function readsServerArgv()
+  { 
+    global $argv;
+    $argv = NULL;
+    $this->assertSame($this->argv, Getopti\Base::read_args());
+  }
+  
+  /**
+   * @test
+   * 
+   * @covers  Getopti::read_args
+   * 
+   * @author  bschaeffer
+   */
+  public function returnsEmptyArrayForNoArgv()
+  { 
+    global $argv;
+    $argv = $_SERVER['argv'] = NULL;
+    $this->assertSame(array(), Getopti\Base::read_args());
   }
 }
 

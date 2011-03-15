@@ -38,12 +38,7 @@ class Base {
 		{
 			if( ! @is_array($_SERVER['argv']))
 			{
-			    if( ! @is_array($GLOBALS['HTTP_SERVER_VARS']['argv']))
-			    {
-			    	return array();
-			    }
-			    
-			    $args = $GLOBALS['HTTP_SERVER_VARS']['argv'];
+			  return array();
 			}
 			
 			$args = $_SERVER['argv'];
