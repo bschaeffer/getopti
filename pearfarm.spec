@@ -34,10 +34,10 @@ $spec->addMaintainer('lead', 'Braden Schaeffer', 'bschaeffer', 'hello@manasto.in
 # Release Information
 #--------------------
 
-$spec->setReleaseVersion('0.1.0');
+$spec->setReleaseVersion('0.1.1');
 $spec->setReleaseStability('alpha');
 
-$spec->setApiVersion('0.1.0');
+$spec->setApiVersion('0.1.1');
 $spec->setApiStability('alpha');
 
 $spec->setNotes('See http://github.com/bschaeffer/getopti for more information.');
