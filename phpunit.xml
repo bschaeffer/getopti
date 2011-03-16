@@ -1,0 +1,10 @@
+<phpunit
+  colors="true"
+  bootstrap="Getopti.php">
+  <logging>
+    <log
+      type="coverage-html" 
+      target="Reports"
+      yui="true" />
+  </logging>
+</phpunit>

@@ -1,5 +1,5 @@
-Test/reports/**
-*_test.php
+Reports/*
+tmp/*
 
 package.xml
 *.tgz
