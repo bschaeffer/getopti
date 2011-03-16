@@ -80,6 +80,47 @@ class OutputTest extends PHPUnit_Framework_TestCase
     $out->banner($banner);
     $this->assertEquals(PHP_EOL.$banner.PHP_EOL.PHP_EOL, $out->help());
   }
+  
+  // --------------------------------------------------------------------
+  
+  public function textProvider()
+  {
+    return array(
+      array(''),
+      array(PHP_EOL),
+      array('test line')
+    );
+  }
+  
+  /**
+   * @test
+   * @dataProvider textProvider
+   * 
+   * @covers  Getopti\Output::write
+   * 
+   * @author  bschaeffer
+   */
+  public function writeAddsNewLine($text)
+  {
+    $out = new Getopti\Output();
+    $out->write($text);
+    $this->assertEquals($text.PHP_EOL, $out::$output);
+  }
+  
+  /**
+   * @test
+   * @dataProvider  textProvider
+   * 
+   * @covers  Getopti\Output::help
+   * 
+   * @author  bschaeffer
+   */
+  public function helpReturnsCorrectOutput($text)
+  {
+    $out = new Getopti\Output();
+    $out::$output = $text;
+    $this->assertEquals($text, $out->help());
+  }
 }
 
 /* End of file OutputTest.php */
