@@ -16,12 +16,12 @@
  * @filesource
  */
 
-// It is either a PEAR installation instance...
+// We are either being required from source
 if(strpos('@php_bin@', '@php_bin') === 0)
 {
   define('GETOPTI_BASEPATH', __DIR__.'/Getopti/');
 }
-// ... or it isn't
+// or a PEAR installation
 else
 {
   define('GETOPTI_BASEPATH', 'Getopti/Getopti/');
