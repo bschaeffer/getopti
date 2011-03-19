@@ -39,14 +39,6 @@ Banners are simply lines of text to be added to the automated help output.
 
     $opts->banner(string $banner);
 
-This would add the following line to the command output:
-
-    \n 
-    command options:
-    \n
-
-The `\n`'s are representative of the automatic line-spacing added by the output class.
-
 ### on
 
 This method is used to add options. Option data is automatically added to the automated help output.

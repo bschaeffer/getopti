@@ -39,7 +39,7 @@ class Output {
   public static function banner($text)
   {
     $banner = self::wrap($text);
-    static::write(PHP_EOL.$banner.PHP_EOL);
+    static::write($banner);
   }
   
   /**
