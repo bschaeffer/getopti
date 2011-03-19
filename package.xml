@@ -11,10 +11,10 @@
     <active>yes</active>
   </lead>
   <date>2011-03-19</date>
-  <time>17:27:47</time>
+  <time>18:15:20</time>
   <version>
-    <release>0.1.1</release>
-    <api>0.1.1</api>
+    <release>0.1.2</release>
+    <api>0.1.2</api>
   </version>
   <stability>
     <release>alpha</release>
@@ -24,15 +24,15 @@
   <notes>See http://github.com/bschaeffer/getopti for more information.</notes>
   <contents>
     <dir name="/" baseinstalldir="Getopti">
-      <file name="Getopti.php" role="php" md5sum="e3ed8618de58c5328fc3508e822ccb05"/>
+      <file name="Getopti.php" role="php" md5sum="da0fb32c4d1a7287b7b0d2e02dcb8a6a"/>
       <dir name="Getopti">
-        <file name="Base.php" role="php" md5sum="716429d940f697368378a16f4bd04ec7"/>
-        <file name="Output.php" role="php" md5sum="ade4387527b2d935a5d92f80ed9210d8"/>
-        <file name="Parser.php" role="php" md5sum="ae7acaad6696585fbb47f2e29aea7cfc"/>
-        <file name="Switcher.php" role="php" md5sum="54ea901dc12ad8dbd03d56b4adc28f74"/>
+        <file name="Base.php" role="php" md5sum="c976696ae00e244781fe0cb31c76d691"/>
+        <file name="Output.php" role="php" md5sum="cecc55117ac7537f06c70ac19a59cc62"/>
+        <file name="Parser.php" role="php" md5sum="e102af032c9e6ca611364f3e9ace551b"/>
+        <file name="Switcher.php" role="php" md5sum="a6ecc50256953e3a700a5fec3b105717"/>
       </dir>
       <file name="LICENSE" role="doc" md5sum="e8b6c302d0057db19aa38fdc3b21d081"/>
-      <file name="README.md" role="doc" md5sum="e75a9f04e1caf73f2850cc12c73c86ae"/>
+      <file name="README.md" role="doc" md5sum="16881b5e23ef75eb818961ca1d76971a"/>
     </dir>
   </contents>
   <dependencies>
