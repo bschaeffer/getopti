@@ -86,6 +86,21 @@ class Getopti extends Getopti\Base {
   }
   
   /**
+   * Add command text to the automated help output. This is similar to
+   * the output generated when adding an option, but only needs a command
+   * and a description
+   * 
+   * @access  public
+   * @param   string  the command
+   * @param   string  the description
+   * @return  void
+   */
+  public function command($command, $description = '')
+  {
+    $this->output->command($command, $description);
+  }
+  
+  /**
    * Adds options to the switcher and registers them with the automated
    * help output.
    * 

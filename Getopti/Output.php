@@ -43,6 +43,22 @@ class Output {
   }
   
   /**
+   * Add command text to the automated help output. This is similar to
+   * adding an option, but it only needs a command and optional description
+   * 
+   * @static
+   * @access  public
+   * @param   string  the command
+   * @param   string  the description
+   * @return  void
+   */
+  public static function command($command = '', $description = '')
+  {
+    $string = self::pad($command, $description);
+    static::write($string);
+  }
+  
+  /**
    * Add short and long option information to the automated output
    * 
    * @static

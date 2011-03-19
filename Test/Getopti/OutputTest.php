@@ -56,6 +56,37 @@ class OutputTest extends PHPUnit_Framework_TestCase
   }
   
   // --------------------------------------------------------------------
+   
+  public function commandProvider()
+  {
+    return array(
+      array(
+        array('command', 'command description'),
+        str_pad(' command', 26, " ").'command description'.PHP_EOL
+      ),
+      array(
+        array('help', 'another description'),
+        str_pad(' help', 26, " ").'another description'.PHP_EOL
+      ),
+    );
+  }
+  
+  /**
+   * @test
+   * @dataProvider  commandProvider
+   * 
+   * @covers  Getopti\Output::command
+   * 
+   * @author  bschaeffer
+   */
+  public function addsCommandsCorrectly($opts, $expected)
+  {
+    $out = new Getopti\Output();
+    $out->command($opts[0], $opts[1]);
+    $this->assertSame($expected, $out->help());
+  }
+  
+  // --------------------------------------------------------------------
   
   public function bannerProvider()
   {

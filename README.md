@@ -39,6 +39,12 @@ Banners are simply lines of text to be added to the automated help output.
 
     $opts->banner(string $banner);
 
+### command
+
+    $opts->command(string $command[, string $description]);
+
+This method is primarily hear to enable uniformity in generating output. The output is similar to the output generated when calling `$opts->on()`. Use it in your main help class when displaying a list of commands available within you CLI application.
+
 ### on
 
 This method is used to add options. Option data is automatically added to the automated help output.
