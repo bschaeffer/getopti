@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0         http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd" version="2.0">
+  <name>Getopti</name>
+  <channel>bschaeffer.pearfarm.org</channel>
+  <summary>A command-line parsing tool.</summary>
+  <description>A command-line parsing tool inspired by Ruby's Optparser library.</description>
+  <lead>
+    <name>Braden Schaeffer</name>
+    <user>bschaeffer</user>
+    <email>hello@manasto.info</email>
+    <active>yes</active>
+  </lead>
+  <date>2011-03-19</date>
+  <time>17:27:47</time>
+  <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+  </version>
+  <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+  </stability>
+  <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+  <notes>See http://github.com/bschaeffer/getopti for more information.</notes>
+  <contents>
+    <dir name="/" baseinstalldir="Getopti">
+      <file name="Getopti.php" role="php" md5sum="e3ed8618de58c5328fc3508e822ccb05"/>
+      <dir name="Getopti">
+        <file name="Base.php" role="php" md5sum="716429d940f697368378a16f4bd04ec7"/>
+        <file name="Output.php" role="php" md5sum="ade4387527b2d935a5d92f80ed9210d8"/>
+        <file name="Parser.php" role="php" md5sum="ae7acaad6696585fbb47f2e29aea7cfc"/>
+        <file name="Switcher.php" role="php" md5sum="54ea901dc12ad8dbd03d56b4adc28f74"/>
+      </dir>
+      <file name="LICENSE" role="doc" md5sum="e8b6c302d0057db19aa38fdc3b21d081"/>
+      <file name="README.md" role="doc" md5sum="e75a9f04e1caf73f2850cc12c73c86ae"/>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.0</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <phprelease/>
+</package>
