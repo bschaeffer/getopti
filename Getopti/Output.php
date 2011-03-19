@@ -66,12 +66,9 @@ class Output {
     }
     
     $options = trim(implode(", ", $opts)." ".$param);
-    $options = " ".str_pad($options, 25, " ");
+    $options = self::pad($options, $description);
     
-    $break = PHP_EOL.str_pad('', 26, " ");
-    $description = self::wrap($description, $break);
-    
-    static::write($options.$description);
+    static::write($options);
   }
 
   /**
@@ -99,6 +96,27 @@ class Output {
   public static function help()
   {
     return static::$output;
+  }
+  
+  /**
+   * Uniformly pad a string (for adding commands, options)
+   * 
+   * @static
+   * @access  public
+   * @param   string  the initial string to pad
+   * @param   string  the description to pad
+   * @return  string  the padded string
+   */
+  public static function pad($string = '', $description = '')
+  {
+    $padding = \Getopti::$option_padding;
+    
+    $string = " ".str_pad($string, $padding -1, " ");
+    
+    $break = PHP_EOL.str_pad('', $padding, " ");
+    $description = self::wrap($description, $break);
+    
+    return $string.$description;
   }
   
   /**
