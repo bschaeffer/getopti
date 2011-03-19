@@ -78,7 +78,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
   {
     $out = new Getopti\Output();
     $out->banner($banner);
-    $this->assertEquals(PHP_EOL.$banner.PHP_EOL.PHP_EOL, $out->help());
+    $this->assertEquals($banner.PHP_EOL, $out->help());
   }
   
   // --------------------------------------------------------------------
