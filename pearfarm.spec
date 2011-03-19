@@ -28,7 +28,7 @@ $spec->setChannel('bschaeffer.pearfarm.org');
 # Maintainers
 #------------
 
-$spec->addMaintainer('lead', 'Braden Schaeffer', 'bschaeffer', 'hello@manasto.info');
+$spec->addMaintainer('lead', 'Braden Schaeffer', 'bschaeffer', 'braden.schaeffer@gmail.com');
 
 #--------------------
 # Release Information

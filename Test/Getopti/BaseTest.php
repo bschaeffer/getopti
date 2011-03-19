@@ -17,7 +17,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Exception
    * 
-   * @author  bschaeffer
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
   public function containsGetoptiExceptions()
   { 
@@ -29,7 +29,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  bschaeffer
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
   public function trimsFirstArgumentFromGlobalArgs()
   {
@@ -41,7 +41,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  bschaeffer
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
   public function readsArgv()
   { 
@@ -53,7 +53,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  bschaeffer
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
   public function readsServerArgv()
   { 
@@ -67,7 +67,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  bschaeffer
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
   public function returnsEmptyArrayForNoArgv()
   { 

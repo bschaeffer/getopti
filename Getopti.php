@@ -6,7 +6,7 @@
  * Getopti is a command-line parsing tool for PHP
  *
  * @package   Getopti
- * @author    Braden Schaeffer <hello@manasto.info>
+ * @author    Braden Schaeffer <braden.schaeffer@gmail.com>
  * @version   0.1.2
  * @link      http://github.com/bschaeffer/getopti
  *
