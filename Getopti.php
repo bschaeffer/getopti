@@ -101,6 +101,18 @@ class Getopti extends Getopti\Base {
   }
   
   /**
+   * Add usage information to the automated help output
+   * 
+   * @access  public
+   * @param   string  the usage information
+   * @return  void
+   */
+  public function usage($usage)
+  {
+    $this->output->usage($usage);
+  }
+  
+  /**
    * Adds options to the switcher and registers them with the automated
    * help output.
    * 

@@ -118,6 +118,24 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   // --------------------------------------------------------------------
   
+  /**
+   * @test
+   * 
+   * @covers  Getopti\Output::usage
+   * 
+   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   */
+  public function addsUsagesCorrectly()
+  {
+    $usage = "script cmd [-f --flags]";
+    
+    $out = new Getopti\Output();
+    $out->usage($usage);
+    $this->assertEquals("Usage:".PHP_EOL."  ".$usage.PHP_EOL, $out->help());
+  }
+  
+  // --------------------------------------------------------------------
+  
   public function textProvider()
   {
     return array(

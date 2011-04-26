@@ -90,6 +90,19 @@ class Output {
     
     static::write($options);
   }
+  
+  /**
+   * Add usage information
+   * 
+   * @access  public
+   * @param   string  the usage string
+   * @return  void
+   */
+  public static function usage($usage)
+  {
+    static::write('Usage:');
+    static::write('  '.$usage);
+  }
 
   /**
    * Uniformly add automated text to the output.
