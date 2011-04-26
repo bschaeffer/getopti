@@ -69,19 +69,23 @@ class Output {
    * @return  void
    */
   public static function option(array $opts, $param = '', $description = '')
-  {
+  { 
+    $options = '';
+    
     if(isset($opts[1]) && ! empty($opts[1]))
     {
-      $opts[0] = "-{$opts[0]}";
-      $opts[1] = "--{$opts[1]}";
+      $options = "-{$opts[0]}, --{$opts[1]}";
+    }
+    elseif(strlen($opts[0]) > 1)
+    {
+      $options = "   --{$opts[0]}";
     }
     else
     {
-      $opts[0] = (strlen($opts[0]) > 1) ? "--{$opts[0]}" : "-{$opts[0]}";
-      unset($opts[1]);
+      $options = "-{$opts[0]}";
     }
     
-    $options = trim(implode(", ", $opts)." ".$param);
+    $options .= " ".$param;
     $options = self::pad($options, $description);
     
     static::write($options);
