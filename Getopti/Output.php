@@ -78,7 +78,7 @@ class Output {
     }
     elseif(strlen($opts[0]) > 1)
     {
-      $options = "   --{$opts[0]}";
+      $options = "    --{$opts[0]}";
     }
     else
     {

@@ -37,6 +37,10 @@ class OutputTest extends PHPUnit_Framework_TestCase
         array(array('f', 'file'), 'FILE', 'show file'),
         str_pad(' -f, --file FILE', 26, " ").'show file'.PHP_EOL
       ),
+      array(
+        array(array('file'), 'FILE', 'show file'),
+        str_pad('     --file FILE', 26, " ").'show file'.PHP_EOL
+      ),
     );
   }
   
