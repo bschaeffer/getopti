@@ -18,7 +18,7 @@
 To install using PEAR, you first have to discover my [Pearfarm Channel](http://bschaeffer.pearfarm.org/), then you can install the library (*please note, installation via this channel may only be a temporary solution.*). All you have to do is hit up your command-line and type the following:
 
     [sudo] pear channel-discover bschaeffer.pearfarm.org
-    [sudo] pear install bschaeffer/Getotpi-alpha
+    [sudo] pear install bschaeffer/Getotpi-beta
 
 After installation, all you have to do is require it in your application:
 
