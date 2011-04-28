@@ -101,7 +101,9 @@ class Output {
   public static function usage($usage)
   {
     static::write('Usage:');
-    static::write(str_repeat(' ', \Getopti::$left_padding).$usage);
+    
+    $string = rtrim(self::pad($usage));
+    static::write($string);
   }
 
   /**
@@ -144,7 +146,8 @@ class Output {
   {
     $padding = \Getopti::$option_padding;
     
-    $string = " ".str_pad($string, $padding - 1, " ");
+    $left = str_repeat(' ', \Getopti::$left_padding);
+    $string = $left.str_pad($string, $padding - 1, " ");
     
     $break = PHP_EOL.str_pad('', $padding, " ");
     $description = self::wrap($description, $break);
