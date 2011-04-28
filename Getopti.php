@@ -7,7 +7,7 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer <braden.schaeffer@gmail.com>
- * @version   0.1.2
+ * @version   0.1.3
  * @link      http://github.com/bschaeffer/getopti
  *
  * @copyright Copyright (c) 2011
@@ -36,7 +36,7 @@ require GETOPTI_BASEPATH.'Output.php';
 
 class Getopti extends Getopti\Base {
   
-  const VERSION = '0.1.2';
+  const VERSION = '0.1.3';
     
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";

@@ -10,29 +10,29 @@
     <email>braden.schaeffer@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2011-03-19</date>
-  <time>18:15:20</time>
+  <date>2011-04-28</date>
+  <time>09:10:18</time>
   <version>
-    <release>0.1.2</release>
-    <api>0.1.2</api>
+    <release>0.1.3</release>
+    <api>0.1.3</api>
   </version>
   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
   </stability>
   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
   <notes>See http://github.com/bschaeffer/getopti for more information.</notes>
   <contents>
     <dir name="/" baseinstalldir="Getopti">
-      <file name="Getopti.php" role="php" md5sum="da0fb32c4d1a7287b7b0d2e02dcb8a6a"/>
+      <file name="Getopti.php" role="php" md5sum="11c10c25117a0c9e7b4b76b988530218"/>
       <dir name="Getopti">
-        <file name="Base.php" role="php" md5sum="c976696ae00e244781fe0cb31c76d691"/>
-        <file name="Output.php" role="php" md5sum="cecc55117ac7537f06c70ac19a59cc62"/>
-        <file name="Parser.php" role="php" md5sum="e102af032c9e6ca611364f3e9ace551b"/>
-        <file name="Switcher.php" role="php" md5sum="a6ecc50256953e3a700a5fec3b105717"/>
+        <file name="Base.php" role="php" md5sum="08d55672b64763072c3406ec2a91c05d"/>
+        <file name="Output.php" role="php" md5sum="818525d0f653fdf433f456f1418efe15"/>
+        <file name="Parser.php" role="php" md5sum="7615cb8e15e00dbab671223dee2d4f1a"/>
+        <file name="Switcher.php" role="php" md5sum="ba6f2ded7ee67e7f012ee52d14502b28"/>
       </dir>
       <file name="LICENSE" role="doc" md5sum="e8b6c302d0057db19aa38fdc3b21d081"/>
-      <file name="README.md" role="doc" md5sum="16881b5e23ef75eb818961ca1d76971a"/>
+      <file name="README.md" role="doc" md5sum="0ae723fe2ff12a2ecc4ad683a5d3a606"/>
     </dir>
   </contents>
   <dependencies>

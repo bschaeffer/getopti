@@ -34,11 +34,11 @@ $spec->addMaintainer('lead', 'Braden Schaeffer', 'bschaeffer', 'braden.schaeffer
 # Release Information
 #--------------------
 
-$spec->setReleaseVersion('0.1.2');
-$spec->setReleaseStability('alpha');
+$spec->setReleaseVersion('0.1.3');
+$spec->setReleaseStability('beta');
 
-$spec->setApiVersion('0.1.2');
-$spec->setApiStability('alpha');
+$spec->setApiVersion('0.1.3');
+$spec->setApiStability('beta');
 
 $spec->setNotes('See http://github.com/bschaeffer/getopti for more information.');
 

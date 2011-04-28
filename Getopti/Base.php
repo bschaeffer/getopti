@@ -7,7 +7,7 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer <braden.schaeffer@gmail.com>
- * @version   0.1.2
+ * @version   0.1.3
  * @link      http://github.com/bschaeffer/getopti
  *
  * @copyright Copyright (c) 2011
