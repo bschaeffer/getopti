@@ -144,7 +144,7 @@ class Output {
   {
     $padding = \Getopti::$option_padding;
     
-    $string = " ".str_pad($string, $padding -1, " ");
+    $string = " ".str_pad($string, $padding - 1, " ");
     
     $break = PHP_EOL.str_pad('', $padding, " ");
     $description = self::wrap($description, $break);
