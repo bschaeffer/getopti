@@ -135,6 +135,13 @@ A variable holding the untouched parsed options. This data is the same as the re
 
 **Note:** See the *Results* section of this README for more information.
 
+## Configuration
+
+    Getopti::$columns = 0;          # parsed automatically if 0, number of columns before text wrap
+    Getopti::$left_padding = 1;     # cmd/opt padding for the left side of the terminal
+    Getopti::$right_padding = 2;    # all output padding for the right side
+    Getopti::$option_padding = 26;  # padding between cmd/opt and their descriptions
+
 ## Full Example
 
 Assuming a CLI that can handle the following command:
