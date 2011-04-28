@@ -78,7 +78,7 @@ class Output {
     }
     elseif(strlen($opts[0]) > 1)
     {
-      $options = "    --{$opts[0]}";
+      $options = str_repeat(' ', 4)."--{$opts[0]}";
     }
     else
     {
@@ -101,7 +101,7 @@ class Output {
   public static function usage($usage)
   {
     static::write('Usage:');
-    static::write('  '.$usage);
+    static::write(str_repeat(' ', \Getopti::$left_padding).$usage);
   }
 
   /**
@@ -164,7 +164,7 @@ class Output {
    */
   public static function wrap($string, $break = "\n", $append = '')
   {
-    $width = \Getopti::get_columns() - \Getopti::$padding;
+    $width = \Getopti::get_columns() - \Getopti::$right_padding;
     
     $break = str_replace(array("\t", "\s"), array("    ", " "), $break);
 

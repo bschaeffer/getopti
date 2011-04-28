@@ -43,7 +43,8 @@ class Getopti extends Getopti\Base {
   
   public static $columns = 0;
   public static $command = 'cmd';
-  public static $padding = 2;
+  public static $left_padding = 1;
+  public static $right_padding = 2;
   public static $option_padding = 26;
   public static $verbose = FALSE;
   
