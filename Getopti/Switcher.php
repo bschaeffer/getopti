@@ -154,11 +154,25 @@ class Switcher {
    * Parse the passed parameter
    *
    * @access  private
-   * @param   string  the parameter
+   * @param   mixed   the parameter or requirement level
    * @return  int     padding on the rule string
    */
   private function _parse_requirement_level($parameter = '')
-  {   
+  { 
+    // If it's an integer, it's already a level, supposedly
+    if(is_int($parameter))
+    {
+      switch($parameter)
+      {
+        case self::LEVEL_NONE:      return self::LEVEL_NONE;
+        case self::LEVEL_OPTIONAL:  return self::LEVEL_OPTIONAL;
+        case self::LEVEL_REQUIRED:  return self::LEVEL_REQUIRED;
+        default:
+          throw new \InvalidArgumentException("'$parameter' is not a valid parameter requirement level");
+          break;
+      }
+    }
+      
     if(empty($parameter))
     {
       // It doesn't have params

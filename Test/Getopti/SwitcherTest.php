@@ -9,7 +9,10 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     return array(
       array('a', NULL,      'a'),
       array('a', '[ITEM]',  'a:'),
-      array('a', 'ITEM',    'a::')
+      array('a', 'ITEM',    'a::'),
+      array('a', 0, 'a'),
+      array('a', 1, 'a:'),
+      array('a', 2, 'a::'),
     );
   }
   
@@ -37,7 +40,10 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     return array(
       array('long', NULL,     'long'),
       array('long', '[ITEM]', 'long='),
-      array('long', 'ITEM',   'long==')
+      array('long', 'ITEM',   'long=='),
+      array('long', 0, 'long'),
+      array('long', 1, 'long='),
+      array('long', 2, 'long==')
     );
   }
   
@@ -99,6 +105,24 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $switcher = new Getopti\Switcher;
     $switcher->add($opts);
     $this->assertFalse($switcher->options[$index]);
+  }
+  
+  // --------------------------------------------------------------------
+  
+  /**
+   * @test
+   *
+   * @expectedException InvalidArgumentException
+   * 
+   * @covers  Getopti\Switcher::add
+   * @covers  Getopti\Switcher::_parse_requirement_level
+   * 
+   * @author  Braden Schaeffer <hello@manasto.info>
+   */
+  public function invalid_parameter_requirement_level_raises_exception()
+  {
+    $switcher = new Getopti\Switcher();
+    $switcher->add(array('a'), 4);
   }
 }
 
