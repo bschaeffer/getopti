@@ -23,6 +23,10 @@ class Switcher {
   const INDICATOR_SHORT = ':';
   const INDICATOR_LONG  = "=";
   
+  const LEVEL_NONE      = 0;
+  const LEVEL_OPTIONAL  = 1;
+  const LEVEL_REQUIRED  = 2;
+  
   public $_short2long = array();
   public $_shortopts = '';
   public $_longopts = array();
@@ -149,15 +153,18 @@ class Switcher {
   private function _parse_requirement_level($parameter = '')
   {   
     if(empty($parameter))
-    {  
-      return 0; // It doesn't have params
+    {
+      // It doesn't have params
+      return self::LEVEL_NONE; 
     }
     elseif(preg_match("/^\[([a-z0-9\-_]+)\]\+?$/i", $parameter))
-    {  
-      return 1; // It's optional
+    {
+      // It's optional
+      return self::LEVEL_OPTIONAL;
     }
   
-    return 2; // It's required (will raise an Getopti\Exception if not missing)
+    // It's required (will raise an Getopti\Exception if not missing)
+    return self::LEVEL_REQUIRED;
   }
   
   /**
