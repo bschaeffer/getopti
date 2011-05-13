@@ -18,6 +18,8 @@
 
 namespace Getopti;
 
+use Getopti\Exception;
+
 class Parser {
 
 	// Parsing variables

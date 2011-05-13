@@ -31,6 +31,7 @@ require GETOPTI_BASEPATH.'Base.php';
 require GETOPTI_BASEPATH.'Parser.php';
 require GETOPTI_BASEPATH.'Switcher.php';
 require GETOPTI_BASEPATH.'Output.php';
+require GETOPTI_BASEPATH.'Exception.php';
 
 // --------------------------------------------------------------------
 
