@@ -158,8 +158,10 @@ We might set up our application like so:
     $APP = new YourApp();
     $opts = new Getopti();
     
+    $opts->banner("");
     $opts->banner("cmd makefile - a really, really hard way to create a file");
     
+    $opts->banner("");
     $opts->banner("command options:");
     
     $opts->on(array('N', 'name'), '[PATH]', 'set the name of the file',
@@ -174,6 +176,7 @@ We might set up our application like so:
       }
     );
     
+    $opts->banner("");
     $opts->banner("global options:");
     
     $opts->on('help', FALSE, 'show help information for a given command',
@@ -185,6 +188,19 @@ We might set up our application like so:
     
     $args = Getopti::read_args();
     $results = $opts->parse($args);
+
+## Output
+
+To output usage information for the above command, use `$opts->help()`. It would look something like this:
+
+    cmd makefile - a really, really hard way to make a file
+    
+    command options:
+     -N, --name [PATH]       set the name of the file
+     -C, --content CONTENT   add content to this file
+     
+    global options:
+         --help              show help information for a given command
 
 ## Results
 
@@ -227,6 +243,7 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 ### Within an instance of an object:
 
     class Macintosh {
+      
       public $version = "10.7";
       
       function __construct()
@@ -238,10 +255,8 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
         
         $opts = new Getopti();
         
-        // When defining our closures, we must explicitly 'use'
-        // the copy/reference.
-        
-        $opts->on(array('v', 'version'), FALSE, 'show version',   
+        // When defining our closures, we must explicitly 'use' the copy/reference.
+        $opts->on(array('v', 'version'), FALSE, 'show version',
           function ($show) use ($self) {
             if($show) echo "OS X {$self->version}";
           }
@@ -252,22 +267,18 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
       }
     }
 
-### In a static context (I prefer this implementation):
+### Statically:
 
       class Macintosh {
-        
+
         public static $version = "10.7";
         
         function __construct()
         {
           $opts = new Getopti();
           
-          $opts->on('version', FALSE, 'show version', 
+          $opts->on('version', FALSE, 'show version',
             function ($show) {
-              // DO NOT USE `self::$version` or `static::$version`. It won't
-              // resolve, will raise an exception and is no different than
-              // using `Macintosh::$version`
-              
               if($show) echo "OS X ".Macintosh::$version;
             }
           );
