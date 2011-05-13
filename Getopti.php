@@ -143,7 +143,7 @@ class Getopti extends Getopti\Base {
     $short = $opts[0];
     $long = (isset($opts[1])) ? $opts[1] : FALSE;
     
-    $this->switcher->add(array($short, $long), $parameter, $description, $callback);
+    $this->switcher->add(array($short, $long), $parameter, $callback);
     $this->output->option(array($short, $long), $parameter, $description);
   }
   

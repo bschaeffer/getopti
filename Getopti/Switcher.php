@@ -53,11 +53,10 @@ class Switcher {
    * @access  public
    * @param   array   the short and long options to watch
    * @param   string  the parameter (ie. PATH or [PATH])
-   * @param   string  optional description of the options
    * @param   closure optional callback for the option
    * @return  void
    */
-  public function add(array $opts, $parameter = NULL, $description = '', $callback = NULL)
+  public function add(array $opts, $parameter = NULL, $callback = NULL)
   {
     list($short, $long) = $this->_parse_opts($opts);
     
