@@ -6,7 +6,7 @@
  * Getopti is a command-line parsing tool for PHP
  *
  * @package   Getopti
- * @author    Braden Schaeffer <braden.schaeffer@gmail.com>
+ * @author    Braden Schaeffer <hello@manasto.info>
  * @version   0.1.3
  * @link      http://github.com/bschaeffer/getopti
  *
@@ -15,11 +15,18 @@
  *
  * @filesource
  */
-
 namespace Getopti;
 
 use Getopti\Exception;
 
+/**
+ * Getopt Parser Class 
+ *
+ * Parses a given set of options and arguements
+ *
+ * @package     Getopti
+ * @author      Braden Schaeffer <hello@manasto.info>
+ */
 class Parser {
 
 	// Parsing variables

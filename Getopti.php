@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Getopti
  *
  * Getopti is a command-line parsing tool for PHP
  *
  * @package   Getopti
- * @author    Braden Schaeffer <braden.schaeffer@gmail.com>
+ * @author    Braden Schaeffer <hello@manasto.info>
  * @version   0.1.3
  * @link      http://github.com/bschaeffer/getopti
  *
@@ -35,6 +34,15 @@ require GETOPTI_BASEPATH.'Exception.php';
 
 // --------------------------------------------------------------------
 
+/**
+ * Getopti
+ * 
+ * A base class for wrapping multiple class functionalities into one
+ * object.
+ * 
+ * @package     Getopti     
+ * @author      Braden Schaeffer <hello@manasto.info>
+ */
 class Getopti extends Getopti\Base {
   
   const VERSION = '0.1.3';
