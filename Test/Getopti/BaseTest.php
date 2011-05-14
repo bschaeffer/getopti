@@ -19,7 +19,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function containsGetoptiExceptions()
+  public function contains_getopti_exception()
   { 
     $this->assertInstanceOf('Exception', new Getopti\Exception);
   }
@@ -31,7 +31,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function trimsFirstArgumentFromGlobalArgs()
+  public function trims_first_argument_from_global_args()
   {
     $this->assertSame($this->argv_trimmed, Getopti\Base::read_args(1));
   }
@@ -43,7 +43,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function readsArgv()
+  public function reads_argv()
   { 
     $this->assertSame($this->argv, Getopti\Base::read_args());
   }
@@ -55,7 +55,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function readsServerArgv()
+  public function reads_server_argv()
   { 
     global $argv;
     $argv = NULL;
@@ -69,7 +69,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function returnsEmptyArrayForNoArgv()
+  public function returns_empty_array_for_no_argv()
   { 
     global $argv;
     $argv = $_SERVER['argv'] = NULL;

@@ -22,7 +22,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function validLongoptsAreValid($long)
+  public function valid_longopts_are_valid($long)
   {
     $this->assertTrue(Getopti\Parser::is_longopt($long));
   }
@@ -49,7 +49,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function validShortoptsAreValid($short)
+  public function valid_shortopts_are_valid($short)
   {
     $this->assertTrue(Getopti\Parser::is_shortopt($short));
   }
@@ -75,7 +75,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::is_shortopt
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function invalidShortoptsAreInvalid($longopt)
+  public function invalid_shortopts_are_invalid($longopt)
   {
     $this->assertFalse(Getopti\Parser::is_shortopt($longopt));
   }
@@ -88,7 +88,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function invalidLongoptsAreInvalid($long)
+  public function invalid_longopts_are_invalid($long)
   {
     $this->assertFalse(Getopti\Parser::is_longopt($long));
   }
@@ -126,7 +126,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function setsUpShortoptsCorrectly($args, $rules)
+  public function sets_up_shortopts_correctly($args, $rules)
   {
     $results = Getopti\Parser::get_shortopts($rules[0]);
     $this->assertSame($rules[1], $results);
@@ -141,7 +141,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function parsesValidShortArgumentsCorrectly($args, $rules, $expected)
+  public function parses_valid_short_arguments_correctly($args, $rules, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], array());
     $this->assertSame($expected, $opts);
@@ -181,7 +181,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function setsUpLongoptsCorrectly($args, $rules)
+  public function sets_up_longopts_correctly($args, $rules)
   {
     $results = Getopti\Parser::get_longopts($rules[0]);
     $this->assertSame($rules[1], $results);
@@ -196,7 +196,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function parsesValidLongArgumentsCorrectly($args, $rules, $expected)
+  public function parses_valid_longopts_correctly($args, $rules, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, '', $rules[0]);
     $this->assertSame($expected, $opts);
@@ -231,7 +231,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function parsesConsecutiveShortoptsCorrectly($args, $expected)
+  public function parses_consecutive_shortopts_correctly($args, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, 'a:b:', array());
     $this->assertSame($expected, $opts);
@@ -264,7 +264,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function stopsParsingOptionsAtBreak($args, $rules, $expected)
+  public function stops_parsing_options_at_break($args, $rules, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected[0], $opts);
@@ -297,7 +297,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function illegalOptionRaisesException($args, $opts)
+  public function illegal_option_raises_exception($args, $opts)
   {
     Getopti\Parser::parse($args, $opts[0], $opts[1]);
   }
@@ -328,7 +328,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function optionMissingParameterRaisesException($args, $opts)
+  public function option_missing_parameter_raises_exception($args, $opts)
   {
     Getopti\Parser::parse($args, $opts[0], $opts[1]);
   }
@@ -375,7 +375,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function doesNotSetOptionsAsValues($args, $expected)
+  public function does_not_set_options_as_values($args, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, 'a:b:', array('long=', 'other='));
     $this->assertSame($expected, $opts);
@@ -426,7 +426,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function parsesMixedArgumentsCorrectly($args, $rules, $expected)
+  public function parses_mixed_arguments_correctly($args, $rules, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected, $opts);
@@ -442,7 +442,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function returnsCorrectNonoptions($args, $rules, $ignore, $expected)
+  public function returns_correct_nonoptions($args, $rules, $ignore, $expected)
   {
     list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected, $nonopts);

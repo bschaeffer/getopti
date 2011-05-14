@@ -9,7 +9,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function setsStaticOuputVariableToEmptyStringOnNew()
+  public function sets_static_variables_to_empty_string_on_new()
   {
     Getopti\Output::$output = "non empty string";
     $out = new Getopti\Output();
@@ -52,7 +52,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsOptionsCorrectly($opts, $expected)
+  public function adds_options_correctly($opts, $expected)
   {
     $out = new Getopti\Output();
     $out->option($opts[0], $opts[1], $opts[2]);
@@ -83,7 +83,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsCommandsCorrectly($opts, $expected)
+  public function adds_commands_correctly($opts, $expected)
   {
     $out = new Getopti\Output();
     $out->command($opts[0], $opts[1]);
@@ -109,7 +109,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsBannersCorrectly($banner)
+  public function adds_banners_correctly($banner)
   {
     $out = new Getopti\Output();
     $out->banner($banner);
@@ -125,7 +125,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsUsagesCorrectly()
+  public function adds_usages_correctly()
   {
     $usage = "script cmd [-f --flags]";
     
@@ -153,7 +153,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function writeAddsNewLine($text)
+  public function appends_new_line_to_each_write_request($text)
   {
     $out = new Getopti\Output();
     $out->write($text);
@@ -168,7 +168,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function helpReturnsCorrectOutput($text)
+  public function returns_correct_usage_information($text)
   {
     $out = new Getopti\Output();
     $out::$output = $text;

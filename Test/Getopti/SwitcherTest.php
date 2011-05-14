@@ -26,7 +26,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsShortoptsCorrectly($opt, $param, $expected)
+  public function adds_shortopts_correctly($opt, $param, $expected)
   {
     $switcher = new Getopti\Switcher;
     $switcher->add(array($opt, NULL), $param);
@@ -57,7 +57,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function addsLongoptsCorrectly($opt, $param, $expected)
+  public function adds_longopts_orrectly($opt, $param, $expected)
   {
     $switcher = new Getopti\Switcher;
     $switcher->add(array(NULL, $opt), $param);
@@ -84,7 +84,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function setsShort2longArrayCorrectly($opts, $ignore, $expected)
+  public function sets_short2long_array_correctly($opts, $ignore, $expected)
   {
     $switcher = new Getopti\Switcher;
     $switcher->add($opts);
@@ -100,7 +100,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
    */
-  public function intializesOptionValuesWithFalse($opts, $index)
+  public function intializes_option_values_with_false($opts, $index)
   {
     $switcher = new Getopti\Switcher;
     $switcher->add($opts);
