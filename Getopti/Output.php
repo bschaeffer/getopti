@@ -191,7 +191,7 @@ class Output {
     {
       $finish = strlen($pad);
       $start = $finish - strlen($append);
-	
+  
       $pad = substr_replace($pad, $append, $start, $finish);
     }
 
