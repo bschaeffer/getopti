@@ -35,9 +35,15 @@ Just require the library and get a new instance:
 
 ### banner
 
-Banners are simply lines of text to be added to the automated help output.
+Banners are simply unpadded lines of text to be added to the automated help output.
 
     $opts->banner(string $banner);
+
+### usage
+
+Usage lines should be used for longer, more descriptive lines of text. They are automatically wrapped and left padding is added to them (see the 'Configuration' section of this readme or padding information).
+
+    $opts->usage(string $usage);
 
 ### command
 
@@ -158,8 +164,8 @@ We might set up our application like so:
     $APP = new YourApp();
     $opts = new Getopti();
     
-    $opts->banner("");
-    $opts->banner("cmd makefile - a really, really hard way to create a file");
+    $opts->banner("cmd write");
+    $opts->usage("A really, really hard way to create a file!")
     
     $opts->banner("");
     $opts->banner("command options:");
@@ -193,7 +199,8 @@ We might set up our application like so:
 
 To output usage information for the above command, use `$opts->help()`. It would look something like this:
 
-    cmd makefile - a really, really hard way to make a file
+    cmd write
+     A really, really hard way to create a file!
     
     command options:
      -N, --name [PATH]       set the name of the file

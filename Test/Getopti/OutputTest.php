@@ -131,7 +131,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
     
     $out = new Getopti\Output();
     $out->usage($usage);
-    $this->assertEquals("Usage:".PHP_EOL." ".$usage.PHP_EOL, $out->help());
+    $this->assertEquals(" ".$usage.PHP_EOL, $out->help());
   }
   
   // --------------------------------------------------------------------

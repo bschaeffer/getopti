@@ -106,8 +106,6 @@ class Output {
    */
   public static function usage($usage)
   {
-    static::write('Usage:');
-    
     $string = rtrim(self::pad($usage));
     static::write($string);
   }
