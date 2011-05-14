@@ -83,6 +83,17 @@ class Getopti extends Getopti\Base {
   }
   
   /**
+   * Outputs automated help information (alias to Getopti\Output::help).
+   * 
+   * @access  public
+   * @return  void
+   */
+  public function __toString()
+  {
+    return $this->output->help();
+  }
+  
+  /**
    * Add banner text to the automated help output. This can be a simple
    * section seperator or eleborate usage information.
    * 
