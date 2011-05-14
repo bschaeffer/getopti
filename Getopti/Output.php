@@ -26,55 +26,47 @@ namespace Getopti;
  */
 class Output {
   
-  public static $output = '';
-  
-  public function __construct()
-  {
-    static::$output = '';
-  }
+  public $output = '';
   
   /**
    * Add banner text to the automated help output. This can be a simple
    * section seperator or eleborate usage information.
    * 
-   * @static
    * @access  public
    * @param   string  the banner text
    * @return  void
    */
-  public static function banner($text)
+  public function banner($text)
   {
     $banner = self::wrap($text);
-    static::write($banner);
+    $this->write($banner);
   }
   
   /**
    * Add command text to the automated help output. This is similar to
    * adding an option, but it only needs a command and optional description
    * 
-   * @static
    * @access  public
    * @param   string  the command
    * @param   string  the description
    * @return  void
    */
-  public static function command($command = '', $description = '')
+  public function command($command = '', $description = '')
   {
     $string = self::pad($command, $description);
-    static::write($string);
+    $this->write($string);
   }
   
   /**
    * Add short and long option information to the automated output
    * 
-   * @static
    * @access  public
    * @param   array   the short and/or long option
    * @param   string  the parameter associated with the opts (optional)
    * @param   string  the description of the associated options (optional)
    * @return  void
    */
-  public static function option(array $opts, $param = '', $description = '')
+  public function option(array $opts, $param = '', $description = '')
   { 
     $options = '';
     
@@ -94,7 +86,7 @@ class Output {
     $options .= " ".$param;
     $options = self::pad($options, $description);
     
-    static::write($options);
+    $this->write($options);
   }
   
   /**
@@ -104,10 +96,10 @@ class Output {
    * @param   string  the usage string
    * @return  void
    */
-  public static function usage($usage)
+  public function usage($usage)
   {
     $string = rtrim(self::pad($usage));
-    static::write($string);
+    $this->write($string);
   }
 
   /**
@@ -115,26 +107,24 @@ class Output {
    * 
    * Automatically add a text to the automated output, followed by a new-line break
    * 
-   * @static
    * @access  public
    * @param   string  the text to add to the output
    * @return  void
    */
-  public static function write($text)
+  public function write($text)
   {
-    static::$output .= $text.PHP_EOL;
+    $this->output .= $text.PHP_EOL;
   }
   
   /**
    * Returns the automated help output
    * 
-   * @static
    * @access  public
    * @return  string  the automated help output
    */
-  public static function help()
+  public function help()
   {
-    return static::$output;
+    return $this->output;
   }
   
   /**
@@ -162,7 +152,6 @@ class Output {
   /**
    * Custom word wrap function that allows for customized breaking
    * 
-   * @static
    * @access  public
    * @param   string  the text string to wrap
    * @param   string  the break string to wrap with

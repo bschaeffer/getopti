@@ -3,17 +3,11 @@
 class OutputTest extends PHPUnit_Framework_TestCase 
 {
   /**
-   * @test
-   * 
-   * @covers  Getopti\Output::__construct
-   * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * Setup method for each test
    */
-  public function sets_static_variables_to_empty_string_on_new()
+  public function setUp()
   {
-    Getopti\Output::$output = "non empty string";
-    $out = new Getopti\Output();
-    $this->assertSame('', $out::$output);
+    $this->output = new Getopti\Output();
   }
   
   // --------------------------------------------------------------------
@@ -54,9 +48,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function adds_options_correctly($opts, $expected)
   {
-    $out = new Getopti\Output();
-    $out->option($opts[0], $opts[1], $opts[2]);
-    $this->assertSame($expected, $out->help());
+    $this->output->option($opts[0], $opts[1], $opts[2]);
+    $this->assertSame($expected, $this->output->help());
   }
   
   // --------------------------------------------------------------------
@@ -85,9 +78,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function adds_commands_correctly($opts, $expected)
   {
-    $out = new Getopti\Output();
-    $out->command($opts[0], $opts[1]);
-    $this->assertSame($expected, $out->help());
+    $this->output->command($opts[0], $opts[1]);
+    $this->assertSame($expected, $this->output->help());
   }
   
   // --------------------------------------------------------------------
@@ -111,9 +103,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function adds_banners_correctly($banner)
   {
-    $out = new Getopti\Output();
-    $out->banner($banner);
-    $this->assertEquals($banner.PHP_EOL, $out->help());
+    $this->output->banner($banner);
+    $this->assertEquals($banner.PHP_EOL, $this->output->help());
   }
   
   // --------------------------------------------------------------------
@@ -129,9 +120,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
   {
     $usage = "script cmd [-f --flags]";
     
-    $out = new Getopti\Output();
-    $out->usage($usage);
-    $this->assertEquals(" ".$usage.PHP_EOL, $out->help());
+    $this->output->usage($usage);
+    $this->assertEquals(" ".$usage.PHP_EOL, $this->output->help());
   }
   
   // --------------------------------------------------------------------
@@ -155,9 +145,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function appends_new_line_to_each_write_request($text)
   {
-    $out = new Getopti\Output();
-    $out->write($text);
-    $this->assertEquals($text.PHP_EOL, $out::$output);
+    $this->output->write($text);
+    $this->assertEquals($text.PHP_EOL, $this->output->output);
   }
   
   /**
@@ -170,9 +159,8 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function returns_correct_usage_information($text)
   {
-    $out = new Getopti\Output();
-    $out::$output = $text;
-    $this->assertEquals($text, $out->help());
+    $this->output->output = $text;
+    $this->assertEquals($text, $this->output->help());
   }
 }
 
