@@ -60,7 +60,7 @@ class Parser {
     
     if((empty(static::$_shortopts) && empty(static::$_longopts)) || empty(static::$_args))
     {
-      return array(array(), static::$_args);
+      return array(array(), static::$_args, array());
     }
     
     foreach(static::$_args as $index => $arg)

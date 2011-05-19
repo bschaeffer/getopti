@@ -43,6 +43,7 @@ class Switcher {
   public $options = array();
   public $results = array();
   public $nonopts = array();
+  public $breakopts = array();
   
   // --------------------------------------------------------------------
   
@@ -92,9 +93,9 @@ class Switcher {
    */
   public function parse(array $args)
   {
-    $this->results = Parser::parse($args, $this->_shortopts, $this->_longopts);
-    
-    $this->nonopts = $this->results[1]; 
+    $this->results    = Parser::parse($args, $this->_shortopts, $this->_longopts);
+    $this->nonopts    = $this->results[1];
+    $this->breakopts  = $this->results[2]; 
     
     foreach($this->results[0] as $opt)
     {
