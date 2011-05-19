@@ -41,7 +41,7 @@ Banners are simply unpadded lines of text to be added to the automated help outp
 
 ### usage
 
-Usage lines should be used for longer, more descriptive lines of text. They are automatically wrapped and left padding is added to them (see the 'Configuration' section of this readme or padding information).
+Usage lines should be used for longer, more descriptive lines of text. They are automatically wrapped and left padding is added to them (see the 'Configuration' section of this readme for padding information).
 
     $opts->usage(string $usage);
 
@@ -87,15 +87,12 @@ Specify both the `-h` and `--help` options, using a callback to display automate
 
     $opts->on(array('h', 'help'), NULL, 'show help information',
       function ($help) use ($opts) {
-        if($help)
-        {
-          echo $opts->help();
-          exit();
-        }
+        echo $opts->help();
+        exit();
       }
     );
 
-*Please note: The default is not to run the callback unless the options is specified. This may change based on the needs presented by real world usage.*
+*Please note: The default is not to run the callback unless the option is specified.*
 
 ### read_args
 
@@ -121,31 +118,11 @@ This method requires that you pass the `$arguments` array directly to it. Fortun
 
 The optional `$flatten` parameter is described in the *Results* section of this README.
 
-### options (variable)
-
-A variable holding the flattened results from the parsed options:
-
-    $opts->options
-
-### nonopts (variable)
-
-A variable holding the non-option results (options which weren't matched by any rules):
-
-    $opts->nonopts
-
-### results (variable)
-
-A variable holding the untouched parsed options. This data is the same as the returned data from the static method `Getopti\Parser::parse`:
-
-    $opts->results
-
-**Note:** See the *Results* section of this README for more information.
-
 ## Configuration
 
-    Getopti::$columns = 0;          # parsed automatically if 0, number of columns before text wrap
-    Getopti::$left_padding = 1;     # cmd/opt padding for the left side of the terminal
-    Getopti::$right_padding = 2;    # all output padding for the right side
+    Getopti::$columns         = 0;  # number of columns to wrap (auto-discovered if possible)
+    Getopti::$left_padding    = 1;  # cmd/opt padding for the left side of the terminal
+    Getopti::$right_padding   = 2;  # all output padding for the right side
     Getopti::$option_padding = 26;  # padding between cmd/opt and their descriptions
 
 ## Full Example
@@ -195,23 +172,9 @@ We might set up our application like so:
     $args = Getopti::read_args();
     $results = $opts->parse($args);
 
-## Output
-
-To output usage information for the above command, use `$opts->help()`. It would look something like this:
-
-    cmd write
-     A really, really hard way to create a file!
-    
-    command options:
-     -N, --name [PATH]       set the name of the file
-     -C, --content CONTENT   add content to this file
-     
-    global options:
-         --help              show help information for a given command
-
 ## Results
 
-After setting up your command, running `$opts->parse()` would default to returning an array similar to this:
+After setting up the above command, running `$opts->parse()` would default to returning an array similar to this:
 
     $results = array(
       0 => array(
@@ -223,26 +186,55 @@ After setting up your command, running `$opts->parse()` would default to returni
         0 => 'makefile'
       ),
       2 => array(
-        'brkopt',
-        '--brkflag'
+        0 => 'brkopt',
+        1 => '--brkflag'
       )
     );
 
-The first array (`$results[0]`) is populated with all the matched options from the command-line argument. The second (`$results[1]`) contains all the options that the parser was not able to match with any rules. The third array (`$results[2]`) contains all the options specified after the `--` argument.
+## Output
 
-This is the default behavior due to the fact that some CLI applications might prefer to know in what order the options were called, exactly what flag was used... etc. If you do not care, the variable `$opts->options` (or passing `TRUE` as a second parameter to `$opts->parse()`) will return a flattened, smartly populated array of options regardless of whether they were included in the arguments or not. *This method does not return the non-options*. For example:
+To output usage information for the above command, use `$opts->help()`. It would look something like this:
 
-    array(
+    cmd write
+     A really, really hard way to create a file!
+    
+    command options:
+     -N, --name [PATH]       set the name of the file
+     -C, --content CONTENT   add content to this file
+    
+    global options:
+         --help              show help information for a given command
+
+### Explanation
+
+* `$results[0]` - all the matched option flags (and values) from the command-line arguments.
+* `$results[1]` - all the non-options that the parser was not able to match with any flags.
+* `$results[2]` - all the options specified after a `--` argument.
+
+### Result Variables
+
+The following variables will be populated after parsing:
+
+    $opts->results      # identical to the entire $results array above
+    $opts->options      # smartly indexed array of options (see 'Flattened Options' below)
+    $opts->nonopts      # identical to $results[1] above
+    $opts->breakopts    # identical to $results[2] above
+
+### Flattened Options
+
+After parsing, the `$opts->options` property will hold an array of values indexed based on the option used to specify them:
+
+    $flattened = array(
       'name'    => array('filename.txt'),
       'content' => array('I love PHP!', 'Getopti rules!'),
       'help'    => FALSE
-    )
+    );
 
 The following rules explain how the above options are organized:
 
 1. They are sorted based on the order in which they were set using the `$opts->on()` method.
 2. If a long option is present, they will be indexed based on the long option. Otherwise, we use the short option.
-3. Uncalled options will be set to `FALSE` (note that neither `-h` or `--help` was called in the arguments).
+3. Uncalled options will be set to `FALSE` (note that neither `-h` or `--help` was called in the arguments from the example above).
 4. If the option accepts a parameter, it can be specified multiple times. If it doesn't accept a parameter, it will either be set to `TRUE` (indicated in the arguments) or `FALSE` (not indicated).
 
 ## Using Callbacks
@@ -269,7 +261,7 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
         // When defining our closures, we must explicitly 'use' the copy/reference.
         $opts->on(array('v', 'version'), FALSE, 'show version',
           function ($show) use ($self) {
-            if($show) echo "OS X {$self->version}";
+            echo "OS X {$self->version}";
           }
         );
         
@@ -290,7 +282,7 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
           
           $opts->on('version', FALSE, 'show version',
             function ($show) {
-              if($show) echo "OS X ".Macintosh::$version;
+              echo "OS X ".Macintosh::$version;
             }
           );
           
@@ -310,7 +302,7 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 * Many more tests are needed (PHPUnit)
 * Add a `usage()` method. Allow for indicating usage for both verbose and non-verbose output.
 * Should we run the 'callbacks' even if the option wasn't specified by the user?
-* Add functionality that would allow indicating which options are allowed to be specified multiple times. Something like "ITEM+" or "[ITEM]+" (see Mercurial's help output as an example).
+* Add functionality that would allow indicating which options are allowed to be specified multiple times. Something like "ITEM [+]" or "[ITEM] [+]" (see Mercurial's help output as an example).
 
 ## License
 
