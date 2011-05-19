@@ -14,26 +14,28 @@ class OutputTest extends PHPUnit_Framework_TestCase
    
   public function optionProvider()
   {
+    $pad = str_repeat(" ", 2);
+    
     return array(
       array(
         array(array('h'), '', 'show help'),
-        str_pad(' -h', 26, " ").'show help'.PHP_EOL
+        str_pad($pad.'-h', 26, " ").'show help'.PHP_EOL
       ),
       array(
         array(array('f'), 'FILE', 'show file'),
-        str_pad(' -f FILE', 26, " ").'show file'.PHP_EOL
+        str_pad($pad.'-f FILE', 26, " ").'show file'.PHP_EOL
       ),
       array(
         array(array('h', 'help'), '', 'show help'),
-        str_pad(' -h, --help', 26, " ").'show help'.PHP_EOL
+        str_pad($pad.'-h, --help', 26, " ").'show help'.PHP_EOL
       ),
       array(
         array(array('f', 'file'), 'FILE', 'show file'),
-        str_pad(' -f, --file FILE', 26, " ").'show file'.PHP_EOL
+        str_pad($pad.'-f, --file FILE', 26, " ").'show file'.PHP_EOL
       ),
       array(
         array(array('file'), 'FILE', 'show file'),
-        str_pad('     --file FILE', 26, " ").'show file'.PHP_EOL
+        str_pad(str_repeat(" ", 6).'--file FILE', 26, " ").'show file'.PHP_EOL
       ),
     );
   }
@@ -56,14 +58,16 @@ class OutputTest extends PHPUnit_Framework_TestCase
    
   public function commandProvider()
   {
+    $pad = str_repeat(" ", 2);
+    
     return array(
       array(
         array('command', 'command description'),
-        str_pad(' command', 26, " ").'command description'.PHP_EOL
+        str_pad($pad.'command', 26, " ").'command description'.PHP_EOL
       ),
       array(
         array('help', 'another description'),
-        str_pad(' help', 26, " ").'another description'.PHP_EOL
+        str_pad($pad.'help', 26, " ").'another description'.PHP_EOL
       ),
     );
   }
@@ -121,7 +125,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
     $usage = "script cmd [-f --flags]";
     
     $this->output->usage($usage);
-    $this->assertEquals(" ".$usage.PHP_EOL, $this->output->help());
+    $this->assertEquals(str_repeat(" ", 2).$usage.PHP_EOL, $this->output->help());
   }
   
   // --------------------------------------------------------------------

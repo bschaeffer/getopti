@@ -138,12 +138,15 @@ class Output {
    */
   public static function pad($string = '', $description = '')
   {
-    $padding = \Getopti::$option_padding;
+    $opt_pad  = \Getopti::$option_padding;
+    $left_pad = \Getopti::$left_padding;
     
-    $left = str_repeat(' ', \Getopti::$left_padding);
-    $string = $left.str_pad($string, $padding - 1, " ");
+    // Pad the string
+    $left = str_repeat(' ', $left_pad);
+    $string = str_pad($left.$string, $opt_pad, " ");
     
-    $break = PHP_EOL.str_pad('', $padding, " ");
+    // Wrap the description on the break: \n + (\s * $opt_pad)
+    $break = PHP_EOL.str_repeat(" ", $opt_pad);
     $description = self::wrap($description, $break);
     
     return $string.$description;
