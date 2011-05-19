@@ -152,7 +152,7 @@ A variable holding the untouched parsed options. This data is the same as the re
 
 Assuming a CLI that can handle the following command:
 
-    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt
+    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt -- brkopt --brkflag
 
 We might set up our application like so:
 
@@ -221,10 +221,14 @@ After setting up your command, running `$opts->parse()` would default to returni
       ),
       1 => array(
         0 => 'makefile'
+      ),
+      2 => array(
+        'brkopt',
+        '--brkflag'
       )
     );
 
-The first array (`$results[0]`) is populated with all the matched options from the command-line argument. The second (`$results[1]`) contains all the options that the parser was not able to match with any rules.
+The first array (`$results[0]`) is populated with all the matched options from the command-line argument. The second (`$results[1]`) contains all the options that the parser was not able to match with any rules. The third array (`$results[2]`) contains all the options specified after the `--` argument.
 
 This is the default behavior due to the fact that some CLI applications might prefer to know in what order the options were called, exactly what flag was used... etc. If you do not care, the variable `$opts->options` (or passing `TRUE` as a second parameter to `$opts->parse()`) will return a flattened, smartly populated array of options regardless of whether they were included in the arguments or not. *This method does not return the non-options*. For example:
 
@@ -277,7 +281,7 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 ### Statically:
 
       class Macintosh {
-
+      
         public static $version = "10.7";
         
         function __construct()

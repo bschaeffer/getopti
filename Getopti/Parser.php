@@ -37,6 +37,7 @@ class Parser {
   // Result variables
   public static $opts = array();
   public static $nonopts = array();
+  public static $breakopts = array();
     
   /**
    * Getopti
@@ -55,6 +56,7 @@ class Parser {
     static::$_longopts  = self::get_longopts($longopts);
     static::$opts       = array();
     static::$nonopts    = array();
+    static::$breakopts  = array();
     
     if((empty(static::$_shortopts) && empty(static::$_longopts)) || empty(static::$_args))
     {
@@ -66,7 +68,7 @@ class Parser {
       if($arg === '--')
       {
         unset(static::$_args[$index]);
-        static::$nonopts = array_merge(static::$nonopts, static::$_args);
+        static::$breakopts = array_merge(array(), static::$_args);
         break;
       }
       elseif(self::is_longopt($arg))
@@ -88,7 +90,7 @@ class Parser {
       unset(static::$_args[$index]);
     }
     
-    return array(static::$opts, static::$nonopts);
+    return array(static::$opts, static::$nonopts, static::$breakopts);
   }
     
   /**

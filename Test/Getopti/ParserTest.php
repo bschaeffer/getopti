@@ -243,14 +243,23 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   {
     return array(
       array(
-        array('-a', '--', '--long'),
+        array('-a','nonoption', '--', '--long'),
         array('a', array('long')),
-        array(array(array('a', NULL)), array('--long'))
+        array(
+          array(array('a', NULL)),  // option results
+          array('nonoption'),       // nonopt results
+          array('--long')           // breakopt results
+        )
+          
       ),
       array(
-        array('--long', '--', 'nonopt', '-a'),
+        array('--long', '--', 'breakopt', '-a'),
         array('a', array('long=')),
-        array(array(array('long', NULL)), array('nonopt', '-a'))
+        array(
+          array(array('long', NULL)),
+          array(),
+          array('breakopt', '-a')
+        )
       ),
     );
   }
@@ -266,9 +275,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function stops_parsing_options_at_break($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
+    list($opts, $nons, $breaks) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected[0], $opts);
-    $this->assertSame($expected[1], $nonopts);
+    $this->assertSame($expected[1], $nons);
+    $this->assertSame($expected[2], $breaks);
   }
   
   // --------------------------------------------------------------------

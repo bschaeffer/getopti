@@ -173,13 +173,14 @@ class Getopti extends Getopti\Base {
    * @access  public
    * @param   array   the arguments to parse
    * @param   array   whether or not to return a flat, organized array of results
-   * @return  array   multi-dimensional array, ($opts, $nonopts)
+   * @return  array   an array of options, depending on $flatten
    */
   public function parse(array $args, $flatten = FALSE)
   {
-    $this->results = $this->switcher->parse($args);
-    $this->options = $this->switcher->options;
-    $this->nonopts = $this->switcher->nonopts;
+    $this->results    = $this->switcher->parse($args);
+    $this->options    = $this->switcher->options;
+    $this->nonopts    = $this->switcher->nonopts;
+    $this->breakopts  = $this->switcher->breakopts;
     
     if($flatten)
     {
