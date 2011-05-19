@@ -75,14 +75,18 @@ class Base {
    */
   public static function get_columns()
   {
-    if(\Getopti::$columns > 0)
+    static $gotten = FALSE;
+    
+    // Prevent mulitple `tput cols` calls
+    if($gotten) return \Getopti::$columns;
+    
+    if(php_sapi_name() !== 'cli' && 'darwin' === strtolower(PHP_OS))
     {
-      return \Getopti::$columns;
+      \Getopti::$columns = (int)exec('tput cols');
     }
     
-    $columns = (php_sapi_name() === 'cli') ? (int)exec("tput cols") : 80;
-    \Getopti::$columns = $columns;
-    return $columns;
+    $gotten = TRUE;
+    return \Getopti::$columns;
   }
 }
 
