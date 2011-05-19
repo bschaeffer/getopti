@@ -172,6 +172,20 @@ We might set up our application like so:
     $args = Getopti::read_args();
     $results = $opts->parse($args);
 
+## Output
+
+To output usage information for the above command, use `$opts->help()`. It would look something like this:
+
+    cmd write
+     A really, really hard way to create a file!
+     
+    command options:
+     -N, --name [PATH]       set the name of the file
+     -C, --content CONTENT   add content to this file
+    
+    global options:
+         --help              show help information for a given command
+
 ## Results
 
 After setting up the above command, running `$opts->parse()` would default to returning an array similar to this:
@@ -190,20 +204,6 @@ After setting up the above command, running `$opts->parse()` would default to re
         1 => '--brkflag'
       )
     );
-
-## Output
-
-To output usage information for the above command, use `$opts->help()`. It would look something like this:
-
-    cmd write
-     A really, really hard way to create a file!
-    
-    command options:
-     -N, --name [PATH]       set the name of the file
-     -C, --content CONTENT   add content to this file
-    
-    global options:
-         --help              show help information for a given command
 
 ### Explanation
 
