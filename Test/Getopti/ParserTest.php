@@ -1,96 +1,79 @@
 <?php
 
+use Getopti\Parser;
+
 class ParserTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------------
   
-  public function validLongoptProvider()
+  public function longoptProvider()
   {
     return array(
-      array('--a0'),
-      array('--a0='),
-      array('--a-0'),
-      array('--a-0=')
+      array(
+        '--a0',   // the longopt
+        TRUE      // expected validity
+      ),
+      array('--a0=',    TRUE),
+      array('--a-0',    TRUE),
+      array('--a-0=',   TRUE),
+      array('-a',       FALSE),
+      array('-ab',      FALSE),
+      array('--a',      FALSE),
+      array('--a=',     FALSE),
+      array('-',        FALSE),
+      array('--',       FALSE),
+      array('---',      FALSE),
+      array('non-opt',  FALSE),
     );
   }
   
   /**
    * @test
-   * @dataProvider validLongoptProvider
+   * @dataProvider longoptProvider
    * 
    * @covers  Getopti\Parser::is_longopt
    * 
    * @author  Braden Schaeffer
    */
-  public function valid_longopts_are_valid($long)
+  public function is_longopt($long, $validity)
   {
-    $this->assertTrue(Getopti\Parser::is_longopt($long));
+    $this->assertEquals($validity, Parser::is_longopt($long));
   }
   
   // --------------------------------------------------------------------
 
-  public function validShortoptProvider()
+  public function shortoptProvider()
   {
     return array(
-      array('-a'),
-      array('-0'),
-      array('-ab'),
-      array('-a1'),
-      array('-0b'),
-      array('-01')
+      array(
+        '-a',   // the shortopt
+        TRUE,   // expected validity
+      ),
+      array('-0',       TRUE),
+      array('-ab',      TRUE),
+      array('-a1',      TRUE),
+      array('-0b',      TRUE),
+      array('-01',      TRUE),
+      array('--a',      FALSE),
+      array('--a=',     FALSE),
+      array('-',        FALSE),
+      array('--',       FALSE),
+      array('---',      FALSE),
+      array('non-opt',  FALSE),
     );
   }
   
   /**
    * @test
-   * @dataProvider validShortoptProvider
+   * @dataProvider shortoptProvider
    * 
    * @covers  Getopti\Parser::is_shortopt
    * 
    * @author  Braden Schaeffer
    */
-  public function valid_shortopts_are_valid($short)
+  public function is_shortopt($short, $validity)
   {
-    $this->assertTrue(Getopti\Parser::is_shortopt($short));
-  }
-
-  // --------------------------------------------------------------------
-
-  public function invalidOptionProvider()
-  {
-    return array(
-      array('-a='),
-      array('--a'),
-      array('--a='),
-      array('-'),
-      array('---'),
-      array('non-opt'),
-    );
-  }
-  
-  /**
-   * @test
-   * @dataProvider invalidOptionProvider
-   * 
-   * @covers  Getopti\Parser::is_shortopt
-   * @author  Braden Schaeffer
-   */
-  public function invalid_shortopts_are_invalid($longopt)
-  {
-    $this->assertFalse(Getopti\Parser::is_shortopt($longopt));
-  }
-  
-  /**
-   * @test
-   * @dataProvider invalidOptionProvider
-   * 
-   * @covers  Getopti\Parser::is_longopt
-   * 
-   * @author  Braden Schaeffer
-   */
-  public function invalid_longopts_are_invalid($long)
-  {
-    $this->assertFalse(Getopti\Parser::is_longopt($long));
+    $this->assertEquals($validity, Parser::is_shortopt($short));
   }
   
   // --------------------------------------------------------------------
@@ -98,7 +81,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   public function validShortoptArgumentProvider()
   {
     // $rules[0] returns the actual rule (a::)
-    // $rules[1] returns expected from Getopti\Parser::get_shortopts
+    // $rules[1] returns expected from Parser::get_shortopts
     $rules = function ($v, $r) {
       $rule = 'a';
       if($v) $rule .= ":";
@@ -128,7 +111,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_up_shortopts_correctly($args, $rules)
   {
-    $results = Getopti\Parser::get_shortopts($rules[0]);
+    $results = Parser::get_shortopts($rules[0]);
     $this->assertSame($rules[1], $results);
   }
     
@@ -143,7 +126,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_valid_short_arguments_correctly($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], array());
+    list($opts, $nonopts) = Parser::parse($args, $rules[0], array());
     $this->assertSame($expected, $opts);
   }
   
@@ -152,7 +135,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   public function validLongoptArgumentProvider()
   {
     // $rules[0] returns the actual rule (long==)
-    // $rules[1] returns as if Getopti\Parser::get_longopts was called
+    // $rules[1] returns as if Parser::get_longopts was called
     $rules = function ($v, $r) {
       $rule = 'long';
       if($v) $rule .= "=";
@@ -183,7 +166,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_up_longopts_correctly($args, $rules)
   {
-    $results = Getopti\Parser::get_longopts($rules[0]);
+    $results = Parser::get_longopts($rules[0]);
     $this->assertSame($rules[1], $results);
   }
     
@@ -198,7 +181,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_valid_longopts_correctly($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, '', $rules[0]);
+    list($opts, $nonopts) = Parser::parse($args, '', $rules[0]);
     $this->assertSame($expected, $opts);
   }
   
@@ -233,7 +216,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_consecutive_shortopts_correctly($args, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, 'a:b:', array());
+    list($opts, $nonopts) = Parser::parse($args, 'a:b:', array());
     $this->assertSame($expected, $opts);
   }
   
@@ -275,7 +258,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function stops_parsing_options_at_break($args, $rules, $expected)
   {
-    list($opts, $nons, $breaks) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
+    list($opts, $nons, $breaks) = Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected[0], $opts);
     $this->assertSame($expected[1], $nons);
     $this->assertSame($expected[2], $breaks);
@@ -309,7 +292,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function illegal_option_raises_exception($args, $opts)
   {
-    Getopti\Parser::parse($args, $opts[0], $opts[1]);
+    Parser::parse($args, $opts[0], $opts[1]);
   }
    
   // --------------------------------------------------------------------
@@ -340,7 +323,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function option_missing_parameter_raises_exception($args, $opts)
   {
-    Getopti\Parser::parse($args, $opts[0], $opts[1]);
+    Parser::parse($args, $opts[0], $opts[1]);
   }
   
   // --------------------------------------------------------------------
@@ -387,7 +370,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function does_not_set_options_as_values($args, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, 'a:b:', array('long=', 'other='));
+    list($opts, $nonopts) = Parser::parse($args, 'a:b:', array('long=', 'other='));
     $this->assertSame($expected, $opts);
   }
   
@@ -438,7 +421,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_mixed_arguments_correctly($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
+    list($opts, $nonopts) = Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected, $opts);
   }
   
@@ -454,7 +437,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function returns_correct_nonoptions($args, $rules, $ignore, $expected)
   {
-    list($opts, $nonopts) = Getopti\Parser::parse($args, $rules[0], $rules[1]);
+    list($opts, $nonopts) = Parser::parse($args, $rules[0], $rules[1]);
     $this->assertSame($expected, $nonopts);
   }
 }
