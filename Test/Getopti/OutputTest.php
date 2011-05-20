@@ -48,7 +48,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function adds_options_correctly($opts, $expected)
+  public function option($opts, $expected)
   {
     $this->output->option($opts[0], $opts[1], $opts[2]);
     $this->assertSame($expected, $this->output->help());
@@ -80,7 +80,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function adds_commands_correctly($opts, $expected)
+  public function command($opts, $expected)
   {
     $this->output->command($opts[0], $opts[1]);
     $this->assertSame($expected, $this->output->help());
@@ -105,7 +105,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function adds_banners_correctly($banner)
+  public function banner($banner)
   {
     $this->output->banner($banner);
     $this->assertEquals($banner.PHP_EOL, $this->output->help());
@@ -120,7 +120,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function adds_usages_correctly()
+  public function usage()
   {
     $usage = "script cmd [-f --flags]";
     
@@ -147,7 +147,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function appends_new_line_to_each_write_request($text)
+  public function write($text)
   {
     $this->output->write($text);
     $this->assertEquals($text.PHP_EOL, $this->output->output);
@@ -161,7 +161,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @author  Braden Schaeffer
    */
-  public function returns_correct_usage_information($text)
+  public function help($text)
   {
     $this->output->output = $text;
     $this->assertEquals($text, $this->output->help());

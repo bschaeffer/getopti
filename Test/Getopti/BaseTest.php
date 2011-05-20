@@ -19,7 +19,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer
    */
-  public function contains_getopti_exception()
+  public function exception()
   { 
     $this->assertInstanceOf('Exception', new Getopti\Exception);
   }
@@ -31,7 +31,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @author  Braden Schaeffer
    */
-  public function trims_first_argument_from_global_args()
+  public function read_args_with_trim()
   {
     $this->assertSame($this->argv_trimmed, Getopti\Base::read_args(1));
   }
