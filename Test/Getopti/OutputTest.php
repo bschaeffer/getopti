@@ -46,7 +46,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::option
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_options_correctly($opts, $expected)
   {
@@ -78,7 +78,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::command
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_commands_correctly($opts, $expected)
   {
@@ -103,7 +103,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::banner
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_banners_correctly($banner)
   {
@@ -118,7 +118,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::usage
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_usages_correctly()
   {
@@ -145,7 +145,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::write
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function appends_new_line_to_each_write_request($text)
   {
@@ -159,7 +159,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * 
    * @covers  Getopti\Output::help
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function returns_correct_usage_information($text)
   {

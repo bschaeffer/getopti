@@ -24,7 +24,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::_parse_opts
    * @covers  Getopti\Switcher::_parse_requirement_level
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_shortopts_correctly($opt, $param, $expected)
   {
@@ -55,7 +55,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::_parse_opts
    * @covers  Getopti\Switcher::_parse_requirement_level
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function adds_longopts_orrectly($opt, $param, $expected)
   {
@@ -82,7 +82,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function sets_short2long_array_correctly($opts, $ignore, $expected)
   {
@@ -98,7 +98,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function intializes_option_values_with_false($opts, $index)
   {

@@ -17,7 +17,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Exception
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function contains_getopti_exception()
   { 
@@ -29,7 +29,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function trims_first_argument_from_global_args()
   {
@@ -41,7 +41,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function reads_argv()
   { 
@@ -53,7 +53,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function reads_server_argv()
   { 
@@ -67,7 +67,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti::read_args
    * 
-   * @author  Braden Schaeffer <braden.schaeffer@gmail.com>
+   * @author  Braden Schaeffer
    */
   public function returns_empty_array_for_no_argv()
   { 

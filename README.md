@@ -78,14 +78,14 @@ Specify the option `--revision` that expects a REQUIRED revision number as a par
 
     $opts->on('revision', 'REV', 'specify the revision number to operate on');
 
-Specify the option `--revision` that expects an [OPTIONAL] revision number as parameter:
+Specify the option `--revision` that expects an [OPTIONAL] revision number as a parameter:
 
     $opts->on('revision', '[REV]', 'specify the revision number to operate on');
 
 
 Specify both the `-h` and `--help` options, using a callback to display automated help output:
 
-    $opts->on(array('h', 'help'), NULL, 'show help information',
+    $opts->on(array('h', 'help'), 'show help information',
       function ($help) use ($opts) {
         echo $opts->help();
         exit();
@@ -123,7 +123,7 @@ The optional `$flatten` parameter is described in the *Results* section of this 
     Getopti::$columns         = 0;  # number of columns to wrap (auto-discovered if possible)
     Getopti::$left_padding    = 1;  # cmd/opt padding for the left side of the terminal
     Getopti::$right_padding   = 2;  # all output padding for the right side
-    Getopti::$option_padding = 26;  # padding between cmd/opt and their descriptions
+    Getopti::$option_padding  = 26; # padding between cmd/opt and their descriptions
 
 ## Full Example
 
