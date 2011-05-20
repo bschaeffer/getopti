@@ -98,7 +98,7 @@ class Output {
    */
   public function usage($usage)
   {
-    $string = rtrim(self::pad($usage));
+    $usage = self::pad($usage);
     $this->write($string);
   }
 
