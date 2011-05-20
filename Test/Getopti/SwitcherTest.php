@@ -2,6 +2,14 @@
 
 class SwitcherTest extends PHPUnit_Framework_TestCase {
   
+  /**
+   * Sets up a Getopti\Switcher object
+   */
+  public function setUp()
+  {
+    $this->switcher = new Getopti\Switcher();
+  }
+  
   // --------------------------------------------------------------------
   
   public function shortoptProvider()
@@ -28,9 +36,8 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function adds_shortopts_correctly($opt, $param, $expected)
   {
-    $switcher = new Getopti\Switcher;
-    $switcher->add(array($opt, NULL), $param);
-    $this->assertSame($expected, $switcher->_shortopts);
+    $this->switcher->add(array($opt, NULL), $param);
+    $this->assertSame($expected, $this->switcher->_shortopts);
   }
   
   // --------------------------------------------------------------------
@@ -59,9 +66,8 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function adds_longopts_orrectly($opt, $param, $expected)
   {
-    $switcher = new Getopti\Switcher;
-    $switcher->add(array(NULL, $opt), $param);
-    $this->assertSame($expected, $switcher->_longopts[0]);
+    $this->switcher->add(array(NULL, $opt), $param);
+    $this->assertSame($expected, $this->switcher->_longopts[0]);
   }
   
   // --------------------------------------------------------------------
@@ -86,9 +92,8 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_short2long_array_correctly($opts, $ignore, $expected)
   {
-    $switcher = new Getopti\Switcher;
-    $switcher->add($opts);
-    $this->assertSame($expected, $switcher->_short2long);
+    $this->switcher->add($opts);
+    $this->assertSame($expected, $this->switcher->_short2long);
   }
   
   /**
@@ -102,9 +107,8 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function intializes_option_values_with_false($opts, $index)
   {
-    $switcher = new Getopti\Switcher;
-    $switcher->add($opts);
-    $this->assertFalse($switcher->options[$index]);
+    $this->switcher->add($opts);
+    $this->assertFalse($this->switcher->options[$index]);
   }
   
   // --------------------------------------------------------------------
@@ -121,8 +125,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function invalid_parameter_requirement_level_raises_exception()
   {
-    $switcher = new Getopti\Switcher();
-    $switcher->add(array('a'), 4);
+    $this->switcher->add(array('a'), 4);
   }
 }
 
