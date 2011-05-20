@@ -15,7 +15,11 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function shortoptProvider()
   {
     return array(
-      array('a', NULL,      'a'),
+      array(
+        'a',    // the option to add
+        NULL,   // the parameter (string or level)
+        'a'     // expected rule to be generated
+      ),
       array('a', '[ITEM]',  'a:'),
       array('a', 'ITEM',    'a::'),
       array('a', 0, 'a'),
@@ -45,7 +49,11 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function longoptProvider()
   {
     return array(
-      array('long', NULL,     'long'),
+      array(
+        'long',   // the option to add
+        NULL,     // the parameter (string or level)
+        'long'    // expected rule to be generated
+      ),
       array('long', '[ITEM]', 'long='),
       array('long', 'ITEM',   'long=='),
       array('long', 0, 'long'),
@@ -75,7 +83,11 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function optionProvider()
   {
     return array(
-      array(array('a'),           'a',    array()),
+      array(
+        array('a'),   // the options to add
+        'a',          // the expected option index
+        array()       // the expected short2long array
+      ),
       array(array('long'),        'long', array()),
       array(array('a', 'long'),   'long', array('a' => 'long'))
     );
