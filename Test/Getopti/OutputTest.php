@@ -1,5 +1,7 @@
 <?php
 
+use Getopti\Output;
+
 class OutputTest extends PHPUnit_Framework_TestCase 
 {
   /**
@@ -7,7 +9,7 @@ class OutputTest extends PHPUnit_Framework_TestCase
    */
   public function setUp()
   {
-    $this->output = new Getopti\Output();
+    $this->output = new Output();
   }
   
   // --------------------------------------------------------------------
@@ -165,6 +167,81 @@ class OutputTest extends PHPUnit_Framework_TestCase
   {
     $this->output->output = $text;
     $this->assertEquals($text, $this->output->help());
+  }
+  
+  // --------------------------------------------------------------------
+  
+  /**
+   * @test
+   *
+   * @covers  Getopti\Output::pad
+   * 
+   * @author  Braden Schaeffer
+   */
+  public function pad()
+  { 
+    // Simple left padding
+    $expected = str_repeat(" " , Getopti::$left_padding).'test';
+    $this->assertEquals($expected, Output::pad('test', FALSE));
+    
+    // Left pading and option padding
+    $expected = str_pad($expected, Getopti::$option_padding, " ");
+    $this->assertEquals($expected, Output::pad('test'));
+  }
+  
+  /**
+   * @test
+   *
+   * @covers  Getopti\Output::br
+   * 
+   * @author  Braden Schaeffer
+   */
+  public function br()
+  {    
+    // Typical $option_padding break
+    $expected = PHP_EOL.str_repeat(" ", Getopti::$option_padding);
+    $this->assertEquals($expected, Output::br());
+    
+    // Custom $option_padding
+    $expected = PHP_EOL.str_repeat(" ", 2);
+    $this->assertEquals($expected, Output::br(2));
+  }
+  
+  // --------------------------------------------------------------------
+  
+  public function formatStringProvider()
+  {
+    return array(
+      array(
+        'command',      // the option/command
+        'description',  // the description
+      ),
+      array(
+        'command longer than the default option padding of 26',
+        'description',
+      ),
+    );
+  }
+  
+  /**
+   * @test
+   * @dataProvider  formatStringProvider
+   *
+   * @covers  Getopti\Output::format_string
+   * 
+   * @author  Braden Schaeffer
+   */
+  public function format_string($opt, $description)
+  {
+    $option = Output::pad($opt);
+    
+    if(strlen($option) > Getopti::$option_padding)
+    {
+      $option .= Output::br();
+    }
+    
+    $expected = Output::wrap($description, Output::br(), $option);
+    $this->assertEquals($expected, Output::format_string($opt, $description));
   }
 }
 

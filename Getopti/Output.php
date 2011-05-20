@@ -26,6 +26,8 @@ namespace Getopti;
  */
 class Output {
   
+  const SPACE = " ";
+  
   public $output = '';
   
   /**
@@ -53,7 +55,7 @@ class Output {
    */
   public function command($command = '', $description = '')
   {
-    $string = self::pad($command, $description);
+    $string = self::format_string($command, $description);
     $this->write($string);
   }
   
@@ -84,9 +86,9 @@ class Output {
     }
     
     $options .= " ".$param;
-    $options = self::pad($options, $description);
     
-    $this->write($options);
+    $string = self::format_string($options, $description);
+    $this->write($string);
   }
   
   /**
@@ -98,7 +100,9 @@ class Output {
    */
   public function usage($usage)
   {
-    $usage = self::pad($usage);
+    $left_pad = \Getopti::$left_padding;
+    $string = self::wrap($usage, self::br($left_pad));
+    $string = self::pad($string, FALSE);
     $this->write($string);
   }
 
@@ -128,28 +132,65 @@ class Output {
   }
   
   /**
+   * Formats an option or command string and description
+   * 
+   * @static
+   * @access  public
+   * @param   string  the option or command string
+   * @param   string  the description
+   * @return  string  the fully formatted string
+   */
+  public static function format_string($opt, $description)
+  {
+    // Pad the option/command string
+    $string = self::pad($opt);
+    
+    // If it's greater than the allowed $option_padding, we need to
+    // add a new line so any description will start below
+    if(strlen($string) > \Getopti::$option_padding + 1)
+    {
+      $string .= self::br();
+    }
+      
+    $string = self::wrap($description, self::br(), $string);
+    
+    return $string;
+  }
+  
+  /**
    * Uniformly pad a string (for adding commands, options)
    * 
    * @static
    * @access  public
    * @param   string  the initial string to pad
-   * @param   string  the description to pad
+   * @param   string  whether or not to pad the string with option pading
    * @return  string  the padded string
    */
-  public static function pad($string = '', $description = '')
+  public static function pad($string = '', $add_option_padding = TRUE)
   {
-    $opt_pad  = \Getopti::$option_padding;
-    $left_pad = \Getopti::$left_padding;
+    $string = str_repeat(self::SPACE, \Getopti::$left_padding).$string;
     
-    // Pad the string
-    $left = str_repeat(' ', $left_pad);
-    $string = str_pad($left.$string, $opt_pad, " ");
+    if($add_option_padding)
+    {
+      $string = str_pad($string, \Getopti::$option_padding, self::SPACE);
+    }
     
-    // Wrap the description on the break: \n + (\s * $opt_pad)
-    $break = PHP_EOL.str_repeat(" ", $opt_pad);
-    $description = self::wrap($description, $break);
-    
-    return $string.$description;
+    return $string;
+  }
+  
+  /**
+   * Simply creates a break string for use when adding options and
+   * commands.
+   * 
+   * @static
+   * @access  public
+   * @param   int     the optional number of space to add to the break
+   * @return  string  the break string
+   */
+  public static function br($repeat = NULL)
+  {
+    $repeat = (empty($repeat)) ? \Getopti::$option_padding : $repeat;
+    return PHP_EOL.str_repeat(self::SPACE, $repeat);
   }
   
   /**
@@ -162,23 +203,23 @@ class Output {
    * @return  string  the formatted string
    */
   public static function wrap($string, $break = "\n", $append = '')
-  {
+  { 
     $width = \Getopti::get_columns() - \Getopti::$right_padding;
-    
-    $break = str_replace(array("\t", "\s"), array("    ", " "), $break);
+    $width = $width - (strlen($break)) - substr_count($break, PHP_EOL);
 
-    if(preg_match_all("/(\n)/", $break, $matches))
-    {
-      $width = $width - (strlen($break)) - count($matches[0]);
-    }
-
+    $break = str_replace(
+      array("\t", "\s"),
+      array(str_repeat(self::SPACE, 4), self::SPACE),
+      $break
+    );
+  
     $string = wordwrap($string, $width, $break, FALSE);
     $string = preg_replace("/{$break}\s/", $break, $string);
 
     $pad = '';
 
     if( ! empty($append))
-    {
+    { 
       $finish = strlen($pad);
       $start = $finish - strlen($append);
   
