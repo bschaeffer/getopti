@@ -243,6 +243,61 @@ class OutputTest extends PHPUnit_Framework_TestCase
     $expected = Output::wrap($description, Output::br(), $option);
     $this->assertEquals($expected, Output::format_string($opt, $description));
   }
+  
+  // --------------------------------------------------------------------
+  
+  public function wrapProvider()
+  {
+    return array(
+      array(
+        // Expected
+        "when Getopti wraps this\nthis should be a new line",
+        // String to be wrapped
+        "when Getopti wraps this this should be a new line"
+      ),
+      array(
+        // Test text with new lines at points that wouldn't
+        // otherwise be wrapped
+        "this text\nshould start wrapping on\nthe second line",
+        "this text\nshould start wrapping on the second line"
+      ),
+      array(
+        // Expected
+        "  wrapping a haiku\n" .
+        "  will not be as easy as\n" .
+        "  you think it would be",
+        // String to be wrapped
+        "wrapping a haiku\nwill not be as easy as you think it would be",
+        // The break string (3rd param)
+        Output::br(2)
+      ),
+      array(
+        // Expected
+        "=> when Getopti wraps this\n" .
+        "   this should be new",
+        // String to be wrapped
+        "when Getopti wraps this this should be new",
+        // The break string (3rd param)
+        Output::br(3),
+        '=>'
+      ),
+      
+    );
+  }
+  
+  /**
+   * @test
+   * @dataProvider wrapProvider
+   *
+   * @covers  Getopti\Output::wrap
+   * 
+   * @author  Braden Schaeffer
+   */
+  public function wrap($expected, $string, $break = PHP_EOL, $append = '')
+  {
+    Getopti::$columns = 30; // Let's do 30 so I don't have to type an s-ton of text
+    $this->assertSame($expected, Output::wrap($string, $break, $append));
+  }
 }
 
 /* End of file OutputTest.php */

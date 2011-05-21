@@ -100,9 +100,7 @@ class Output {
    */
   public function usage($usage)
   {
-    $left_pad = \Getopti::$left_padding;
-    $string = self::wrap($usage, self::br($left_pad));
-    $string = self::pad($string, FALSE);
+    $string = self::wrap($usage, self::br(\Getopti::$left_padding));
     $this->write($string);
   }
 
@@ -203,27 +201,39 @@ class Output {
    * @return  string  the formatted string
    */
   public static function wrap($string, $break = "\n", $append = '')
-  { 
+  {
+    if(substr_count($string, PHP_EOL) > 0)
+    {
+      // We need to make sure new line elements not explicitly added by
+      // this method each get treated as a separate call to this method
+      
+      $looped = array_map(
+        function ($line) use ($break) {
+          if(empty($line)) return PHP_EOL;
+          return call_user_func(array(__CLASS__, "wrap"), $line, $break);
+        },
+        explode(PHP_EOL, $string)
+      );
+      
+      $string = ltrim(implode(PHP_EOL, $looped));
+    }
+    
+    // The width is calculated using padding, etc...
+    // Also, strlen counts new lines, so lets remove them
+    
     $width = \Getopti::get_columns() - \Getopti::$right_padding;
-    $width = $width - (strlen($break)) - substr_count($break, PHP_EOL);
-
-    $break = str_replace(
-      array("\t", "\s"),
-      array(str_repeat(self::SPACE, 4), self::SPACE),
-      $break
-    );
+    $width = $width - strlen($break) - substr_count($break, PHP_EOL);
   
+    // Actually, there is a bundled method for this type of shit
     $string = wordwrap($string, $width, $break, FALSE);
-    $string = preg_replace("/{$break}\s/", $break, $string);
 
-    $pad = '';
-
+    // Pad the first line the same the others (minus new lines)...
+    $pad = substr($break, strpos($break, PHP_EOL) + 1);
+    
+    // ...unless there is a special appendage the user wants us to use
     if( ! empty($append))
-    { 
-      $finish = strlen($pad);
-      $start = $finish - strlen($append);
-  
-      $pad = substr_replace($pad, $append, $start, $finish);
+    {
+      $pad = substr_replace($pad, $append, 0, strlen($append));
     }
 
     return $pad.$string;
