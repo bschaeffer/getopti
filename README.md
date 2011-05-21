@@ -120,7 +120,7 @@ The optional `$flatten` parameter is described in the *Results* section of this 
 
 ## Configuration
 
-    Getopti::$columns         = 0;  # number of columns to wrap (auto-discovered if possible)
+    Getopti::$columns         = 0;  # columns to wrap at (defaults to 75, auto-discovered if possible)
     Getopti::$left_padding    = 1;  # cmd/opt padding for the left side of the terminal
     Getopti::$right_padding   = 2;  # all output padding for the right side
     Getopti::$option_padding  = 26; # padding between cmd/opt and their descriptions

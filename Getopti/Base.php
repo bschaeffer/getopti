@@ -27,6 +27,8 @@ namespace Getopti;
  */
 class Base {
   
+  const DEFAULT_COLUMNS = 75;
+  
   /**
    * Read Args
    * 
@@ -75,17 +77,20 @@ class Base {
    */
   public static function get_columns()
   {
-    static $gotten = FALSE;
-    
-    // Prevent mulitple `tput cols` calls
-    if($gotten) return \Getopti::$columns;
-    
-    if(php_sapi_name() !== 'cli' && 'darwin' === strtolower(PHP_OS))
+    if(0 !== \Getopti::$columns)
+    {
+      return \Getopti::$columns;
+    }
+     
+    if(php_sapi_name() === 'cli' && 'darwin' === strtolower(PHP_OS))
     {
       \Getopti::$columns = (int)exec('tput cols');
     }
+    elseif(0 === \Getopti::$columns)
+    {
+      \Getopti::$columns = self::DEFAULT_COLUMNS;
+    }
     
-    $gotten = TRUE;
     return \Getopti::$columns;
   }
 }

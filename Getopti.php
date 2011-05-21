@@ -50,7 +50,7 @@ class Getopti extends Getopti\Base {
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";
   
-  public static $columns = 75;
+  public static $columns = 0;
   public static $command = 'cmd';
   public static $left_padding = 2;
   public static $right_padding = 2;

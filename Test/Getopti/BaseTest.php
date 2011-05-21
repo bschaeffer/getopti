@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @backupStaticAttributes enabled
+ */
 class BaseTest extends PHPUnit_Framework_TestCase {
   
   public function setUp()
@@ -74,6 +77,39 @@ class BaseTest extends PHPUnit_Framework_TestCase {
     global $argv;
     $argv = $_SERVER['argv'] = NULL;
     $this->assertSame(array(), Getopti\Base::read_args());
+  }
+  
+  // --------------------------------------------------------------------
+  
+  public function columnsProvider()
+  {
+    $default_or_auto = Getopti::DEFAULT_COLUMNS;
+    
+    if( php_sapi_name() === 'cli' && 'darwin' === strtolower(PHP_OS))
+    {
+      $default_or_auto = (int)exec('tput cols');
+    }
+    
+    return array(
+      array(0,  $default_or_auto), // this expects either the default or auto-discovered
+      array(80, 80),
+      array(50, 50),
+      array(10, 10)
+    );
+  }
+  
+  /**
+   * @test
+   * @dataProvider columnsProvider
+   * 
+   * @covers  Getopti\Base::get_columns
+   * 
+   * @author  Braden Schaeffer
+   */
+  public function get_columns($set, $expected)
+  {
+    Getopti::$columns = $set;
+    $this->assertEquals($expected, Getopti::get_columns());
   }
 }
 
