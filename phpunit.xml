@@ -1,5 +1,6 @@
 <phpunit
   colors="true"
+  backupStaticAttributes="true"
   bootstrap="Getopti.php">
   <logging>
     <log

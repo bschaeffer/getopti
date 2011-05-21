@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @backupStaticAttributes enabled
- */
 class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
