@@ -263,6 +263,12 @@ class OutputTest extends PHPUnit_Framework_TestCase
       ),
       array(
         // Expected
+        "\nwhen Getopti wraps this\nthis should be a new line",
+        // Test that a new line at the beggining of the string remains
+        "\nwhen Getopti wraps this this should be a new line"
+      ),
+      array(
+        // Expected
         "  wrapping a haiku\n" .
         "  will not be as easy as\n" .
         "  you think it would be",

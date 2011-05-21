@@ -204,6 +204,8 @@ class Output {
   {
     if(substr_count($string, PHP_EOL) > 0)
     {
+      $string_append = (strpos($string, PHP_EOL) === 0) ? PHP_EOL : '';
+      
       // We need to make sure new line elements not explicitly added by
       // this method each get treated as a separate call to this method
       
@@ -215,7 +217,7 @@ class Output {
         explode(PHP_EOL, $string)
       );
       
-      $string = ltrim(implode(PHP_EOL, $looped));
+      $string = $string_append.ltrim(implode(PHP_EOL, $looped));
     }
     
     // The width is calculated using padding, etc...
