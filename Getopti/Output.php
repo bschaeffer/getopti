@@ -200,7 +200,7 @@ class Output {
    * @param   string  the string to append to the beginning of the wrap string
    * @return  string  the formatted string
    */
-  public static function wrap($string, $break = "\n", $append = '')
+  public static function wrap($string, $break = PHP_EOL, $append = '')
   {
     if(substr_count($string, PHP_EOL) > 0)
     {
