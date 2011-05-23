@@ -298,10 +298,8 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 
 ## Problems to Solve/Todo
 
-* Much more documentation is needed
-* Many more tests are needed (PHPUnit)
-* Add a `usage()` method. Allow for indicating usage for both verbose and non-verbose output.
-* Should we run the 'callbacks' even if the option wasn't specified by the user?
+* Much more documentation is needed (variables, constants, etc..)
+* A few more tests are needed (run `phpunit . && open Reports/index.html` for info on what needs testing)
 * Add functionality that would allow indicating which options are allowed to be specified multiple times. Something like "ITEM [+]" or "[ITEM] [+]" (see Mercurial's help output as an example).
 
 ## License
