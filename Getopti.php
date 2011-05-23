@@ -26,7 +26,6 @@ else
   define('GETOPTI_BASEPATH', 'Getopti/Getopti/');
 }
 
-require GETOPTI_BASEPATH.'Base.php';
 require GETOPTI_BASEPATH.'Parser.php';
 require GETOPTI_BASEPATH.'Switcher.php';
 require GETOPTI_BASEPATH.'Output.php';
@@ -43,12 +42,14 @@ require GETOPTI_BASEPATH.'Exception.php';
  * @package     Getopti     
  * @author      Braden Schaeffer <hello@manasto.info>
  */
-class Getopti extends Getopti\Base {
+class Getopti {
   
   const VERSION = '0.1.3';
     
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";
+  
+  const DEFAULT_COLUMNS = 75;
   
   public static $columns = 0;
   public static $command = 'cmd';
@@ -188,6 +189,71 @@ class Getopti extends Getopti\Base {
     }
     
     return $this->results;
+  }
+  
+  /**
+   * Read Args
+   * 
+   * @static
+   * @access  public
+   * @param   int    the number of arguments to trim off the top
+   * @return  array  the arguments
+   */
+  public static function read_args($trim = 0)
+  {
+    global $argv;
+    
+    if( ! is_array($argv))
+    {
+      if( ! @is_array($_SERVER['argv']))
+      {
+        return array();
+      }
+      
+      $args = $_SERVER['argv'];
+    }
+    else
+    {
+      $args = $argv;
+    }
+    
+    if($trim > 0)
+    {
+      for($i = 0; $i <= $trim - 1; $i++)
+      {
+        unset($args[$i]);
+      }
+      
+      $args = array_merge(array(), $args);
+    }
+        
+    return $args;
+  }
+  
+  /**
+   * Calculate the column wrap using builtin terminal commands
+   * 
+   * @static
+   * @access  public
+   * @return  int     the number of columns to use for wrapping
+   */
+  public static function get_columns()
+  {
+    if(0 !== \Getopti::$columns)
+    {
+      return \Getopti::$columns;
+    }
+     
+    if(php_sapi_name() === 'cli' && 'darwin' === strtolower(PHP_OS))
+    {
+      \Getopti::$columns = (int)exec('tput cols');
+    }
+    elseif(0 === \Getopti::$columns)
+    {
+      \Getopti::$columns = self::DEFAULT_COLUMNS;
+    }
+    
+    return \Getopti::$columns;
   }
 }
 
