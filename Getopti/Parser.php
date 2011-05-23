@@ -7,7 +7,7 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer <hello@manasto.info>
- * @version   0.1.3
+ * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
  *
  * @copyright Copyright (c) 2011

@@ -6,7 +6,7 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer <hello@manasto.info>
- * @version   0.1.3
+ * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
  *
  * @copyright Copyright (c) 2011
@@ -44,7 +44,7 @@ require GETOPTI_BASEPATH.'Exception.php';
  */
 class Getopti {
   
-  const VERSION = '0.1.3';
+  const VERSION = '0.1.4';
     
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";

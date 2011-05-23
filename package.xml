@@ -7,14 +7,14 @@
   <lead>
     <name>Braden Schaeffer</name>
     <user>bschaeffer</user>
-    <email>braden.schaeffer@gmail.com</email>
+    <email>hello@manasto.info</email>
     <active>yes</active>
   </lead>
-  <date>2011-04-28</date>
-  <time>09:10:18</time>
+  <date>2011-05-23</date>
+  <time>11:50:24</time>
   <version>
-    <release>0.1.3</release>
-    <api>0.1.3</api>
+    <release>0.1.4</release>
+    <api>0.1.4</api>
   </version>
   <stability>
     <release>beta</release>
@@ -24,15 +24,15 @@
   <notes>See http://github.com/bschaeffer/getopti for more information.</notes>
   <contents>
     <dir name="/" baseinstalldir="Getopti">
-      <file name="Getopti.php" role="php" md5sum="11c10c25117a0c9e7b4b76b988530218"/>
+      <file name="Getopti.php" role="php" md5sum="e8e2360a57ba5a2b8a99f1d2bf7bc368"/>
       <dir name="Getopti">
-        <file name="Base.php" role="php" md5sum="08d55672b64763072c3406ec2a91c05d"/>
-        <file name="Output.php" role="php" md5sum="818525d0f653fdf433f456f1418efe15"/>
-        <file name="Parser.php" role="php" md5sum="7615cb8e15e00dbab671223dee2d4f1a"/>
-        <file name="Switcher.php" role="php" md5sum="ba6f2ded7ee67e7f012ee52d14502b28"/>
+        <file name="Exception.php" role="php" md5sum="13d8ef326f82ca508c80514b26b326e2"/>
+        <file name="Output.php" role="php" md5sum="5feea0b8bde47e2fb40eeab1ede97599"/>
+        <file name="Parser.php" role="php" md5sum="69e898a87cfe6b6592459c44a0e021bb"/>
+        <file name="Switcher.php" role="php" md5sum="0c581b8acb4af5f1ed588be1b05587a7"/>
       </dir>
       <file name="LICENSE" role="doc" md5sum="e8b6c302d0057db19aa38fdc3b21d081"/>
-      <file name="README.md" role="doc" md5sum="0ae723fe2ff12a2ecc4ad683a5d3a606"/>
+      <file name="README.md" role="doc" md5sum="fe64f185550a22abac4c68eb8ad6776f"/>
     </dir>
   </contents>
   <dependencies>
