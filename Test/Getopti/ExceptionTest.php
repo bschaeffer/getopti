@@ -4,8 +4,6 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
 {
   /**
    * @test
-   *
-   * @covers  Getopti\Exception
    * 
    * @author  Braden Schaeffer
    */
