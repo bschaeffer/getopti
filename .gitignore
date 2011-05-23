@@ -2,3 +2,4 @@ Reports/*
 tmp/*
 
 *.tgz
+pearfarm.spec
