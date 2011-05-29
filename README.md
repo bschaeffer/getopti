@@ -20,9 +20,6 @@ To install using PEAR, you first have to discover my [Pearfarm Channel](http://b
     [sudo] pear channel-discover bschaeffer.pearfarm.org
     [sudo] pear install bschaeffer/Getotpi-beta
 
-After installation, all you have to do is require it in your application:
-
-    require 'Getopti/Getopti.php';
 
 ## Usage
 
@@ -30,8 +27,8 @@ After installation, all you have to do is require it in your application:
 
 Just require the library and get a new instance:
 
-    require 'Getopti/Getopti.php'; // PEAR Installation
-    $opts = new Getopti();
+    require 'Getopti/Getopti.php';
+    $opts = new Getopti;
 
 ### banner
 
@@ -94,17 +91,6 @@ Specify both the `-h` and `--help` options, using a callback to display automate
 
 *Please note: The default is not to run the callback unless the option is specified.*
 
-### read_args
-
-A **static** function that attempts to retrieve the command-line arguments from various global PHP variables:
-
-    Getopti::read_args([int $trim])
-
-The optional `$trim` parameter simply removes `n` number of arguments from the beginning of the arguments array:
-
-    // $ cmd my great arguments 
-    $args = Getopti::read_args(1); // array('great', 'arguments')
-
 ### parse
 
 Parses the passed arguments based on previously defined options.
@@ -117,6 +103,19 @@ This method requires that you pass the `$arguments` array directly to it. Fortun
     $results = $opts->parse($args);
 
 The optional `$flatten` parameter is described in the *Results* section of this README.
+
+## Helper Methods
+
+### read_args
+
+A **static** function that attempts to retrieve the command-line arguments from various global PHP variables:
+
+    Getopti::read_args([int $trim]);
+
+The optional `$trim` parameter simply removes `n` number of arguments from the beginning of the arguments array:
+
+    // $ cmd my great arguments 
+    $args = Getopti::read_args(1); // array('great', 'arguments')
 
 ## Configuration
 
@@ -133,44 +132,47 @@ Assuming a CLI that can handle the following command:
 
 We might set up our application like so:
 
-    <?php
-    
-    require 'yourapp.php';
-    require 'Getopti/Getopti.php';
-    
-    $APP = new YourApp();
-    $opts = new Getopti();
-    
-    $opts->banner("cmd write");
-    $opts->usage("A really, really hard way to create a file!")
-    
-    $opts->banner("");
-    $opts->banner("command options:");
-    
-    $opts->on(array('N', 'name'), '[PATH]', 'set the name of the file',
-      function ($name) use ($APP) {
-        $APP->set_filename($name);
-      }
-    );
-    
-    $opts->on(array('C', 'content'), 'CONTENT', 'add content to the file',
-      function ($content) use ($APP) {
-        $APP->add_content($content);
-      }
-    );
-    
-    $opts->banner("");
-    $opts->banner("global options:");
-    
-    $opts->on('help', FALSE, 'show help information for a given command',
-      function ($help) use ($opts) {
-          echo $opts->help();
-          exit();
-      }
-    );
-    
-    $args = Getopti::read_args();
-    $results = $opts->parse($args);
+``` php
+<?php
+
+require 'yourapp.php';
+require 'Getopti/Getopti.php';
+
+$APP = new YourApp();
+$opts = new Getopti();
+
+$opts->banner('cmd write');
+$opts->usage('A really, really hard way to create a file!');
+
+$opts->banner('');
+$opts->banner('command options:');
+
+$opts->on(array('N', 'name'), '[PATH]', 'set the name of the file',
+  function ($name) use ($APP) {
+    $APP->set_filename($name);
+  }
+);
+
+$opts->on(array('C', 'content'), 'CONTENT', 'add content to the file',
+  function ($content) use ($APP) {
+    $APP->add_content($content);
+  }
+);
+
+$opts->banner('');
+$opts->banner('global options:');
+
+$opts->on('help', FALSE, 'show help information for a given command',
+  function ($help) use ($opts) {
+      echo $opts->help();
+      exit();
+  }
+);
+
+$args = Getopti::read_args();
+$results = $opts->parse($args);
+?>
+```
 
 ## Output
 
@@ -245,51 +247,59 @@ Here are few examples of how to use closures/callbacks with Getopti (or, for tha
 
 ### Within an instance of an object:
 
-    class Macintosh {
-      
-      public $version = "10.7";
-      
-      function __construct()
-      { 
-        // We must make a copy of $this so that we may reference
-        // our app inside the closure.
-        
-        $self = $this;
-        
-        $opts = new Getopti();
-        
-        // When defining our closures, we must explicitly 'use' the copy/reference.
-        $opts->on(array('v', 'version'), FALSE, 'show version',
-          function ($show) use ($self) {
-            echo "OS X {$self->version}";
-          }
-        );
-        
-        $args = Getopti::read_args();
-        $opts->parse($args);
+``` php
+<?php
+
+class Macintosh {
+  
+  public $version = "10.7";
+  
+  function __construct()
+  { 
+    // We must make a copy of $this
+    $self = $this;
+    
+    $opts = new Getopti();
+    
+    // When defining our closures, we must explicitly 'use' the copy.
+    $opts->on(array('v', 'version'), FALSE, 'show version',
+      function ($show) use ($self) {
+        echo "OS X {$self->version}";
       }
-    }
+    );
+    
+    $args = Getopti::read_args();
+    $opts->parse($args);
+  }
+}
+?>
+```
 
 ### Statically:
 
-      class Macintosh {
-      
-        public static $version = "10.7";
-        
-        function __construct()
-        {
-          $opts = new Getopti();
-          
-          $opts->on('version', FALSE, 'show version',
-            function ($show) {
-              echo "OS X ".Macintosh::$version;
-            }
-          );
-          
-          $args = Getopti::read_args();
-          $opts->parse($args);
-        }
+``` php
+<?php
+
+class Macintosh {
+
+  const VERSION = "10.7";
+  
+  function __construct()
+  {
+    $opts = new Getopti();
+    
+    $opts->on('version', FALSE, 'show version',
+      function ($show) {
+        echo "OS X ".Macintosh::VERSION;
       }
+    );
+    
+    $args = Getopti::read_args();
+    $opts->parse($args);
+  }
+}
+?>
+```
 
 **For more information on closures, see**:
 
