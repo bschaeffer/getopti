@@ -7,10 +7,26 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    */
   public function setUp()
   {
+    Getopti::$columns = 0;
     $this->opts = new Getopti();
   }
-  
+
   // --------------------------------------------------------------------
+  
+  /**
+   * @test
+   * 
+   * @covers  Getopti::__construct
+   */
+  public function construct()
+  {
+    Getopti::$columns = 0;
+    
+    $obj = new Getopti();
+    
+    $this->assertInstanceOf('Getopti\\Switcher', $obj->switcher);
+    $this->assertInstanceOf('Getopti\\Output', $obj->output);
+  }
   
   /**
    * @test
