@@ -107,7 +107,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
    * 
-   * @dataProvider        optionProvider
+   * @dataProvider optionProvider
    */
   public function intializes_option_values_with_false($opts, $index)
   {
@@ -120,7 +120,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   /**
    * @test
    * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_requirement_level <hello@manasto.info>
+   * @covers  Getopti\Switcher::_parse_requirement_level
    *
    * @expectedException InvalidArgumentException
    */
