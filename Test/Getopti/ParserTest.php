@@ -29,9 +29,9 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider longoptProvider
-   * 
    * @covers  Getopti\Parser::is_longopt
+   * 
+   * @dataProvider longoptProvider
    */
   public function is_longopt($long, $validity)
   {
@@ -63,9 +63,9 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider shortoptProvider
-   * 
    * @covers  Getopti\Parser::is_shortopt
+   * 
+   * @dataProvider shortoptProvider
    */
   public function is_shortopt($short, $validity)
   {
@@ -99,9 +99,9 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider validShortoptArgumentProvider
-   * 
    * @covers  Getopti\Parser::get_shortopts
+   * 
+   * @dataProvider validShortoptArgumentProvider
    */
   public function sets_up_shortopts_correctly($args, $rules)
   {
@@ -111,10 +111,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     
   /**
    * @test
-   * @dataProvider validShortoptArgumentProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
+   * 
+   * @dataProvider validShortoptArgumentProvider
    */
   public function parses_valid_short_arguments_correctly($args, $rules, $expected)
   {
@@ -150,9 +150,9 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider validLongoptArgumentProvider
-   * 
    * @covers  Getopti\Parser::get_longopts
+   * 
+   * @dataProvider validLongoptArgumentProvider
    */
   public function sets_up_longopts_correctly($args, $rules)
   {
@@ -162,10 +162,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     
   /**
    * @test
-   * @dataProvider validLongoptArgumentProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider validLongoptArgumentProvider
    */
   public function parses_valid_longopts_correctly($args, $rules, $expected)
   {
@@ -195,10 +195,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider consecutiveShortoptProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
+   * 
+   * @dataProvider consecutiveShortoptProvider
    */
   public function parses_consecutive_shortopts_correctly($args, $expected)
   {
@@ -235,10 +235,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider  commandWithBreakProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::is_option
+   * 
+   * @dataProvider commandWithBreakProvider
    */
   public function stops_parsing_options_at_break($args, $rules, $expected)
   {
@@ -264,13 +264,12 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider  illegalOptionProvider
-   * 
-   * @expectedException Getopti\Exception
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider illegalOptionProvider
+   * @expectedException Getopti\Exception
    */
   public function illegal_option_raises_exception($args, $opts)
   {
@@ -293,13 +292,12 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 
   /**
    * @test
-   * @dataProvider  optionMissingParameterProvider
-   * 
-   * @expectedException Getopti\Exception
-   *
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider optionMissingParameterProvider
+   * @expectedException Getopti\Exception
    */
   public function option_missing_parameter_raises_exception($args, $opts)
   {
@@ -340,11 +338,11 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider  optionAsPossibleValueProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider optionAsPossibleValueProvider
    */
   public function does_not_set_options_as_values($args, $expected)
   {
@@ -389,11 +387,11 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider  mixedArgumentProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider  mixedArgumentProvider
    */
   public function parses_mixed_arguments_correctly($args, $rules, $expected)
   {
@@ -403,11 +401,11 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider  mixedArgumentProvider
-   * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
+   * 
+   * @dataProvider mixedArgumentProvider
    */
   public function returns_correct_nonoptions($args, $rules, $ignore, $expected)
   {

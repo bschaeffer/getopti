@@ -44,9 +44,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider  optionProvider
-   * 
    * @covers  Getopti\Output::option
+   * 
+   * @dataProvider optionProvider
    */
   public function option($opts, $expected)
   {
@@ -74,9 +74,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider  commandProvider
-   * 
    * @covers  Getopti\Output::command
+   * 
+   * @dataProvider commandProvider
    */
   public function command($opts, $expected)
   {
@@ -97,9 +97,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider  bannerProvider
-   * 
    * @covers  Getopti\Output::banner
+   * 
+   * @dataProvider bannerProvider
    */
   public function banner($banner)
   {
@@ -111,7 +111,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * 
    * @covers  Getopti\Output::usage
    */
   public function usage()
@@ -135,9 +134,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider textProvider
-   * 
    * @covers  Getopti\Output::write
+   * 
+   * @dataProvider textProvider
    */
   public function write($text)
   {
@@ -147,9 +146,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider  textProvider
-   * 
    * @covers  Getopti\Output::help
+   * 
+   * @dataProvider textProvider
    */
   public function help($text)
   {
@@ -161,7 +160,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   *
    * @covers  Getopti\Output::pad
    */
   public function pad()
@@ -177,7 +175,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   *
    * @covers  Getopti\Output::br
    */
   public function br()
@@ -209,9 +206,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider  formatStringProvider
-   *
    * @covers  Getopti\Output::format_string
+   * 
+   * @dataProvider formatStringProvider
    */
   public function format_string($opt, $description)
   {
@@ -275,9 +272,9 @@ class OutputTest extends PHPUnit_Framework_TestCase
   
   /**
    * @test
-   * @dataProvider wrapProvider
-   *
    * @covers  Getopti\Output::wrap
+   * 
+   * @dataProvider wrapProvider
    */
   public function wrap($expected, $string, $break = PHP_EOL, $append = '')
   {

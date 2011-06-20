@@ -39,7 +39,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
     
   /**
    * @test
-   *
    * @covers  Getopti::banner
    */
   public function banner()
@@ -50,7 +49,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * 
    * @covers  Getopti::usage
    */
   public function usage()
@@ -78,10 +76,9 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * 
-   * @dataProvider  onProvider
-   *
    * @covers  Getopti::on
+   * 
+   * @dataProvider onProvider
    */
   public function on($option, $short = FALSE, $long = FALSE)
   { 
@@ -99,7 +96,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   *
    * @covers  Getopti::command
    */
   public function command()
@@ -110,7 +106,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   *
    * @covers  Getopti::help
    */
   public function help()
@@ -125,7 +120,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * 
    * @covers  Getopti::read_args
    */
   public function read_args()
@@ -178,9 +172,9 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @dataProvider columnsProvider
-   * 
    * @covers  Getopti::get_columns
+   *
+   * @dataProvider columnsProvider
    */
   public function get_columns($set, $expected)
   {
