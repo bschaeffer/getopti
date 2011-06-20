@@ -72,7 +72,7 @@ class Getopti {
    * @access public
    * @return void
    */
-  function __construct()
+  public function __construct()
   {
     if(static::$columns == 0)
     {
