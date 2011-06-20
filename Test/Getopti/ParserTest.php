@@ -32,8 +32,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @dataProvider longoptProvider
    * 
    * @covers  Getopti\Parser::is_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function is_longopt($long, $validity)
   {
@@ -68,8 +66,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @dataProvider shortoptProvider
    * 
    * @covers  Getopti\Parser::is_shortopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function is_shortopt($short, $validity)
   {
@@ -106,8 +102,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @dataProvider validShortoptArgumentProvider
    * 
    * @covers  Getopti\Parser::get_shortopts
-   * 
-   * @author  Braden Schaeffer
    */
   public function sets_up_shortopts_correctly($args, $rules)
   {
@@ -121,8 +115,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function parses_valid_short_arguments_correctly($args, $rules, $expected)
   {
@@ -161,8 +153,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @dataProvider validLongoptArgumentProvider
    * 
    * @covers  Getopti\Parser::get_longopts
-   * 
-   * @author  Braden Schaeffer
    */
   public function sets_up_longopts_correctly($args, $rules)
   {
@@ -176,8 +166,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function parses_valid_longopts_correctly($args, $rules, $expected)
   {
@@ -211,8 +199,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function parses_consecutive_shortopts_correctly($args, $expected)
   {
@@ -253,8 +239,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::is_option
-   * 
-   * @author  Braden Schaeffer
    */
   public function stops_parsing_options_at_break($args, $rules, $expected)
   {
@@ -287,8 +271,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function illegal_option_raises_exception($args, $opts)
   {
@@ -318,8 +300,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function option_missing_parameter_raises_exception($args, $opts)
   {
@@ -365,8 +345,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function does_not_set_options_as_values($args, $expected)
   {
@@ -416,8 +394,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function parses_mixed_arguments_correctly($args, $rules, $expected)
   {
@@ -432,8 +408,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::parse
    * @covers  Getopti\Parser::_parse_shortopt
    * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @author  Braden Schaeffer
    */
   public function returns_correct_nonoptions($args, $rules, $ignore, $expected)
   {

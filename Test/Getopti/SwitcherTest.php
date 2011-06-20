@@ -35,8 +35,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
    * @covers  Getopti\Switcher::_parse_requirement_level
-   * 
-   * @author  Braden Schaeffer
    */
   public function adds_shortopts_correctly($opt, $param, $expected)
   {
@@ -69,8 +67,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
    * @covers  Getopti\Switcher::_parse_requirement_level
-   * 
-   * @author  Braden Schaeffer
    */
   public function adds_longopts_orrectly($opt, $param, $expected)
   {
@@ -99,8 +95,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
-   * 
-   * @author  Braden Schaeffer
    */
   public function sets_short2long_array_correctly($opts, $ignore, $expected)
   {
@@ -114,8 +108,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @covers  Getopti\Switcher::add
    * @covers  Getopti\Switcher::_parse_opts
-   * 
-   * @author  Braden Schaeffer
    */
   public function intializes_option_values_with_false($opts, $index)
   {
@@ -131,9 +123,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @expectedException InvalidArgumentException
    * 
    * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_requirement_level
-   * 
-   * @author  Braden Schaeffer <hello@manasto.info>
+   * @covers  Getopti\Switcher::_parse_requirement_level <hello@manasto.info>
    */
   public function invalid_parameter_requirement_level_raises_exception()
   {

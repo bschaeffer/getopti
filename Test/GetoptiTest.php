@@ -15,7 +15,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * 
    * @covers  Getopti::__construct
    */
   public function construct()
@@ -30,10 +29,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   *
    * @covers  Getopti::__toString
-   * 
-   * @author  Braden Schaeffer
    */
   public function obj_toString()
   {
@@ -45,8 +41,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @test
    *
    * @covers  Getopti::banner
-   * 
-   * @author  Braden Schaeffer
    */
   public function banner()
   {
@@ -58,8 +52,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @test
    * 
    * @covers  Getopti::usage
-   * 
-   * @author  Braden Schaeffer
    */
   public function usage()
   { 
@@ -90,8 +82,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @dataProvider  onProvider
    *
    * @covers  Getopti::on
-   * 
-   * @author  Braden Schaeffer
    */
   public function on($option, $short = FALSE, $long = FALSE)
   { 
@@ -111,8 +101,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @test
    *
    * @covers  Getopti::command
-   * 
-   * @author  Braden Schaeffer
    */
   public function command()
   { 
@@ -124,8 +112,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @test
    *
    * @covers  Getopti::help
-   * 
-   * @author  Braden Schaeffer
    */
   public function help()
   {
@@ -141,8 +127,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @test
    * 
    * @covers  Getopti::read_args
-   * 
-   * @author  Braden Schaeffer
    */
   public function read_args()
   {
@@ -197,8 +181,6 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
    * @dataProvider columnsProvider
    * 
    * @covers  Getopti::get_columns
-   * 
-   * @author  Braden Schaeffer
    */
   public function get_columns($set, $expected)
   {

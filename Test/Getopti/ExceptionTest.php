@@ -4,8 +4,6 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
 {
   /**
    * @test
-   * 
-   * @author  Braden Schaeffer
    */
   public function exception_class_exists()
   {

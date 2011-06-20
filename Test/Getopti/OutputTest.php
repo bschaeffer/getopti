@@ -47,8 +47,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider  optionProvider
    * 
    * @covers  Getopti\Output::option
-   * 
-   * @author  Braden Schaeffer
    */
   public function option($opts, $expected)
   {
@@ -79,8 +77,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider  commandProvider
    * 
    * @covers  Getopti\Output::command
-   * 
-   * @author  Braden Schaeffer
    */
   public function command($opts, $expected)
   {
@@ -104,8 +100,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider  bannerProvider
    * 
    * @covers  Getopti\Output::banner
-   * 
-   * @author  Braden Schaeffer
    */
   public function banner($banner)
   {
@@ -119,8 +113,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @test
    * 
    * @covers  Getopti\Output::usage
-   * 
-   * @author  Braden Schaeffer
    */
   public function usage()
   {
@@ -146,8 +138,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider textProvider
    * 
    * @covers  Getopti\Output::write
-   * 
-   * @author  Braden Schaeffer
    */
   public function write($text)
   {
@@ -160,8 +150,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider  textProvider
    * 
    * @covers  Getopti\Output::help
-   * 
-   * @author  Braden Schaeffer
    */
   public function help($text)
   {
@@ -175,8 +163,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @test
    *
    * @covers  Getopti\Output::pad
-   * 
-   * @author  Braden Schaeffer
    */
   public function pad()
   { 
@@ -193,8 +179,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @test
    *
    * @covers  Getopti\Output::br
-   * 
-   * @author  Braden Schaeffer
    */
   public function br()
   {    
@@ -228,8 +212,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider  formatStringProvider
    *
    * @covers  Getopti\Output::format_string
-   * 
-   * @author  Braden Schaeffer
    */
   public function format_string($opt, $description)
   {
@@ -296,8 +278,6 @@ class OutputTest extends PHPUnit_Framework_TestCase
    * @dataProvider wrapProvider
    *
    * @covers  Getopti\Output::wrap
-   * 
-   * @author  Braden Schaeffer
    */
   public function wrap($expected, $string, $break = PHP_EOL, $append = '')
   {
