@@ -113,6 +113,33 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
     $this->opts->banner("test banner");
     $this->assertNotEmpty($this->opts->help());
   }
+  
+  // --------------------------------------------------------------------
+  
+  /**
+   * @test
+   * @covers  Getopti::parse
+   */
+  public function parse()
+  {
+    $args = array('-a', 'value', 'nonopt', '--', 'breakopt');
+    
+    // Add a simple option switch
+    $this->opts->on('a', 'VALUE');
+    
+    // Test default behavior 
+    $results = $this->opts->parse($args);
+    
+    $this->assertEquals($results, $this->opts->results);
+    $this->assertEquals(array('a' => array('value')), $this->opts->options);
+    $this->assertEquals(array('nonopt'), $this->opts->nonopts);
+    $this->assertEquals(array('breakopt'), $this->opts->breakopts);
+    
+    // Test returns flattened options array
+    $options = $this->opts->parse($args, TRUE);
+    
+    $this->assertEquals($options, $this->opts->options);
+  }
 }
 
 /* End of file GetoptiTest.php */
