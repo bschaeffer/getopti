@@ -5,7 +5,7 @@
  * Getopti is a command-line parsing tool for PHP
  *
  * @package   Getopti
- * @author    Braden Schaeffer <hello@manasto.info>
+ * @author    Braden Schaeffer
  * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
  *
@@ -22,7 +22,7 @@ namespace Getopti;
  * A class to manage automated help output.
  *
  * @package     Getopti
- * @author      Braden Schaeffer <hello@manasto.info>
+ * @author      Braden Schaeffer
  */
 class Output {
   
