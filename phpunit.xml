@@ -5,7 +5,7 @@
   <logging>
     <log
       type="coverage-html" 
-      target="Reports"
+      target="build/coverage"
       yui="true" />
   </logging>
 </phpunit>

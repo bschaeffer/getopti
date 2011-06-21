@@ -1,5 +1,4 @@
-Reports/*
-tmp/*
+build/
 
 *.tgz
 pearfarm.spec
