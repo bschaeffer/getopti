@@ -21,10 +21,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
         'a'     // expected rule to be generated
       ),
       array('a', '[ITEM]',  'a:'),
-      array('a', 'ITEM',    'a::'),
-      array('a', 0, 'a'),
-      array('a', 1, 'a:'),
-      array('a', 2, 'a::'),
+      array('a', 'ITEM',    'a::')
     );
   }
   
@@ -53,10 +50,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
         'long'    // expected rule to be generated
       ),
       array('long', '[ITEM]', 'long='),
-      array('long', 'ITEM',   'long=='),
-      array('long', 0, 'long'),
-      array('long', 1, 'long='),
-      array('long', 2, 'long==')
+      array('long', 'ITEM',   'long==')
     );
   }
   
@@ -126,21 +120,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   {
     $this->switcher->add(array('a', NULL), array('PARAM', 'some_value'));
     $this->assertEquals('some_value', $this->switcher->options['a']);
-  }
-  
-  
-  // --------------------------------------------------------------------
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_requirement_level
-   *
-   * @expectedException InvalidArgumentException
-   */
-  public function invalid_parameter_requirement_level_raises_exception()
-  {
-    $this->switcher->add(array('a'), 4);
   }
 }
 
