@@ -172,7 +172,7 @@ class Parser {
     {
       $opt = $arg[$i];
       
-      if( ! array_key_exists($opt, static::$_shortopts))
+      if ( ! array_key_exists($opt, static::$_shortopts))
       {
         throw new Exception("illegal option: -$opt");
       }
