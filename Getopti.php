@@ -6,13 +6,8 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer
- * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
- *
- * @copyright Copyright (c) 2011
  * @license   http://www.opensource.org/licenses/mit-license.html MIT
- *
- * @filesource
  */
 
 // We are either being required from source
@@ -39,8 +34,7 @@ require GETOPTI_BASEPATH.'Exception.php';
  * A base class for wrapping multiple class functionalities into one
  * object.
  * 
- * @package     Getopti     
- * @author      Braden Schaeffer
+ * @package     Getopti
  */
 class Getopti {
   

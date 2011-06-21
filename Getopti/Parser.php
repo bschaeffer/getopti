@@ -7,13 +7,8 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer
- * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
- *
- * @copyright Copyright (c) 2011
  * @license   http://www.opensource.org/licenses/mit-license.html MIT
- *
- * @filesource
  */
 namespace Getopti;
 
@@ -23,7 +18,6 @@ namespace Getopti;
  * Parses a given set of options and arguements
  *
  * @package     Getopti
- * @author      Braden Schaeffer
  */
 class Parser {
 

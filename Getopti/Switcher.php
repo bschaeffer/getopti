@@ -6,13 +6,8 @@
  *
  * @package   Getopti
  * @author    Braden Schaeffer
- * @version   0.1.4
  * @link      http://github.com/bschaeffer/getopti
- *
- * @copyright Copyright (c) 2011
  * @license   http://www.opensource.org/licenses/mit-license.html MIT
- *
- * @filesource
  */
 namespace Getopti;
 
@@ -24,7 +19,6 @@ use Getopti\Parser;
  * Sets up command line flags for parsing.
  *
  * @package     Getopti
- * @author      Braden Schaeffer
  */
 class Switcher {
   
