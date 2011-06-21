@@ -63,21 +63,21 @@ class Switcher {
     
     $level = $this->_parse_requirement_level($parameter);
     
-    if( ! empty($short))
+    if ( ! empty($short))
     {
       $this->_shortopts .= $short.str_repeat(self::INDICATOR_SHORT, $level);
       
-      if(is_callable($callback))
+      if (is_callable($callback))
       {
         $this->_callbacks[$short] = $callback;
       }
     }
     
-    if( ! empty($long))
+    if ( ! empty($long))
     {
       $this->_longopts[] = $long.str_repeat(self::INDICATOR_LONG, $level);
       
-      if(is_callable($callback))
+      if (is_callable($callback))
       {
         $this->_callbacks[$long] = $callback;
       }
@@ -97,7 +97,7 @@ class Switcher {
     $this->nonopts    = $this->results[1];
     $this->breakopts  = $this->results[2]; 
     
-    foreach($this->results[0] as $opt)
+    foreach ($this->results[0] as $opt)
     {
       $this->_run_option($opt[0], $opt[1]);
     }
@@ -121,7 +121,7 @@ class Switcher {
     $short = (empty($opts[0])) ? FALSE : $opts[0];
     $long = FALSE;
 
-    if(strlen($short) > 1)
+    if (strlen($short) > 1)
     {
       // $short is actually $long
       
@@ -134,7 +134,7 @@ class Switcher {
       return array(NULL, $short);
     }
     
-    if(isset($opts[1]) && ! empty($opts[1]))
+    if (isset($opts[1]) && ! empty($opts[1]))
     {
       $long = $opts[1];
       
@@ -161,9 +161,9 @@ class Switcher {
   private function _parse_requirement_level($parameter = '')
   { 
     // If it's an integer, it's already a level, supposedly
-    if(is_int($parameter))
+    if (is_int($parameter))
     {
-      switch($parameter)
+      switch ($parameter)
       {
         case self::LEVEL_NONE:      return self::LEVEL_NONE;
         case self::LEVEL_OPTIONAL:  return self::LEVEL_OPTIONAL;
@@ -174,12 +174,12 @@ class Switcher {
       }
     }
       
-    if(empty($parameter))
+    if (empty($parameter))
     {
       // It doesn't have params
       return self::LEVEL_NONE; 
     }
-    elseif(preg_match("/^\[([a-z0-9\-_]+)\]\+?$/i", $parameter))
+    elseif (preg_match("/^\[([a-z0-9\-_]+)\]\+?$/i", $parameter))
     {
       // It's optional
       return self::LEVEL_OPTIONAL;
@@ -202,7 +202,7 @@ class Switcher {
     // If we have a short option and can covert it to a long,
     // let's do that
     
-    if(strlen($option) == 1 && isset($this->_short2long[$option]))
+    if (strlen($option) == 1 && isset($this->_short2long[$option]))
     {
       $option = $this->_short2long[$option];
     }
@@ -213,7 +213,7 @@ class Switcher {
     
     $value = (empty($value)) ? TRUE : $value;
     
-    if($value === TRUE)
+    if ($value === TRUE)
     {
       // If it accepts no paramters, it's just TRUE
       $this->options[$option] = $value;
@@ -224,7 +224,7 @@ class Switcher {
       $this->options[$option][] = $value;
     }
     
-    if(isset($this->_callbacks[$option]))
+    if (isset($this->_callbacks[$option]))
     {
       call_user_func_array($this->_callbacks[$option], array($value));
     }

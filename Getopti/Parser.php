@@ -58,12 +58,12 @@ class Parser {
     static::$nonopts    = array();
     static::$breakopts  = array();
     
-    if((empty(static::$_shortopts) && empty(static::$_longopts)) || empty(static::$_args))
+    if ((empty(static::$_shortopts) && empty(static::$_longopts)) || empty(static::$_args))
     {
       return array(array(), static::$_args, array());
     }
     
-    foreach(static::$_args as $index => $arg)
+    foreach (static::$_args as $index => $arg)
     {
       if($arg === '--')
       {
@@ -103,14 +103,14 @@ class Parser {
    */
   public static function get_shortopts($string)
   {
-    if(empty($string) || ! preg_match_all("/(\w\:{0,2})/", $string, $matches))
+    if (empty($string) || ! preg_match_all("/(\w\:{0,2})/", $string, $matches))
     {
       return array();
     }
     
     $shortopts = array();
     
-    foreach($matches[1] as $opt)
+    foreach ($matches[1] as $opt)
     {
       $flag = substr($opt, 0, 1);
       
@@ -130,19 +130,19 @@ class Parser {
    */
   public static function get_longopts($array)
   {
-    if(empty($array))
+    if (empty($array))
     {
       return array();
     }
     
     $longopts = array();
     
-    foreach($array as $opt)
+    foreach ($array as $opt)
     {
       $value = FALSE;
       $required = FALSE;
       
-      if(preg_match("/(={1,2})$/", $opt, $matches))
+      if (preg_match("/(={1,2})$/", $opt, $matches))
       {
         $opt = trim($opt, "=");
         $value = TRUE;
@@ -168,7 +168,7 @@ class Parser {
   {
     $arg = ltrim($arg, '-');
     
-    for($i = 0; $i < strlen($arg); $i++)
+    for ($i = 0; $i < strlen($arg); $i++)
     {
       $opt = $arg[$i];
       
@@ -179,30 +179,30 @@ class Parser {
       
       $value = NULL;
       
-      if(static::$_shortopts[$opt][0])
+      if (static::$_shortopts[$opt][0])
       {  
         // This 'if' allows for arguments like '-abc' where 'c'
         // expects a value. If 'a' or 'b' expected a value,
         // none would be assigned to it based on their locations
         // in the argument
         
-        if($i + 1 == strlen($arg))
+        if ($i + 1 == strlen($arg))
         {  
           $next = $index + 1;
           $possible = (isset(static::$_args[$next])) ? static::$_args[$next] : FALSE;
           
-          if( ! empty($possible) && ! self::is_option($possible))
+          if ( ! empty($possible) && ! self::is_option($possible))
           {
             $value = $possible;
             unset(static::$_args[$next]);
           }
           
-          if(empty($value) && static::$_shortopts[$opt][1])
+          if (empty($value) && static::$_shortopts[$opt][1])
           {
             throw new Exception("option requires a parameter: '$opt' in -$arg");
           }
         }
-        elseif(static::$_shortopts[$opt][1])
+        elseif (static::$_shortopts[$opt][1])
         {
           throw new Exception("option requires a parameter: '$opt' in -$arg");
         }
@@ -226,7 +226,7 @@ class Parser {
     $opt = $arg;
     $value = NULL;
     
-    if(preg_match("/^[a-zA-Z\-]+=/", substr($arg, 2)))
+    if (preg_match("/^[a-zA-Z\-]+=/", substr($arg, 2)))
     {
       list($opt, $value) = explode("=", $arg, 2);
       $value = (empty($value)) ? NULL : $value;
@@ -234,25 +234,25 @@ class Parser {
     
     $opt = ltrim($opt, '-');
       
-    if( ! array_key_exists($opt, static::$_longopts))
+    if ( ! array_key_exists($opt, static::$_longopts))
     {
       throw new Exception("illegal option: --$opt");
     }
     
-    if(static::$_longopts[$opt][0])
+    if (static::$_longopts[$opt][0])
     {
-      if(empty($value))
+      if (empty($value))
       {
         $next = $index + 1;
         $possible = (isset(static::$_args[$next])) ? static::$_args[$next] : FALSE;
       
-        if( ! empty($possible) && ! self::is_option($possible))
+        if ( ! empty($possible) && ! self::is_option($possible))
         {
           $value = $possible;
           unset(static::$_args[$next]);
         }
         
-        if(empty($value) && static::$_longopts[$opt][1])
+        if (empty($value) && static::$_longopts[$opt][1])
         {
           throw new Exception("option requires a parameter: --$opt");
         }

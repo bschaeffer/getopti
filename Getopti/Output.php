@@ -72,11 +72,11 @@ class Output {
   { 
     $options = '';
     
-    if(isset($opts[1]) && ! empty($opts[1]))
+    if (isset($opts[1]) && ! empty($opts[1]))
     {
       $options = "-{$opts[0]}, --{$opts[1]}";
     }
-    elseif(strlen($opts[0]) > 1)
+    elseif (strlen($opts[0]) > 1)
     {
       $options = str_repeat(' ', 4)."--{$opts[0]}";
     }
@@ -145,7 +145,7 @@ class Output {
     
     // If it's greater than the allowed $option_padding, we need to
     // add a new line so any description will start below
-    if(strlen($string) > \Getopti::$option_padding + 1)
+    if (strlen($string) > \Getopti::$option_padding + 1)
     {
       $string .= self::br();
     }
@@ -168,7 +168,7 @@ class Output {
   {
     $string = str_repeat(self::SPACE, \Getopti::$left_padding).$string;
     
-    if($add_option_padding)
+    if ($add_option_padding)
     {
       $string = str_pad($string, \Getopti::$option_padding, self::SPACE);
     }
@@ -202,7 +202,7 @@ class Output {
    */
   public static function wrap($string, $break = PHP_EOL, $append = '')
   {
-    if(substr_count($string, PHP_EOL) > 0)
+    if (substr_count($string, PHP_EOL) > 0)
     {
       $string_append = (strpos($string, PHP_EOL) === 0) ? PHP_EOL : '';
       
@@ -211,7 +211,7 @@ class Output {
       
       $looped = array_map(
         function ($line) use ($break) {
-          if(empty($line)) return PHP_EOL;
+          if (empty($line)) return PHP_EOL;
           return call_user_func(array(__CLASS__, "wrap"), $line, $break);
         },
         explode(PHP_EOL, $string)
@@ -233,7 +233,7 @@ class Output {
     $pad = substr($break, strpos($break, PHP_EOL) + 1);
     
     // ...unless there is a special appendage the user wants us to use
-    if( ! empty($append))
+    if ( ! empty($append))
     {
       $pad = substr_replace($pad, $append, 0, strlen($append));
     }

@@ -74,7 +74,7 @@ class Getopti {
    */
   public function __construct()
   {
-    if(static::$columns == 0)
+    if (static::$columns == 0)
     {
       static::$columns = self::get_columns();
     }
@@ -147,7 +147,7 @@ class Getopti {
    */
   public function on($opts, $parameter = NULL, $description = '', $callback = NULL)
   { 
-    if( ! is_array($opts))
+    if ( ! is_array($opts))
     {
       $opts = array($opts);
     }
@@ -183,7 +183,7 @@ class Getopti {
     $this->nonopts    = $this->switcher->nonopts;
     $this->breakopts  = $this->switcher->breakopts;
     
-    if($flatten)
+    if ($flatten)
     {
       return $this->options;
     }
@@ -203,9 +203,9 @@ class Getopti {
   {
     global $argv;
     
-    if( ! is_array($argv))
+    if ( ! is_array($argv))
     {
-      if( ! @is_array($_SERVER['argv']))
+      if ( ! @is_array($_SERVER['argv']))
       {
         return array();
       }
@@ -217,9 +217,9 @@ class Getopti {
       $args = $argv;
     }
     
-    if($trim > 0)
+    if ($trim > 0)
     {
-      for($i = 0; $i <= $trim - 1; $i++)
+      for ($i = 0; $i <= $trim - 1; $i++)
       {
         unset($args[$i]);
       }
@@ -239,16 +239,16 @@ class Getopti {
    */
   public static function get_columns()
   {
-    if(0 !== \Getopti::$columns)
+    if (0 !== \Getopti::$columns)
     {
       return \Getopti::$columns;
     }
      
-    if(php_sapi_name() === 'cli' && 'darwin' === strtolower(PHP_OS))
+    if (php_sapi_name() === 'cli' && 'darwin' === strtolower(PHP_OS))
     {
       \Getopti::$columns = (int)exec('tput cols');
     }
-    elseif(0 === \Getopti::$columns)
+    elseif (0 === \Getopti::$columns)
     {
       \Getopti::$columns = self::DEFAULT_COLUMNS;
     }
