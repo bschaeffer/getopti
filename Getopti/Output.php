@@ -226,7 +226,7 @@ class Output {
     // The width is calculated using padding, etc...
     // Also, strlen counts new lines, so lets remove them
     
-    $width = \Getopti::get_columns() - \Getopti::$right_padding;
+    $width = \Getopti\Utils::get_columns() - \Getopti::$right_padding;
     $width = $width - strlen($break) - substr_count($break, PHP_EOL);
   
     // Actually, there is a bundled method for this type of shit
