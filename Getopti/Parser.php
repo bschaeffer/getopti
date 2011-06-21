@@ -17,8 +17,6 @@
  */
 namespace Getopti;
 
-use Getopti\Exception;
-
 /**
  * Getopt Parser Class 
  *
@@ -174,7 +172,7 @@ class Parser {
       
       if ( ! array_key_exists($opt, static::$_shortopts))
       {
-        throw new Exception("illegal option: -$opt");
+        throw new \Getopti\Exception("illegal option: -$opt");
       }
       
       $value = NULL;
@@ -199,12 +197,12 @@ class Parser {
           
           if (empty($value) && static::$_shortopts[$opt][1])
           {
-            throw new Exception("option requires a parameter: '$opt' in -$arg");
+            throw new \Getopti\Exception("option requires a parameter: '$opt' in -$arg");
           }
         }
         elseif (static::$_shortopts[$opt][1])
         {
-          throw new Exception("option requires a parameter: '$opt' in -$arg");
+          throw new \Getopti\Exception("option requires a parameter: '$opt' in -$arg");
         }
       }
     
@@ -236,7 +234,7 @@ class Parser {
       
     if ( ! array_key_exists($opt, static::$_longopts))
     {
-      throw new Exception("illegal option: --$opt");
+      throw new \Getopti\Exception("illegal option: --$opt");
     }
     
     if (static::$_longopts[$opt][0])
@@ -254,7 +252,7 @@ class Parser {
         
         if (empty($value) && static::$_longopts[$opt][1])
         {
-          throw new Exception("option requires a parameter: --$opt");
+          throw new \Getopti\Exception("option requires a parameter: --$opt");
         }
       }
     }
