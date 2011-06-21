@@ -72,21 +72,21 @@ class Parser {
     
     foreach (static::$_args as $index => $arg)
     {
-      if($arg === '--')
+      if ($arg === '--')
       {
         unset(static::$_args[$index]);
         static::$breakopts = array_merge(array(), static::$_args);
         break;
       }
-      elseif(self::is_longopt($arg))
+      elseif (self::is_longopt($arg))
       {
         self::_parse_longopt($arg, $index);  
       }
-      elseif(self::is_shortopt($arg))
+      elseif (self::is_shortopt($arg))
       {
         self::_parse_shortopt($arg, $index);
       }
-      elseif(isset(static::$_args[$index]))
+      elseif (isset(static::$_args[$index]))
       {
         // Only add it as a $nonopt if it has not been claimed by
         // a previously parsed option
