@@ -104,18 +104,18 @@ This method requires that you pass the `$arguments` array directly to it. Fortun
 
 The optional `$flatten` parameter is described in the *Results* section of this README.
 
-## Helper Methods
+## Utility Methods
 
 ### read_args
 
 A **static** function that attempts to retrieve the command-line arguments from various global PHP variables:
 
-    Getopti::read_args([int $trim]);
+    Getopti\Utils::read_args([int $trim]);
 
 The optional `$trim` parameter simply removes `n` number of arguments from the beginning of the arguments array:
 
     // $ cmd my great arguments 
-    $args = Getopti::read_args(1); // array('great', 'arguments')
+    $args = Getopti\Utils::read_args(1); // array('great', 'arguments')
 
 ## Configuration
 
