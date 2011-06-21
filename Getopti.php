@@ -52,11 +52,9 @@ class Getopti {
   const DEFAULT_COLUMNS = 75;
   
   public static $columns = 0;
-  public static $command = 'cmd';
   public static $left_padding = 2;
   public static $right_padding = 2;
   public static $option_padding = 26;
-  public static $verbose = FALSE;
   
   public $switcher = NULL;
   public $output =  NULL;
