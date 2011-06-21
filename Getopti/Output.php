@@ -26,9 +26,18 @@ namespace Getopti;
  */
 class Output {
   
+  /**
+   * Represents a single white space.
+   */
   const SPACE = " ";
   
+  /**
+   * @access  public
+   * @var     string  the generated help output
+   */
   public $output = '';
+  
+  // --------------------------------------------------------------------
   
   /**
    * Add banner text to the automated help output. This can be a simple

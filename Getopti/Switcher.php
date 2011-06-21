@@ -28,21 +28,69 @@ use Getopti\Parser;
  */
 class Switcher {
   
+  /**
+   * Requirement level indicator for short options.
+   */
   const INDICATOR_SHORT = ':';
+  
+  /**
+   * Requirement level indicator for short options.
+   */
   const INDICATOR_LONG  = "=";
   
+  /**
+   * Integer requirement levels.
+   */
   const LEVEL_NONE      = 0;
   const LEVEL_OPTIONAL  = 1;
   const LEVEL_REQUIRED  = 2;
   
+  /**
+   * @access  private
+   * @var     array   short options mapped to their long option counterparts
+   */
   public $_short2long = array();
+  
+  /**
+   * @access  private
+   * @var     array   the defined short options
+   */
   public $_shortopts = '';
+  
+  /**
+   * @access  private
+   * @var     array   the defined long options
+   */
   public $_longopts = array();
+  
+  /**
+   * @access  private
+   * @var     array   the defined callbacks (mapped to long first, then short if long is missing)
+   */
   public $_callbacks = array();
   
+  /**
+   * @access  public
+   * @var     array   an associative option/value array
+   */
   public $options = array();
+  
+  /**
+   * @access  public
+   * @var     array   the results returned from Getopti\Parser
+   */
   public $results = array();
+  
+  /**
+   * @access  public
+   * @var     array   all arguments unable to be matched as options
+   */
   public $nonopts = array();
+  
+  /**
+   * @access  public
+   * @var     array   all values coming after a '--' argument
+   */
   public $breakopts = array();
   
   // --------------------------------------------------------------------

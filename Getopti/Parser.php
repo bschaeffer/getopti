@@ -32,10 +32,25 @@ class Parser {
   private static $_shortopts = array();
   private static $_longopts = array();
 
-  // Result variables
+  /**
+   * @access  public
+   * @var     array   the matched option/values
+   */
   public static $opts = array();
+  
+  /**
+   * @access  public
+   * @var     array   all arguments unable to be matched as options
+   */
   public static $nonopts = array();
+  
+  /**
+   * @access  public
+   * @var     array   all values coming after a '--' argument
+   */
   public static $breakopts = array();
+  
+  // --------------------------------------------------------------------
     
   /**
    * Getopti

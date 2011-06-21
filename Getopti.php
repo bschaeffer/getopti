@@ -44,22 +44,68 @@ require GETOPTI_BASEPATH.'Exception.php';
  */
 class Getopti {
   
+  /**
+   * Getopti Version
+   */
   const VERSION = '0.1.4';
     
+  /**
+   * Separator matchers for optional argument parameters
+   */
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";
   
+  /**
+   * The default output width
+   */
   const DEFAULT_COLUMNS = 75;
   
+  /**
+   * @access  public
+   * @var     int     the overall output width
+   */
   public static $columns = 0;
+  
+  /**
+   * @access  public
+   * @var     int     the left side white-space padding of the output
+   */
   public static $left_padding = 2;
+  
+  /**
+   * @access  public
+   * @var     int     the right side white-space padding of the output
+   */
   public static $right_padding = 2;
+  
+  /**
+   * @access  public
+   * @var     int     the white-space padding between an option/command and it's description
+   */
   public static $option_padding = 26;
   
+  /**
+   * @access  public
+   * @var     Getopti\Switcher
+   */
   public $switcher = NULL;
+  
+  /**
+   * @access  public
+   * @var     Getopti\Output
+   */
   public $output =  NULL;
   
+  /**
+   * @access  public
+   * @var     array   the results from option parsing using Getopti\Parser
+   */
   public $results = array();
+  
+  /**
+   * @access  public
+   * @var     array   the flattened, smartly index options organized by the Getopti\Switcher object
+   */
   public $options = array();
   
   // --------------------------------------------------------------------
