@@ -108,6 +108,18 @@ class Getopti {
    */
   public $options = array();
   
+  /**
+   * @access  public
+   * @var     array   all arguments unable to be matched as options
+   */
+  public $nonopts = array();
+  
+  /**
+   * @access  public
+   * @var     array   all values coming after a '--' argument
+   */
+  public $breakopts = array();
+  
   // --------------------------------------------------------------------
   
   /**
