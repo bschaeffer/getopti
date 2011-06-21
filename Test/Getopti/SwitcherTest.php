@@ -109,11 +109,25 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * 
    * @dataProvider optionProvider
    */
-  public function intializes_option_values_with_false($opts, $index)
+  public function intializes_option_values_with_class_default($opts, $index)
   {
     $this->switcher->add($opts);
-    $this->assertFalse($this->switcher->options[$index]);
+    $this->assertEquals(Getopti\Switcher::OPTION_DEFAULT, $this->switcher->options[$index]);
   }
+  
+  // --------------------------------------------------------------------
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::add
+   * @covers  Getopti\Switcher::_parse_opts
+   */
+  public function initializes_option_values_with_user_supplied_default()
+  {
+    $this->switcher->add(array('a', NULL), array('PARAM', 'some_value'));
+    $this->assertEquals('some_value', $this->switcher->options['a']);
+  }
+  
   
   // --------------------------------------------------------------------
   

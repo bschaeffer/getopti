@@ -191,7 +191,7 @@ class Getopti {
    * 
    * @access  public
    * @param   mixed   string (single option), or array (single option or two options)
-   * @param   string  the name for the parameter it accepts (i.e... "ITEM" or "[ITEM]")
+   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void
@@ -202,12 +202,17 @@ class Getopti {
     {
       $opts = array($opts);
     }
+    
+    if ( ! is_array($parameter))
+    {
+      $parameter = array($parameter, \Getopti\Switcher::OPTION_DEFAULT);
+    }
        
     $short = $opts[0];
     $long = (isset($opts[1])) ? $opts[1] : FALSE;
     
     $this->switcher->add(array($short, $long), $parameter, $callback);
-    $this->output->option(array($short, $long), $parameter, $description);
+    $this->output->option(array($short, $long), $parameter[0], $description);
   }
   
   /**

@@ -33,6 +33,11 @@ class Switcher {
   const INDICATOR_LONG  = "=";
   
   /**
+   * The default value for an option (used is none was specified).
+   */
+  const OPTION_DEFAULT = FALSE;
+  
+  /**
    * Integer requirement levels.
    */
   const LEVEL_NONE      = 0;
@@ -95,15 +100,20 @@ class Switcher {
    *
    * @access  public
    * @param   array   the short and long options to watch
-   * @param   string  the parameter (ie. PATH or [PATH])
+   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default
    * @param   closure optional callback for the option
    * @return  void
    */
   public function add(array $opts, $parameter = NULL, $callback = NULL)
   {
-    list($short, $long) = $this->_parse_opts($opts);
+    if ( ! is_array($parameter))
+    {
+      $parameter = array($parameter, self::OPTION_DEFAULT);
+    }
     
-    $level = $this->_parse_requirement_level($parameter);
+    list($short, $long) = $this->_parse_opts($opts, $parameter[1]);
+    
+    $level = $this->_parse_requirement_level($parameter[0]);
     
     if ( ! empty($short))
     {
@@ -158,7 +168,7 @@ class Switcher {
    * @param   array   the options ('short', 'long')
    * @return  array   the short, then long options
    */
-  private function _parse_opts($opts)
+  private function _parse_opts($opts, $default = FALSE)
   {
     $short = (empty($opts[0])) ? FALSE : $opts[0];
     $long = FALSE;
@@ -170,7 +180,7 @@ class Switcher {
       // Default to FALSE here so we don't have to worry later
       // about tracking it down and make it so if it's not specified
       
-      $this->options[$short] = FALSE;
+      $this->options[$short] = $default;
       
       // .. and we're done
       return array(NULL, $short);
@@ -183,11 +193,11 @@ class Switcher {
       $this->_short2long[$short] = $long;
       
       // see note above about defaulting to FALSE
-      $this->options[$long] = FALSE;
+      $this->options[$long] = $default;
     }
     else
     {
-      $this->options[$short] = FALSE;
+      $this->options[$short] = $default;
     }
     
     return array($short, $long);

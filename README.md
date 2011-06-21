@@ -79,6 +79,9 @@ Specify the option `--revision` that expects an [OPTIONAL] revision number as a 
 
     $opts->on('revision', '[REV]', 'specify the revision number to operate on');
 
+Specify the option `--revision` with an [OPTIONAL] revision number that defaults to `HEAD`:
+
+    $opts->on('revision', array('[REV]', 'HEAD'));
 
 Specify both the `-h` and `--help` options, using a callback to display automated help output:
 
@@ -128,7 +131,7 @@ The optional `$trim` parameter simply removes `n` number of arguments from the b
 
 Assuming a CLI that can handle the following command:
 
-    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt -- brkopt --brkflag
+    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt -- brkopt
 
 We might set up our application like so:
 
@@ -149,7 +152,13 @@ $opts->banner('command options:');
 
 $opts->on(array('N', 'name'), '[PATH]', 'set the name of the file',
   function ($name) use ($APP) {
-    $APP->set_filename($name);
+    $APP->set_name($name);
+  }
+);
+
+$opts->on('ext', array('[EXT]', 'txt'), 'set the file extension',
+  function ($ext) use ($APP) {
+    $APP->set_ext($ext);
   }
 );
 
@@ -190,7 +199,7 @@ To output usage information for the above command, use `$opts->help()`. It would
 
 ## Results
 
-After setting up the above command, running `$opts->parse()` would default to returning an array similar to this:
+After setting up the above command, running `$opts->parse()` would default to returning the following results:
 
     $results = array(
       0 => array(
@@ -202,8 +211,7 @@ After setting up the above command, running `$opts->parse()` would default to re
         0 => 'makefile'
       ),
       2 => array(
-        0 => 'brkopt',
-        1 => '--brkflag'
+        0 => 'brkopt'
       )
     );
 
@@ -228,6 +236,7 @@ After parsing, the `$opts->options` property will hold an array of values indexe
 
     $flattened = array(
       'name'    => array('filename.txt'),
+      'ext'     => array('txt'),
       'content' => array('I love PHP!', 'Getopti rules!'),
       'help'    => FALSE
     );
@@ -236,7 +245,7 @@ The following rules explain how the above options are organized:
 
 1. They are sorted based on the order in which they were set using the `$opts->on()` method.
 2. If a long option is present, they will be indexed based on the long option. Otherwise, we use the short option.
-3. Uncalled options will be set to `FALSE` (note that neither `-h` or `--help` was called in the arguments from the example above).
+3. Uncalled options will be set to `FALSE` unless a default was given (note that neither `-h`, `--help` or `--ext` was called in the arguments from the example above).
 4. If the option accepts a parameter, it can be specified multiple times. If it doesn't accept a parameter, it will either be set to `TRUE` (indicated in the arguments) or `FALSE` (not indicated).
 
 ## Using Callbacks
