@@ -25,6 +25,16 @@ class Option {
   const OPTION_DEFAULT = FALSE;
   
   /**
+   * The string indicator for specifying an argument can be specified multiple times.
+   */
+  const MULTIPLE_INDICATOR = '[+]';
+  
+  /**
+   * The multpile indicator matcher.
+   */
+  const MULTIPLE_MATCHER = "/\[\+\]$/";
+  
+  /**
    * @access  public
    * @var     string  the short option flag
    */
@@ -47,6 +57,12 @@ class Option {
    * @var     bool    whether or not the option requires a parameter when specified
    */
   public $required = FALSE;
+  
+  /**
+   * @access  public
+   * @var     bool    whether or not the option can be specified multiple times
+   */
+  public $multiple = FALSE;
   
   /**
    * @access  public
@@ -186,6 +202,12 @@ class Option {
     
     $this->parameter = $string;
     $this->default   = $param[1];
+    
+    if (strpos($string, self::MULTIPLE_INDICATOR, strlen($string) - strlen(self::MULTIPLE_INDICATOR)) !== FALSE)
+    {
+      $string = trim(str_replace(self::MULTIPLE_INDICATOR, '', $string));
+      $this->multiple = TRUE;
+    }
     
     if ( ! preg_match('/^\[(.+)\]$/', $string))
     {

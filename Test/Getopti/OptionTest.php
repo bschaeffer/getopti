@@ -121,14 +121,19 @@ class OptionTest extends PHPUnit_Framework_TestCase {
         NULL,     // the param option
         NULL,     // the param string
         FALSE,    // is it required?
+        FALSE,    // can it be specified multiple times?
         $default, // the default value
       ),
-      array('VALUE', 'VALUE', TRUE),
-      array('[VALUE]', '[VALUE]', FALSE),
-      array(array(NULL, NULL), NULL, FALSE),
-      array(array('VALUE', NULL), 'VALUE', TRUE),
-      array(array('[VALUE]', NULL), '[VALUE]', FALSE),
-      array(array('[VALUE]', 'some_value'), '[VALUE]', FALSE, 'some_value'),
+      array('VALUE',        'VALUE', TRUE),
+      array('[VALUE]',      '[VALUE]', FALSE),
+      array('VALUE[+]',     'VALUE[+]', TRUE, TRUE),
+      array('[VALUE] [+]',  '[VALUE] [+]', FALSE, TRUE),
+      
+      // Tests user defined defaults
+      array(array(NULL, NULL),                  NULL, FALSE),
+      array(array('VALUE', 'some_value'),       'VALUE', TRUE, FALSE, 'some_value'),
+      array(array('[VALUE] [+]', 'some_value'), '[VALUE] [+]', FALSE, TRUE, 'some_value'),
+      array(array('[VALUE][+]', 'some_value'),  '[VALUE][+]', FALSE, TRUE, 'some_value'),
     );
   }
   
@@ -139,26 +144,36 @@ class OptionTest extends PHPUnit_Framework_TestCase {
    * 
    * @dataProvider  parameterProvider
    */
-  public function parses_given_parameters_correctly($opts, $string, $required, $default = FALSE)
+  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE, $default = FALSE)
   {
     $option = new Option('a', NULL, $opts);
     
-    $this->assertSame($string, $option->parameter);
-    $this->assertSame($default, $option->default);
-    $this->assertSame($required, $option->required);
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Option::_parse_parameter
-   * 
-   * @dataProvider  parameterProvider
-   */
-  public function sets_parsing_rules_correctly($opts, $string, $required)
-  {
-    $option = Option::build('a', $opts);
-    $expected = array( ! empty($string), $required);
-    $this->assertSame($expected, $option->rule);
+    $this->assertSame(
+      $string, $option->parameter,
+      "The option's parameter string was not set correctly."
+    );
+    
+    $this->assertSame(
+      $default, $option->default,
+      "The option's default was not set correctly."
+    );
+    
+    $this->assertSame(
+      $required, $option->required,
+      "The option's required property was not parsed correctly."
+    );
+    
+    $this->assertSame(
+      $multiple, $option->multiple,
+      "The option's multiple property was not parsed correctly."
+    );
+    
+    $rules = array( ! empty($string), $required);
+    
+    $this->assertSame(
+      $rules, $option->rule,
+      "The option's parsing rule (the rule property) was not set correctly." 
+    );
   }
   
   // --------------------------------------------------------------------

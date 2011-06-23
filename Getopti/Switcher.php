@@ -145,14 +145,16 @@ class Switcher {
    * @param   mixed   either NULL or the value of the item
    * @return  void
    */
-  private function _run_option($switch, $value = NULL)
+  private function _run_option($opt, $value = NULL)
   {
     // If we have a short option and can covert it to a long,
     // let's do that
     
-    if (strlen($switch) == 1 && isset($this->_short2long[$switch]))
+    $switch = $opt;
+    
+    if (strlen($opt) == 1 && isset($this->_short2long[$opt]))
     {
-      $switch = $this->_short2long[$switch];
+      $switch = $this->_short2long[$opt];
     }
     
     // Retrieve the associated cached Getopti\Option object
@@ -165,10 +167,14 @@ class Switcher {
       // move on.
       $this->options[$switch] = TRUE;
     }
+    elseif ($option->multiple)
+    {
+      // If it's a multipe, push the value to the option array
+      $this->options[$switch][] = (empty($value)) ? $option->default : $value;
+    }
     else
     {
-      // If it accepts parameters, add the value to the array
-      $this->options[$switch][] = (empty($value)) ? $option->default : $value;
+      $this->options[$switch] = (empty($value)) ? $option->default : $value; 
     }
     
     $option->run_callback($value);

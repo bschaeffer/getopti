@@ -130,10 +130,14 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
     // Test default behavior 
     $results = $this->opts->parse($args);
     
-    $this->assertEquals($results, $this->opts->results);
-    $this->assertEquals(array('a' => array('value')), $this->opts->options);
-    $this->assertEquals(array('nonopt'), $this->opts->nonopts);
-    $this->assertEquals(array('breakopt'), $this->opts->breakopts);
+    $this->assertSame(
+      $results, $this->opts->results
+    );
+    
+    $this->assertNotEmpty($this->opts->results,   'The results property should not be empty.');
+    $this->assertNotEmpty($this->opts->options,   'The options property should not be empty.');
+    $this->assertNotEmpty($this->opts->nonopts,   'The nonotps property should not be empty.');
+    $this->assertNotEmpty($this->opts->breakopts, 'The breakopts property should not be empty.');
     
     // Test returns flattened options array
     $options = $this->opts->parse($args, TRUE);

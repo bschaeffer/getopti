@@ -150,7 +150,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @test
    * @covers  Getopti\Switcher::_run_option
    */
-  public function sets_optional_argument_with_no_parameter_to_option_default()
+  public function sets_optional_option_with_no_parameter_to_option_default()
   {
     $option = new Option('a', NULL, '[VALUE]');
     
@@ -158,8 +158,52 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $this->switcher->parse(array('-a'));
     
     $this->assertEquals(
-      array($option->default), $this->switcher->options['a'],
+      $option->default, $this->switcher->options['a'],
       'Options that accept optional values should be set to the option default if no value is preset.'
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::_run_option
+   */
+  public function non_multiple_allowed_option_values_are_overridden_on_consecutive_calls()
+  {
+    $option = new Option('a', NULL, '[VALUE]');
+    
+    $this->switcher->add($option);
+    $this->switcher->parse(array('-a', 'first_call', '-a', 'second_call'));
+    
+    $this->assertEquals(
+      'second_call', $this->switcher->options['a'],
+      'The non-multiple-allowed option was not overridden with the second specified value.'
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::_run_option
+   */
+  public function multiple_allowed_options_values_are_pushed_to_an_array()
+  {
+    $option = new Option('a', NULL, '[VALUE] [+]');
+    
+    $this->switcher->add($option);
+    $this->switcher->parse(array('-a', 'first_call', '-a', 'second_call'));
+    
+    $this->assertInternalType(
+      'array', $this->switcher->options['a'],
+      'A multiple-allowed option value should be an array.'
+    );
+    
+    $this->assertContains(
+      'first_call', $this->switcher->options['a'],
+      'The multiple-allowed option value does not contain the first specified value.'
+    );
+    
+    $this->assertContains(
+      'second_call', $this->switcher->options['a'],
+      'The multiple-allowed option value does not contain the second specified value.'
     );
   }
   
