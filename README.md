@@ -60,16 +60,13 @@ Specify only the short option `-v` for indicating verbose output in your app:
 
     $opts->on('v', NULL, 'output more information where applicable');
 
-
 Specify only the long option `--verbose` for indicating verbose output in your app:
 
     $opts->on('verbose', NULL, 'output more information where applicable');
 
-
 Specify both `-v` and `--verbose` options for indicating verbose output in your app:
 
     $opts->on(array('v', 'verbose'), NULL, 'output more information where applicable');
-
 
 Specify the option `--revision` that expects a REQUIRED revision number as a parameter (*Getopti will raise a `Getopti\Exception` if the parameter is missing.*):
 
@@ -131,7 +128,7 @@ The optional `$trim` parameter simply removes `n` number of arguments from the b
 
 Assuming a CLI that can handle the following command:
 
-    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file.txt -- brkopt
+    $ cmd write -C "I love PHP!" --content "Getopti rules!" -N file -- brkopt
 
 We might set up our application like so:
 
@@ -191,7 +188,8 @@ To output usage information for the above command, use `$opts->help()`. It would
      A really, really hard way to create a file!
      
     command options:
-     -N, --name [PATH]       set the name of the file
+     -N , --name [PATH]       set the name of the file
+         --ext [EXT]         set the file extension
      -C, --content CONTENT   add content to this file
     
     global options:
@@ -205,10 +203,10 @@ After setting up the above command, running `$opts->parse()` would default to re
       0 => array(
         0 => array('C', 'I love PHP!'),
         1 => array('content', 'Getopti rules!'),
-        2 => array('N', 'filename.txt')
+        2 => array('N', 'my_file')
       ),
       1 => array(
-        0 => 'makefile'
+        0 => 'write'
       ),
       2 => array(
         0 => 'brkopt'
@@ -235,7 +233,7 @@ The following variables will be populated after parsing:
 After parsing, the `$opts->options` property will hold an array of values indexed based on the option used to specify them:
 
     $flattened = array(
-      'name'    => array('filename.txt'),
+      'name'    => array('my_file'),
       'ext'     => array('txt'),
       'content' => array('I love PHP!', 'Getopti rules!'),
       'help'    => FALSE
