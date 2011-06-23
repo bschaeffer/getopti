@@ -23,6 +23,7 @@ else
 
 require GETOPTI_BASEPATH.'Parser.php';
 require GETOPTI_BASEPATH.'Switcher.php';
+require GETOPTI_BASEPATH.'Option.php';
 require GETOPTI_BASEPATH.'Output.php';
 require GETOPTI_BASEPATH.'Exception.php';
 require GETOPTI_BASEPATH.'Utils.php';
@@ -198,21 +199,14 @@ class Getopti {
    */
   public function on($opts, $parameter = NULL, $description = '', $callback = NULL)
   { 
-    if ( ! is_array($opts))
-    {
-      $opts = array($opts);
-    }
+    $option = Getopti\Option::build($opts, $parameter, $description, $callback);
     
-    if ( ! is_array($parameter))
-    {
-      $parameter = array($parameter, \Getopti\Switcher::OPTION_DEFAULT);
-    }
-       
-    $short = $opts[0];
-    $long = (isset($opts[1])) ? $opts[1] : FALSE;
-    
-    $this->switcher->add(array($short, $long), $parameter, $callback);
-    $this->output->option(array($short, $long), $parameter[0], $description);
+    $this->switcher->add($option);
+    $this->output->option(
+      array($option->short, $option->long),
+      $option->parameter,
+      $description
+    );
   }
   
   /**

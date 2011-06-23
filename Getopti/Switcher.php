@@ -23,26 +23,10 @@ use Getopti\Parser;
 class Switcher {
   
   /**
-   * Requirement level indicator for short options.
+   * @access  private
+   * @var     array   a cache of registered Getopti\Option objects
    */
-  const INDICATOR_SHORT = ':';
-  
-  /**
-   * Requirement level indicator for short options.
-   */
-  const INDICATOR_LONG  = "=";
-  
-  /**
-   * The default value for an option (used is none was specified).
-   */
-  const OPTION_DEFAULT = FALSE;
-  
-  /**
-   * Integer requirement levels.
-   */
-  const LEVEL_NONE      = 0;
-  const LEVEL_OPTIONAL  = 1;
-  const LEVEL_REQUIRED  = 2;
+  public $_opts_cache = array();
   
   /**
    * @access  private
@@ -61,12 +45,6 @@ class Switcher {
    * @var     array   the defined long options
    */
   public $_longopts = array();
-  
-  /**
-   * @access  private
-   * @var     array   the defined callbacks (mapped to long first, then short if long is missing)
-   */
-  public $_callbacks = array();
   
   /**
    * @access  public
@@ -95,45 +73,31 @@ class Switcher {
   // --------------------------------------------------------------------
   
   /**
-   * Adds a set of options to the builder, setting up callbacks and
-   * automated help output along the way.
-   *
+   * Uses the passed Getopti\Option object to generate a set of rules
+   * to be used by the Getopti\Parser.
+   * 
    * @access  public
-   * @param   array   the short and long options to watch
-   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default
-   * @param   closure optional callback for the option
+   * @param   Getopti\Option
    * @return  void
    */
-  public function add(array $opts, $parameter = NULL, $callback = NULL)
+  public function add(\Getopti\Option $option)
   {
-    if ( ! is_array($parameter))
+    if ( ! empty($option->short))
     {
-      $parameter = array($parameter, self::OPTION_DEFAULT);
+      $this->_shortopts .= $option->short_string();
     }
     
-    list($short, $long) = $this->_parse_opts($opts, $parameter[1]);
-    
-    $level = $this->_parse_requirement_level($parameter[0]);
-    
-    if ( ! empty($short))
+    if ( ! empty($option->long))
     {
-      $this->_shortopts .= $short.str_repeat(self::INDICATOR_SHORT, $level);
-      
-      if (is_callable($callback))
-      {
-        $this->_callbacks[$short] = $callback;
-      }
+      $this->_longopts[] = $option->long_string();
     }
     
-    if ( ! empty($long))
+    if ( ! empty($option->short) && ! empty($option->long))
     {
-      $this->_longopts[] = $long.str_repeat(self::INDICATOR_LONG, $level);
-      
-      if (is_callable($callback))
-      {
-        $this->_callbacks[$long] = $callback;
-      }
+      $this->_short2long[$option->short] = $option->long;
     }
+    
+    $this->_opts_cache["$option"] = $option;
   }
   
   /**
@@ -158,76 +122,6 @@ class Switcher {
   }
   
   /**
-   * This functions simply makes sure that there is a value for both the
-   * short and long option before we setup how to parse them.
-   * 
-   * It also set's up a one-to-one relationship between a short and a
-   * long option.
-   * 
-   * @access  private
-   * @param   array   the options ('short', 'long')
-   * @return  array   the short, then long options
-   */
-  private function _parse_opts($opts, $default = FALSE)
-  {
-    $short = (empty($opts[0])) ? FALSE : $opts[0];
-    $long = FALSE;
-
-    if (strlen($short) > 1)
-    {
-      // $short is actually $long
-      
-      // Default to FALSE here so we don't have to worry later
-      // about tracking it down and make it so if it's not specified
-      
-      $this->options[$short] = $default;
-      
-      // .. and we're done
-      return array(NULL, $short);
-    }
-    
-    if (isset($opts[1]) && ! empty($opts[1]))
-    {
-      $long = $opts[1];
-      
-      $this->_short2long[$short] = $long;
-      
-      // see note above about defaulting to FALSE
-      $this->options[$long] = $default;
-    }
-    else
-    {
-      $this->options[$short] = $default;
-    }
-    
-    return array($short, $long);
-  }
-  
-  /**
-   * Parse the passed parameter
-   *
-   * @access  private
-   * @param   string  the formatted parameter string
-   * @return  int     padding on the rule string
-   */
-  private function _parse_requirement_level($parameter = '')
-  {
-    if (empty($parameter))
-    {
-      // It doesn't have params
-      return self::LEVEL_NONE; 
-    }
-    elseif (preg_match("/^\[([a-z0-9\-_]+)\]\+?$/i", $parameter))
-    {
-      // It's optional
-      return self::LEVEL_OPTIONAL;
-    }
-  
-    // It's required (will raise an Getopti\Exception if not missing)
-    return self::LEVEL_REQUIRED;
-  }
-  
-  /**
    * Break down the specified options. Organize. Run callbacks. Go!
    * 
    * @access  public
@@ -235,37 +129,33 @@ class Switcher {
    * @param   mixed   either NULL or the value of the item
    * @return  void
    */
-  private function _run_option($option, $value = NULL)
+  private function _run_option($switch, $value = NULL)
   {
     // If we have a short option and can covert it to a long,
     // let's do that
     
-    if (strlen($option) == 1 && isset($this->_short2long[$option]))
+    if (strlen($switch) == 1 && isset($this->_short2long[$switch]))
     {
-      $option = $this->_short2long[$option];
+      $switch = $this->_short2long[$switch];
     }
     
-    // If we have an empty value, it's not technically empty. It has
-    // certainly been indicated by the user, so we set it TRUE and
-    // move on.
+    // Retrieve the associated cached Getopti\Option object
+    $option = $this->_opts_cache[$switch];
     
-    $value = (empty($value)) ? TRUE : $value;
-    
-    if ($value === TRUE)
+    if (empty($value) && empty($option->parameter))
     {
-      // If it accepts no paramters, it's just TRUE
-      $this->options[$option] = $value;
+      // If we have an empty value, it's not technically empty. It has
+      // certainly been indicated by the user, so we set it TRUE and
+      // move on.
+      $this->options[$switch] = TRUE;
     }
     else
     {
       // If it accepts parameters, add the value to the array
-      $this->options[$option][] = $value;
+      $this->options[$switch][] = (empty($value)) ? $option->default : $value;
     }
     
-    if (isset($this->_callbacks[$option]))
-    {
-      call_user_func_array($this->_callbacks[$option], array($value));
-    }
+    $option->run_callback($value);
   }
 }
 

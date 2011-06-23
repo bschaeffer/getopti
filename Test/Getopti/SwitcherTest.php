@@ -10,116 +10,14 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $this->switcher = new Getopti\Switcher();
   }
   
-  // --------------------------------------------------------------------
-  
-  public function shortoptProvider()
-  {
-    return array(
-      array(
-        'a',    // the option to add
-        NULL,   // the parameter (string or level)
-        'a'     // expected rule to be generated
-      ),
-      array('a', '[ITEM]',  'a:'),
-      array('a', 'ITEM',    'a::')
-    );
-  }
-  
   /**
    * @test
    * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_opts
-   * @covers  Getopti\Switcher::_parse_requirement_level
-   * 
-   * @dataProvider shortoptProvider
    */
-  public function adds_shortopts_correctly($opt, $param, $expected)
+  public function add_requires_an_Option_object()
   {
-    $this->switcher->add(array($opt, NULL), $param);
-    $this->assertSame($expected, $this->switcher->_shortopts);
-  }
-  
-  // --------------------------------------------------------------------
-  
-  public function longoptProvider()
-  {
-    return array(
-      array(
-        'long',   // the option to add
-        NULL,     // the parameter (string or level)
-        'long'    // expected rule to be generated
-      ),
-      array('long', '[ITEM]', 'long='),
-      array('long', 'ITEM',   'long==')
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_opts
-   * @covers  Getopti\Switcher::_parse_requirement_level
-   * 
-   * @dataProvider longoptProvider
-   */
-  public function adds_longopts_orrectly($opt, $param, $expected)
-  {
-    $this->switcher->add(array(NULL, $opt), $param);
-    $this->assertSame($expected, $this->switcher->_longopts[0]);
-  }
-  
-  // --------------------------------------------------------------------
-  
-  public function optionProvider()
-  {
-    return array(
-      array(
-        array('a'),   // the options to add
-        'a',          // the expected option index
-        array()       // the expected short2long array
-      ),
-      array(array('long'),        'long', array()),
-      array(array('a', 'long'),   'long', array('a' => 'long'))
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_opts
-   * 
-   * @dataProvider optionProvider
-   */
-  public function sets_short2long_array_correctly($opts, $ignore, $expected)
-  {
-    $this->switcher->add($opts);
-    $this->assertSame($expected, $this->switcher->_short2long);
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_opts
-   * 
-   * @dataProvider optionProvider
-   */
-  public function intializes_option_values_with_class_default($opts, $index)
-  {
-    $this->switcher->add($opts);
-    $this->assertEquals(Getopti\Switcher::OPTION_DEFAULT, $this->switcher->options[$index]);
-  }
-  
-  // --------------------------------------------------------------------
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::add
-   * @covers  Getopti\Switcher::_parse_opts
-   */
-  public function initializes_option_values_with_user_supplied_default()
-  {
-    $this->switcher->add(array('a', NULL), array('PARAM', 'some_value'));
-    $this->assertEquals('some_value', $this->switcher->options['a']);
+    $this->setExpectedException('PHPUnit_Framework_Error');
+    $this->switcher->add(new stdClass);
   }
 }
 
