@@ -25,16 +25,6 @@ class Option {
   const OPTION_DEFAULT = FALSE;
   
   /**
-   * Requirement level indicator for short options.
-   */
-  const INDICATOR_SHORT = ':';
-  
-  /**
-   * Requirement level indicator for short options.
-   */
-  const INDICATOR_LONG  = "=";
-  
-  /**
    * @access  public
    * @var     string  the short option flag
    */
@@ -57,6 +47,12 @@ class Option {
    * @var     bool    whether or not the option requires a parameter when specified
    */
   public $required = FALSE;
+  
+  /**
+   * @access  public
+   * @var     array   a set of parsing rules indicating the arguments parameter expectations
+   */
+  public $rule = array(FALSE, FALSE);
   
   /**
    * @access  public
@@ -166,39 +162,6 @@ class Option {
   }
   
   /**
-   * @access  public
-   * @return  string  the formatted, Getopti\Parser compatabile short opt string
-   */
-  public function short_string()
-  {
-    return $this->_opt_string($this->short, self::INDICATOR_SHORT);
-  }
-  
-  /**
-   * @access  public
-   * @return  string  the formatted, Getopti\Parser compatabile long opt string
-   */
-  public function long_string()
-  {
-    return $this->_opt_string($this->long, self::INDICATOR_LONG);
-  }
-  
-  /**
-   * Formats a Getopti\Parser compatabile string using the given parameters.
-   * 
-   * @access  public
-   * @param   string  the option to use
-   * @param   string  the indicator
-   * @return  string  the formatted string
-   */
-  private function _opt_string($string, $indicator)
-  {
-    if (empty($string)) return '';
-    $pad = (empty($this->parameter)) ? 0 : ( ! $this->required) ? 1 : 2;
-    return $string.str_repeat($indicator, $pad);
-  }
-  
-  /**
    * Parse the passed parameter
    *
    * @access  private
@@ -229,6 +192,8 @@ class Option {
       // No [OPTIONAL] brackets means it's required.
       $this->required = TRUE;
     }
+    
+    $this->rule = array(TRUE, $this->required);
   }
 }
 

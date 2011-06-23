@@ -47,20 +47,21 @@ class Parser {
   // --------------------------------------------------------------------
     
   /**
-   * Getopti
+   * Parses command line options based on the given short/long option
+   * rules.
    * 
    * @static
    * @access  public
    * @param   array   the arguments array
-   * @param   string  the shortopts string
-   * @param   array   the optional array of longopts
-   * @return  mixed   an error STRING or an ARRAY of parsed options
+   * @param   array   the optional array of short options
+   * @param   array   the optional array of long options
+   * @return  array   the array of option results
    */
-  public static function parse($args, $shortopts = '', $longopts = array())
+  public static function parse($args, $shortopts = array(), $longopts = array())
   {  
     static::$_args      = $args;
-    static::$_shortopts = self::get_shortopts($shortopts);
-    static::$_longopts  = self::get_longopts($longopts);
+    static::$_shortopts = $shortopts;
+    static::$_longopts  = $longopts;
     static::$opts       = array();
     static::$nonopts    = array();
     static::$breakopts  = array();
@@ -98,68 +99,6 @@ class Parser {
     }
     
     return array(static::$opts, static::$nonopts, static::$breakopts);
-  }
-    
-  /**
-   * Get Shortopts
-   * 
-   * @static
-   * @access  public
-   * @param   string  the string of short options
-   * @return  array   parsed short options
-   */
-  public static function get_shortopts($string)
-  {
-    if (empty($string) || ! preg_match_all("/(\w\:{0,2})/", $string, $matches))
-    {
-      return array();
-    }
-    
-    $shortopts = array();
-    
-    foreach ($matches[1] as $opt)
-    {
-      $flag = substr($opt, 0, 1);
-      
-      $shortopts[$flag] = array((strlen($opt) >= 2), (strlen($opt) >= 3));
-    }
-    
-    return $shortopts;
-  }
-  
-  /**
-   * Get Longopts
-   * 
-   * @static
-   * @access  public
-   * @param   array   an array of long options
-   * @return  array   parsed long options
-   */
-  public static function get_longopts($array)
-  {
-    if (empty($array))
-    {
-      return array();
-    }
-    
-    $longopts = array();
-    
-    foreach ($array as $opt)
-    {
-      $value = FALSE;
-      $required = FALSE;
-      
-      if (preg_match("/(={1,2})$/", $opt, $matches))
-      {
-        $opt = trim($opt, "=");
-        $value = TRUE;
-        $required = strlen($matches[1]) == 2;
-      }
-      
-      $longopts[$opt] = array($value, $required);
-    }
-    
-    return $longopts;
   }
     
   /**

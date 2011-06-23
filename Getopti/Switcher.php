@@ -38,7 +38,7 @@ class Switcher {
    * @access  private
    * @var     array   the defined short options
    */
-  public $_shortopts = '';
+  public $_shortopts = array();
   
   /**
    * @access  private
@@ -81,15 +81,15 @@ class Switcher {
    * @return  void
    */
   public function add(\Getopti\Option $option)
-  {
+  { 
     if ( ! empty($option->short))
     {
-      $this->_shortopts .= $option->short_string();
+      $this->_shortopts[$option->short] = $option->rule;
     }
     
     if ( ! empty($option->long))
     {
-      $this->_longopts[] = $option->long_string();
+      $this->_longopts[$option->long] = $option->rule;
     }
     
     if ( ! empty($option->short) && ! empty($option->long))
