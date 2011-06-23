@@ -56,29 +56,33 @@ This method is used to add options. Option data is automatically added to the au
 
 **Examples**
 
-Specify only the short option `-v` for indicating verbose output in your app:
+Specify only the short option `-v`:
 
-    $opts->on('v', NULL, 'output more information where applicable');
+    $opts->on('v');
 
-Specify only the long option `--verbose` for indicating verbose output in your app:
+Specify only the long option `--verbose`:
 
-    $opts->on('verbose', NULL, 'output more information where applicable');
+    $opts->on('verbose');
 
-Specify both `-v` and `--verbose` options for indicating verbose output in your app:
+Specify both `-v` and `--verbose` options:
 
-    $opts->on(array('v', 'verbose'), NULL, 'output more information where applicable');
+    $opts->on(array('v', 'verbose'));
 
-Specify the option `--revision` that expects a REQUIRED revision number as a parameter (*Getopti will raise a `Getopti\Exception` if the parameter is missing.*):
+Specify the option `--revision` that expects a **REQUIRED** parameter (*Getopti will raise a `Getopti\Exception` if the parameter is missing.*):
 
-    $opts->on('revision', 'REV', 'specify the revision number to operate on');
+    $opts->on('revision', 'REV');
 
-Specify the option `--revision` that expects an [OPTIONAL] revision number as a parameter:
+Specify the option `--revision` that expects an **[OPTIONAL]** parameter:
 
     $opts->on('revision', '[REV]', 'specify the revision number to operate on');
 
-Specify the option `--revision` with an [OPTIONAL] revision number that defaults to `HEAD`:
+Specify the option `--revision` with an **[OPTIONAL]** parameter that defaults to `HEAD`:
 
     $opts->on('revision', array('[REV]', 'HEAD'));
+
+Specify the option `--revision` with an **REQUIRED** parameter that can be specified multiple times using the `[+]` indicator:
+
+    $opts->on('revision', 'REV [+]');
 
 Specify both the `-h` and `--help` options, using a callback to display automated help output:
 
@@ -159,7 +163,7 @@ $opts->on('ext', array('[EXT]', 'txt'), 'set the file extension',
   }
 );
 
-$opts->on(array('C', 'content'), 'CONTENT', 'add content to the file',
+$opts->on(array('C', 'content'), 'CONTENT [+]', 'add content to the file',
   function ($content) use ($APP) {
     $APP->add_content($content);
   }
@@ -188,9 +192,10 @@ To output usage information for the above command, use `$opts->help()`. It would
      A really, really hard way to create a file!
      
     command options:
-     -N , --name [PATH]       set the name of the file
+     -N, --name [PATH]       set the name of the file
          --ext [EXT]         set the file extension
-     -C, --content CONTENT   add content to this file
+     -C, --content CONTENT [+]
+                             add content to this file
     
     global options:
          --help              show help information for a given command
@@ -233,8 +238,8 @@ The following variables will be populated after parsing:
 After parsing, the `$opts->options` property will hold an array of values indexed based on the option used to specify them:
 
     $flattened = array(
-      'name'    => array('my_file'),
-      'ext'     => array('txt'),
+      'name'    => 'my_file',
+      'ext'     => 'txt',
       'content' => array('I love PHP!', 'Getopti rules!'),
       'help'    => FALSE
     );
@@ -242,6 +247,7 @@ After parsing, the `$opts->options` property will hold an array of values indexe
 The following rules explain how the above options are organized:
 
 1. They are sorted based on the order in which they were set using the `$opts->on()` method.
+2. **Non-mulitple** options (no `[+]` in the param string) are single values, whereas **multiple** allowed option's values can be accessed through an array (Note `name` is single value and `content` is an array).
 2. If a long option is present, they will be indexed based on the long option. Otherwise, we use the short option.
 3. Uncalled options will be set to `FALSE` unless a default was given (note that neither `-h`, `--help` or `--ext` was called in the arguments from the example above).
 4. If the option accepts a parameter, it can be specified multiple times. If it doesn't accept a parameter, it will either be set to `TRUE` (indicated in the arguments) or `FALSE` (not indicated).
