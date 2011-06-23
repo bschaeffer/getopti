@@ -74,7 +74,7 @@ Specify the option `--revision` that expects a **REQUIRED** parameter (*Getopti 
 
 Specify the option `--revision` that expects an **[OPTIONAL]** parameter:
 
-    $opts->on('revision', '[REV]', 'specify the revision number to operate on');
+    $opts->on('revision', '[REV]');
 
 Specify the option `--revision` with an **[OPTIONAL]** parameter that defaults to `HEAD`:
 
