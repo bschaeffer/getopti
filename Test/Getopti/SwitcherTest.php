@@ -43,6 +43,34 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     );
   }
   
+  // --------------------------------------------------------------------
+  
+  public function repeatOptionsProvider()
+  {
+    return array(
+      array('a', NULL),
+      array(NULL, 'long')
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::add
+   * 
+   * @dataProvider  repeatOptionsProvider
+   */
+  public function options_can_only_be_registered_once($short, $long)
+  {
+    $this->setExpectedException('InvalidArgumentException');
+    $first = new Option('a', 'long');
+    $repeat = new Option($short, $long);
+    
+    $this->switcher->add($first);
+    $this->switcher->add($repeat);
+  }
+  
+  // --------------------------------------------------------------------
+  
   /**
    * @test
    * @covers  Getopti\Switcher::add

@@ -83,12 +83,28 @@ class Switcher {
   public function add(\Getopti\Option $option)
   { 
     if ( ! empty($option->short))
-    {
+    { 
+      if (isset($this->_shortopts[$option->short]))
+      {
+        throw new \InvalidArgumentException(sprintf(
+          "Options cannot be specified twice. '%s' already added.",
+          $option->short
+        ));
+      }
+      
       $this->_shortopts[$option->short] = $option->rule;
     }
     
     if ( ! empty($option->long))
     {
+      if (isset($this->_longopts[$option->long]))
+      {
+        throw new \InvalidArgumentException(sprintf(
+          "Options cannot be specified twice. '%s' already added.",
+          $option->long
+        ));
+      }
+      
       $this->_longopts[$option->long] = $option->rule;
     }
     
