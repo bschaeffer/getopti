@@ -150,38 +150,15 @@ class OptionTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti\Option::long_string
-   * @covers  Getopti\Option::_opt_string
+   * @covers  Getopti\Option::_parse_parameter
    * 
    * @dataProvider  parameterProvider
    */
-  public function generates_long_opt_strings_correctly($opts, $string, $required)
-  {
-    $option = Option::build('long', $opts);
-    $pad = (empty($string)) ? 0 : ( ! $required) ? 1 : 2;
-    
-    $this->assertEquals(
-      'long'.str_repeat(Option::INDICATOR_LONG, $pad),
-      $option->long_string()
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Option::short_string
-   * @covers  Getopti\Option::_opt_string
-   * 
-   * @dataProvider  parameterProvider
-   */
-  public function generates_short_opt_strings_correctly($opts, $string, $required)
+  public function sets_parsing_rules_correctly($opts, $string, $required)
   {
     $option = Option::build('a', $opts);
-    $pad = (empty($string)) ? 0 : ( ! $required) ? 1 : 2;
-    
-    $this->assertEquals(
-      'a'.str_repeat(Option::INDICATOR_SHORT, $pad),
-      $option->short_string()
-    );
+    $expected = array( ! empty($string), $required);
+    $this->assertSame($expected, $option->rule);
   }
   
   // --------------------------------------------------------------------

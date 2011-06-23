@@ -4,6 +4,35 @@ use Getopti\Parser;
 
 class ParserTest extends PHPUnit_Framework_TestCase {
   
+  public $l_none     = array(FALSE, FALSE);
+  public $l_optional = array(TRUE, FALSE);
+  public $l_required = array(TRUE, TRUE);
+  
+  /**
+   * Parameter rule generation functions.
+   */
+  protected function none()
+  {
+    return $this->_generate_rule(func_get_args(), $this->l_none);
+  }
+  
+  protected function optional()
+  {
+    return $this->_generate_rule(func_get_args(), $this->l_optional);
+  }
+  
+  protected function required()
+  {
+    return $this->_generate_rule(func_get_args(), $this->l_required);
+  }
+
+  protected function _generate_rule($opts, $rule)
+  {
+    $rules = array();
+    foreach ($opts as $opt) $rules[$opt] = $rule;
+    return $rules;
+  }
+  
   // --------------------------------------------------------------------
   
   public function longoptProvider()
@@ -76,13 +105,8 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   public function validShortoptArgumentProvider()
   {
-    // $rules[0] returns the actual rule (a::)
-    // $rules[1] returns expected from Parser::get_shortopts
     $rules = function ($v, $r) {
-      $rule = 'a';
-      if($v) $rule .= ":";
-      if($r) $rule .= ":";
-      return array( $rule, array('a' => array($v, $r)) );
+      return array('a' => array($v, $r));
     };
     
     $return = function ($v) {
@@ -96,18 +120,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       array( array('-a', 'value'),  $rules(TRUE, TRUE),   $return('value') )
     );
   }
-  
-  /**
-   * @test
-   * @covers  Getopti\Parser::get_shortopts
-   * 
-   * @dataProvider validShortoptArgumentProvider
-   */
-  public function sets_up_shortopts_correctly($args, $rules)
-  {
-    $results = Parser::get_shortopts($rules[0]);
-    $this->assertSame($rules[1], $results);
-  }
     
   /**
    * @test
@@ -118,21 +130,16 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_valid_short_arguments_correctly($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Parser::parse($args, $rules[0], array());
+    list($opts, $nonopts) = Parser::parse($args, $rules, array());
     $this->assertSame($expected, $opts);
   }
   
   // --------------------------------------------------------------------
   
   public function validLongoptArgumentProvider()
-  {
-    // $rules[0] returns the actual rule (long==)
-    // $rules[1] returns as if Parser::get_longopts was called
+  {    
     $rules = function ($v, $r) {
-      $rule = 'long';
-      if($v) $rule .= "=";
-      if($r) $rule .= "=";
-      return array( array($rule), array('long' => array($v, $r)) );
+      return array('long' => array($v, $r));
     };
     
     $return = function ($v) {
@@ -147,18 +154,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       array( array('--long', 'value'),  $rules(TRUE, TRUE),   $return('value') )
     );
   }
-  
-  /**
-   * @test
-   * @covers  Getopti\Parser::get_longopts
-   * 
-   * @dataProvider validLongoptArgumentProvider
-   */
-  public function sets_up_longopts_correctly($args, $rules)
-  {
-    $results = Parser::get_longopts($rules[0]);
-    $this->assertSame($rules[1], $results);
-  }
     
   /**
    * @test
@@ -169,7 +164,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_valid_longopts_correctly($args, $rules, $expected)
   {
-    list($opts, $nonopts) = Parser::parse($args, '', $rules[0]);
+    list($opts, $nonopts) = Parser::parse($args, array(), $rules);
     $this->assertSame($expected, $opts);
   }
   
@@ -202,7 +197,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    */
   public function parses_consecutive_shortopts_correctly($args, $expected)
   {
-    list($opts, $nonopts) = Parser::parse($args, 'a:b:', array());
+    list($opts, $nonopts) = Parser::parse($args, $this->optional('a', 'b'), array());
     $this->assertSame($expected, $opts);
   }
   
@@ -212,18 +207,17 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   {
     return array(
       array(
-        array('-a','nonoption', '--', '--long'),
-        array('a', array('long')),
+        array('-a','nonoption', '--', '--long'),      // the arguments
+        array($this->none('a'), $this->none('long')), // the param rules
         array(
           array(array('a', NULL)),  // option results
           array('nonoption'),       // nonopt results
           array('--long')           // breakopt results
         )
-          
       ),
       array(
         array('--long', '--', 'breakopt', '-a'),
-        array('a', array('long=')),
+        array($this->none('a'), $this->optional('long')),
         array(
           array(array('long', NULL)),
           array(),
@@ -253,12 +247,12 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   public function illegalOptionProvider()
   {
     return array(
-      array( array('-a'),                   array('b', array()) ),
-      array( array('-a', '-b'),             array('b', array()) ),
-      array( array('-ab'),                  array('a', array()) ),
-      array( array('-ab'),                  array('b', array()) ),
-      array( array('--illegal'),            array('', array('long')) ),
-      array( array('--long', '--illegal'),  array('', array('long')) ),
+      array( array('-a'),                   array($this->none('b'), array()) ),
+      array( array('-a', '-b'),             array($this->none('a'), array()) ),
+      array( array('-ab'),                  array($this->none('b'), array()) ),
+      array( array('-ab'),                  array($this->none('b'), array()) ),
+      array( array('--illegal'),            array(array(), $this->none('long')) ),
+      array( array('--long', '--illegal'),  array(array(), $this->none('long')) ),
     );
   }
   
@@ -281,12 +275,14 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   public function optionMissingParameterProvider()
   {
     return array(
-      array( array('-a'),                array('a::', array()) ),
-      array( array('-a', '-b'),          array('a::b', array()) ),
-      array( array('-ab'),               array('a::b', array()) ),
-      array( array('-ab'),               array('ab::', array()) ),
-      array( array('--long'),            array('', array('long==', 'other')) ),
-      array( array('--long', '--other'), array('', array('long==', 'other')) ),
+      array( array('-a'),                 array($this->required('a'), array()) ),
+      array( array('-a', '-b'),           array($this->required('a') + $this->none('b'), array()) ),
+      array( array('-ab'),                array($this->required('a') + $this->none('b'), array()) ),
+      array( array('-ab'),                array($this->none('a') + $this->required('b'), array()) ),
+      array( array('--long'),             array(array(), $this->required('long')) ),
+      array( array('--long='),            array(array(), $this->required('long')) ),
+      array( array('--long', '--other'),  array(array(), $this->required('long') + $this->none('other')) ),
+      array( array('--long=', '--other'), array(array(), $this->required('long') + $this->none('other')) ),
     );
   }
 
@@ -297,10 +293,10 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Parser::_parse_longopt
    * 
    * @dataProvider optionMissingParameterProvider
-   * @expectedException Getopti\Exception
    */
   public function option_missing_parameter_raises_exception($args, $opts)
   {
+    $this->setExpectedException('Getopti\\Exception');
     Parser::parse($args, $opts[0], $opts[1]);
   }
   
@@ -345,8 +341,8 @@ class ParserTest extends PHPUnit_Framework_TestCase {
    * @dataProvider optionAsPossibleValueProvider
    */
   public function does_not_set_options_as_values($args, $expected)
-  {
-    list($opts, $nonopts) = Parser::parse($args, 'a:b:', array('long=', 'other='));
+  {    
+    list($opts, $nonopts) = Parser::parse($args, $this->optional('a', 'b'), $this->optional('long', 'other'));
     $this->assertSame($expected, $opts);
   }
   
@@ -357,7 +353,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     return array(
       array(
         array('-a', '--long'),      // arguments
-        array('a', array('long')),  // rules
+        array($this->none('a'), $this->none('long')),  // rules
         array(                      // option results
           array('a', NULL),
           array('long', NULL)
@@ -366,7 +362,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       ),
       array(
         array('--long', 'value', '-a', 'othervalue'),
-        array('a', array('long')),
+        array($this->none('a'), $this->none('long')),
         array(
           array('long', NULL),
           array('a', NULL)
@@ -375,7 +371,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       ),
       array(
         array('--long', 'value', '-a', 'othervalue'),
-        array('a:', array('long=')),
+        array($this->optional('a'), $this->optional('long')),
         array(
           array('long', 'value'),
           array('a', 'othervalue'),
