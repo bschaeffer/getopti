@@ -252,9 +252,7 @@ The following rules explain how the above options are organized:
 
 In PHP 5.3, you can pass [closures][phpdoc-closures] (anonymous functions) as parameters to other functions so that they may be used as callbacks. This is one of the reasons Getopti requires PHP 5.3.
 
-Here are few examples of how to use closures/callbacks with Getopti (or, for that matter, any PHP application):
-
-### Within an instance of an object:
+Here's an example of how to use closures/callbacks with Getopti (or, for that matter, any PHP application):
 
 ``` php
 <?php
@@ -264,42 +262,15 @@ class Macintosh {
   public $version = "10.7";
   
   function __construct()
-  { 
-    // We must make a copy of $this
-    $self = $this;
-    
-    $opts = new Getopti();
-    
-    // When defining our closures, we must explicitly 'use' the copy.
-    $opts->on(array('v', 'version'), FALSE, 'show version',
-      function ($show) use ($self) {
-        echo "OS X {$self->version}";
-      }
-    );
-    
-    $args = Getopti::read_args();
-    $opts->parse($args);
-  }
-}
-?>
-```
-
-### Statically:
-
-``` php
-<?php
-
-class Macintosh {
-
-  const VERSION = "10.7";
-  
-  function __construct()
   {
     $opts = new Getopti();
     
-    $opts->on('version', FALSE, 'show version',
-      function ($show) {
-        echo "OS X ".Macintosh::VERSION;
+    // We must make a copy of $this and explicitly 'use' it
+    $self = $this;
+    
+    $opts->on(array('v', 'version'), FALSE, 'show version',
+      function ($show) use ($self) {
+        echo "OS X {$self->version}";
       }
     );
     
@@ -317,8 +288,9 @@ class Macintosh {
 
 ## Problems to Solve/Todo
 
+* Validations are needed (i.e. making sure the same option can only get set once, etc...).
 * Much more documentation is needed (variables, constants, etc..)
-* A few more tests are needed (run `phpunit . && open Reports/index.html` for info on what needs testing)
+* A few more tests are needed (run `phpunit Test/ && open build/coverage/index.html` for info on what needs testing)
 * Add functionality that would allow indicating which options are allowed to be specified multiple times. Something like "ITEM [+]" or "[ITEM] [+]" (see Mercurial's help output as an example).
 
 ## License
