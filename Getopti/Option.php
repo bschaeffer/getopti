@@ -15,14 +15,13 @@ namespace Getopti;
  * Getopti Option
  *
  * @package     Getopti
- * @since       0.1.0
  */
 class Option {
   
   /**
    * The default option value.
    */
-  const OPTION_DEFAULT = FALSE;
+  const OPTION_DEFAULT = NULL;
   
   /**
    * The string indicator for specifying an argument can be specified multiple times.
