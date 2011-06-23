@@ -35,6 +35,41 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------------
   
+  public function emptyArgumentProvider()
+  {
+    return array(
+      array(''),
+      array(0),
+      array(0.0),
+      array(NULL),
+      array(FALSE),
+      array(array())
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Parser::parse
+   * 
+   * @dataProvider  emptyArgumentProvider
+   */
+  public function parse_is_liberal_with_empty_data($type)
+  {
+    try
+    {
+      $void = Parser::parse($type, $this->none('a'), $this->none('long'));
+      $void = Parser::parse(array('-a'), $this->none('a'), $type);
+      $void = Parser::parse(array('-a'), $type, $this->none('long'));
+    }
+    catch(Getopti\Exception $e)
+    {
+      $this->fail('Setting an argument to any type of empty value should not raise a Getopt\Exception.');
+      return;
+    }
+  }
+  
+  // --------------------------------------------------------------------
+  
   public function longoptProvider()
   {
     return array(
