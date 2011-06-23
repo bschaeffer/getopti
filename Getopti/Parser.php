@@ -58,10 +58,10 @@ class Parser {
    * @return  array   the array of option results
    */
   public static function parse($args, $shortopts = array(), $longopts = array())
-  {  
-    static::$_args      = $args;
-    static::$_shortopts = $shortopts;
-    static::$_longopts  = $longopts;
+  {
+    static::$_args      = (empty($args)) ? array() : $args;
+    static::$_shortopts = (empty($shortopts)) ? array() : $shortopts;
+    static::$_longopts  = (empty($longopts)) ? array() : $longopts;
     static::$opts       = array();
     static::$nonopts    = array();
     static::$breakopts  = array();

@@ -59,11 +59,14 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     {
       $void = Parser::parse($type, $this->none('a'), $this->none('long'));
       $void = Parser::parse(array('-a'), $this->none('a'), $type);
-      $void = Parser::parse(array('-a'), $type, $this->none('long'));
+      $void = Parser::parse(array('--long'), $type, $this->none('long'));
     }
     catch(Getopti\Exception $e)
     {
-      $this->fail('Setting an argument to any type of empty value should not raise a Getopt\Exception.');
+      $this->fail(
+        'Setting an argument to any type of empty value should not raise a Getopt\Exception. ' .
+        'Parser ERROR: '.$e->getMessage()
+      );
       return;
     }
   }
