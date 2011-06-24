@@ -139,7 +139,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $this->switcher->add($option);
     
     $this->assertFalse(
-      $this->switcher->option['a'],
+      $this->switcher->options['a'],
       'The option value was not set to FALSE by default.'
     );
   }
