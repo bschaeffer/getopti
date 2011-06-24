@@ -144,7 +144,7 @@ class OptionTest extends PHPUnit_Framework_TestCase {
    * 
    * @dataProvider  parameterProvider
    */
-  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE, $default = FALSE)
+  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE, $default = NULL)
   {
     $option = new Option('a', NULL, $opts);
     

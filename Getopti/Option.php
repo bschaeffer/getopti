@@ -73,7 +73,7 @@ class Option {
    * @access  public
    * @var     mixed   the default value of the parameter
    */
-  public $default = FALSE;
+  public $default = NULL;
   
   /**
    * @access  public
