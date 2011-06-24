@@ -113,6 +113,7 @@ class Switcher {
       $this->_short2long[$option->short] = $option->long;
     }
     
+    $this->option["$option"] = FALSE;
     $this->_opts_cache["$option"] = $option;
   }
   

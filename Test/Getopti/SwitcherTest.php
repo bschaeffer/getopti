@@ -131,6 +131,21 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
+   * @covers  Getopti\Switcher::add
+   */
+  public function sets_option_to_empty_value_by_default()
+  {
+    $option = Option::build('a');
+    $this->switcher->add($option);
+    
+    $this->assertFalse(
+      $this->switcher->option['a'],
+      'The option value was not set to FALSE by default.'
+    );
+  }
+  
+  /**
+   * @test
    * @covers  Getopti\Switcher::_run_option
    */
   public function sets_non_parameter_options_to_TRUE_when_specified()
