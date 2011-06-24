@@ -231,9 +231,16 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $option = new Option('a', 'long', '[VALUE]');
     
     $this->switcher->add($option);
-    $this->switcher->parse(array('-a'));
-    $this->assertTrue( ! isset($this->switcher->options['a']));
-    $this->assertTrue(isset($this->switcher->options['long']));
+
+    $this->assertArrayNotHasKey(
+      'a', $this->switcher->options,
+      'The options property contains an index for the short opt when the long opt is present.'
+    );
+
+    $this->assertArrayHasKey(
+      'long', $this->switcher->options,
+      'The options property does not contain an index for the long opt even though one is present.'
+    );
   }
   
   /**
