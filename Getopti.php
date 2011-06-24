@@ -203,7 +203,7 @@ class Getopti {
     
     if ( ! $option instanceof Getopti\Option)
     {
-      $option = Getopti\Option::build($opts, $parameter, $description, $callback);
+      $option = Getopti\Option::build($opts, $parameter, $callback);
     }
     
     $this->switcher->add($option);
