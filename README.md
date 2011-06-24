@@ -84,9 +84,9 @@ Specify the option `--revision` with an **REQUIRED** parameter that can be speci
 
     $opts->on('revision', 'REV [+]');
 
-Specify both the `-h` and `--help` options, using a callback to display automated help output:
+Specify both the `-h` and `--help` options, setting a description and using a callback to display automated help output:
 
-    $opts->on(array('h', 'help'), 'show help information',
+    $opts->on(array('h', 'help'), NULL, 'show help information',
       function ($help) use ($opts) {
         echo $opts->help();
         exit();
