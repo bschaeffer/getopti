@@ -20,6 +20,11 @@ namespace Getopti;
  * @package     Getopti
  */
 class Parser {
+  
+  /**
+   * Default value for all options.
+   */
+  const OPTION_DEFAULT = NULL;
 
   // Parsing variables
   private static $_args = array();
@@ -123,7 +128,7 @@ class Parser {
         throw new \Getopti\Exception("illegal option: -$opt");
       }
       
-      $value = NULL;
+      $value = self::OPTION_DEFAULT;
       
       if (static::$_shortopts[$opt][0])
       {  
@@ -142,13 +147,9 @@ class Parser {
             $value = $possible;
             unset(static::$_args[$next]);
           }
-          
-          if (empty($value) && static::$_shortopts[$opt][1])
-          {
-            throw new \Getopti\Exception("option requires a parameter: '$opt' in -$arg");
-          }
         }
-        elseif (static::$_shortopts[$opt][1])
+        
+        if (empty($value) && static::$_shortopts[$opt][1])
         {
           throw new \Getopti\Exception("option requires a parameter: '$opt' in -$arg");
         }
