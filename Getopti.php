@@ -191,15 +191,20 @@ class Getopti {
    * help output.
    * 
    * @access  public
-   * @param   mixed   string (single option), or array (single option or two options)
+   * @param   mixed   string (single option), array (multiple), or a Getopt\Option object
    * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void
    */
   public function on($opts, $parameter = NULL, $description = '', $callback = NULL)
-  { 
-    $option = Getopti\Option::build($opts, $parameter, $description, $callback);
+  {
+    $option = $opts;
+    
+    if ( ! $option instanceof Getopti\Option)
+    {
+      $option = Getopti\Option::build($opts, $parameter, $description, $callback);
+    }
     
     $this->switcher->add($option);
     $this->output->option(

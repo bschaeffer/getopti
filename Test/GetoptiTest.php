@@ -96,6 +96,26 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
+   * @covers  Getopti::on
+   */
+  public function on_allows_an_Option_object_as_only_parameter()
+  {
+    $option = Getopti\Option::build('a');
+    
+    try
+    {
+      $this->opts->on($option);
+    }
+    catch(Exception $e)
+    {
+      $this->fail(
+        'The Getopti::on method did not allow a Getopti\Option object as the only parameter.'
+      );
+    }
+  }
+  
+  /**
+   * @test
    * @covers  Getopti::command
    */
   public function command()
