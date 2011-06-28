@@ -76,10 +76,6 @@ Specify the option `--revision` that expects an **[OPTIONAL]** parameter:
 
     $opts->on('revision', '[REV]');
 
-Specify the option `--revision` with an **[OPTIONAL]** parameter that defaults to `HEAD`:
-
-    $opts->on('revision', array('[REV]', 'HEAD'));
-
 Specify the option `--revision` with an **REQUIRED** parameter that can be specified multiple times using the `[+]` indicator:
 
     $opts->on('revision', 'REV [+]');

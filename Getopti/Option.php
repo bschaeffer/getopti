@@ -19,11 +19,6 @@ namespace Getopti;
 class Option {
   
   /**
-   * The default option value.
-   */
-  const OPTION_DEFAULT = NULL;
-  
-  /**
    * The string indicator for specifying an argument can be specified multiple times.
    */
   const MULTIPLE_INDICATOR = '[+]';
@@ -71,12 +66,6 @@ class Option {
   
   /**
    * @access  public
-   * @var     mixed   the default value of the parameter
-   */
-  public $default = NULL;
-  
-  /**
-   * @access  public
    * @var     closure the optional callback
    */
   public $callback = NULL;
@@ -121,7 +110,7 @@ class Option {
    * @access  public
    * @param   string  the short opt flag
    * @param   string  the long opt flag
-   * @param   mixed   the parameter string or array with default value
+   * @param   mixed   the parameter string
    * @param   string  the option description
    * @param   closure the optional callback (called when the option is specified)
    * @return  void
@@ -185,30 +174,17 @@ class Option {
    */
   private function _parse_parameter($param)
   {
-    if ( ! is_array($param))
+    if (empty($param)) return;
+    
+    $this->parameter = $param;
+    
+    if (strpos($param, self::MULTIPLE_INDICATOR, strlen($param) - strlen(self::MULTIPLE_INDICATOR)) !== FALSE)
     {
-      $param = array($param, self::OPTION_DEFAULT);
-    }
-    elseif ( ! isset($param[1]))
-    {
-      $param[1] = self::OPTION_DEFAULT;
-    }
-    
-    $string = trim($param[0]);
-    
-    // There's nothing to parse
-    if (empty($string)) return;
-    
-    $this->parameter = $string;
-    $this->default   = $param[1];
-    
-    if (strpos($string, self::MULTIPLE_INDICATOR, strlen($string) - strlen(self::MULTIPLE_INDICATOR)) !== FALSE)
-    {
-      $string = trim(str_replace(self::MULTIPLE_INDICATOR, '', $string));
+      $param = trim(str_replace(self::MULTIPLE_INDICATOR, '', $param));
       $this->multiple = TRUE;
     }
     
-    if ( ! preg_match('/^\[(.+)\]$/', $string))
+    if ( ! preg_match('/^\[(.+)\]$/', $param))
     {
       // No [OPTIONAL] brackets means it's required.
       $this->required = TRUE;

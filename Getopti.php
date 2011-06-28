@@ -205,8 +205,7 @@ class Getopti {
    * 
    * @access  public
    * @param   mixed   string (single option), array (multiple), or a Getopt\Option object
-   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default,
-   *                  or an description if the first option is a Getopti\Option object
+   * @param   mixed   the parameter string or description if the first param is a Getopti\Option object
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void

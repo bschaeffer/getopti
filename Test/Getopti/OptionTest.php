@@ -113,27 +113,18 @@ class OptionTest extends PHPUnit_Framework_TestCase {
   // --------------------------------------------------------------------
   
   public function parameterProvider()
-  {
-    $default = Option::OPTION_DEFAULT;
-    
+  { 
     return array(
       array(
         NULL,     // the param option
         NULL,     // the param string
         FALSE,    // is it required?
         FALSE,    // can it be specified multiple times?
-        $default, // the default value
       ),
       array('VALUE',        'VALUE', TRUE),
       array('[VALUE]',      '[VALUE]', FALSE),
       array('VALUE[+]',     'VALUE[+]', TRUE, TRUE),
       array('[VALUE] [+]',  '[VALUE] [+]', FALSE, TRUE),
-      
-      // Tests user defined defaults
-      array(array(NULL, NULL),                  NULL, FALSE),
-      array(array('VALUE', 'some_value'),       'VALUE', TRUE, FALSE, 'some_value'),
-      array(array('[VALUE] [+]', 'some_value'), '[VALUE] [+]', FALSE, TRUE, 'some_value'),
-      array(array('[VALUE][+]', 'some_value'),  '[VALUE][+]', FALSE, TRUE, 'some_value'),
     );
   }
   
@@ -144,18 +135,13 @@ class OptionTest extends PHPUnit_Framework_TestCase {
    * 
    * @dataProvider  parameterProvider
    */
-  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE, $default = NULL)
+  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE)
   {
     $option = new Option('a', NULL, $opts);
     
     $this->assertSame(
       $string, $option->parameter,
       "The option's parameter string was not set correctly."
-    );
-    
-    $this->assertSame(
-      $default, $option->default,
-      "The option's default was not set correctly."
     );
     
     $this->assertSame(

@@ -165,23 +165,6 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    * @test
    * @covers  Getopti\Switcher::_run_option
    */
-  public function sets_optional_option_with_no_parameter_to_option_default()
-  {
-    $option = new Option('a', NULL, '[VALUE]');
-    
-    $this->switcher->add($option);
-    $this->switcher->parse(array('-a'));
-    
-    $this->assertEquals(
-      $option->default, $this->switcher->options['a'],
-      'Options that accept optional values should be set to the option default if no value is preset.'
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Switcher::_run_option
-   */
   public function non_multiple_allowed_option_values_are_overridden_on_consecutive_calls()
   {
     $option = new Option('a', NULL, '[VALUE]');

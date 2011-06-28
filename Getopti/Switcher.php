@@ -23,6 +23,11 @@ use Getopti\Parser;
 class Switcher {
   
   /**
+   * The default option value
+   */
+  const OPTION_DEFAULT = FALSE;
+  
+  /**
    * @access  private
    * @var     array   a cache of registered Getopti\Option objects
    */
@@ -113,7 +118,7 @@ class Switcher {
       $this->_short2long[$option->short] = $option->long;
     }
     
-    $this->options["$option"] = FALSE;
+    $this->options["$option"] = self::OPTION_DEFAULT;
     $this->_opts_cache["$option"] = $option;
   }
   
@@ -171,11 +176,11 @@ class Switcher {
     elseif ($option->multiple)
     {
       // If it's a multipe, push the value to the option array
-      $this->options[$switch][] = (empty($value)) ? $option->default : $value;
+      $this->options[$switch][] = (empty($value)) ? self::OPTION_DEFAULT : $value;
     }
     else
     {
-      $this->options[$switch] = (empty($value)) ? $option->default : $value; 
+      $this->options[$switch] = (empty($value)) ? self::OPTION_DEFAULT : $value; 
     }
     
     $option->run_callback($value);
