@@ -199,7 +199,7 @@ class Getopti {
    * Using with a Getopti\Option object:
    * 
    * <code>
-   * $option = new Getopti\Option::build($opts, $parameter, $callback);
+   * $option = Getopti\Option::build($opts, $parameter, $callback);
    * $opts->on($option, $description);
    * </code>
    * 
