@@ -190,9 +190,23 @@ class Getopti {
    * Adds options to the switcher and registers them with the automated
    * help output.
    * 
+   * Using with passed parameters:
+   * 
+   * <code>
+   * $opts->on($opts, $parameter, $description, $callback);
+   * </code>
+   * 
+   * Using with a Getopti\Option object:
+   * 
+   * <code>
+   * $option = new Getopti\Option::build($opts, $parameter, $callback);
+   * $opts->on($option, $description);
+   * </code>
+   * 
    * @access  public
    * @param   mixed   string (single option), array (multiple), or a Getopt\Option object
-   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default
+   * @param   mixed   the parameter string (i.e. ITEM or [ITEM]) or array with optional default,
+   *                  or an description if the first option is a Getopti\Option object
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void
@@ -204,6 +218,10 @@ class Getopti {
     if ( ! $option instanceof Getopti\Option)
     {
       $option = Getopti\Option::build($opts, $parameter, $callback);
+    }
+    else
+    {
+      $description = $parameter;
     }
     
     $this->switcher->add($option);
