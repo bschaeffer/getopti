@@ -256,12 +256,7 @@ class Getopti {
     $this->nonopts    = $this->switcher->nonopts;
     $this->breakopts  = $this->switcher->breakopts;
     
-    if ($flatten)
-    {
-      return $this->options;
-    }
-    
-    return $this->results;
+    return ($flatten) ? $this->options : $this->results;
   }
 }
 
