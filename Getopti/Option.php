@@ -83,6 +83,20 @@ class Option {
    */
   public static function build($opts, $param = NULL, $callback = NULL)
   {
+    list($short, $long) = self::parse_opts($opts);
+    
+    return new self($short, $long, $param, $callback);
+  }
+  
+  /**
+   * Parses out the short and long options from a single parameter.
+   * 
+   * @access  public
+   * @param   mixed   a single option string or an array of short/long options
+   * @return  array   the short option, the long option
+   */
+  public static function parse_opts($opts)
+  {
     if ( ! is_array($opts))
     {
       $opts = array($opts, NULL);
@@ -101,7 +115,7 @@ class Option {
       $long = $opts[1];
     }
     
-    return new self($short, $long, $param, $callback);
+    return array($short, $long);
   }
   
   /**
