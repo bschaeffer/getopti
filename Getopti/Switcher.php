@@ -85,7 +85,7 @@ class Switcher {
    * @param   Getopti\Option
    * @return  void
    */
-  public function add(\Getopti\Option $option)
+  public function add(\Getopti\Option\Base $option)
   { 
     if ( ! empty($option->short))
     { 
