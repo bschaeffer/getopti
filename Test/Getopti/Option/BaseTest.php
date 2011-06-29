@@ -137,16 +137,17 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    * @covers  Getopti\Option\Base::set_value
    */
   public function set_value_with_empty_value_sets_TRUE_with_no_parameter()
-  {
+  {           
+    $option = new Base('a', 'long', NULL);
+
     $switcher = $this->getMock('Getopti\\Switcher', array('set'));
     $switcher->expects($this->once())
              ->method('set')
              ->with(
-               $this->equalTo('long'),
+               $this->equalTo($option),
                $this->equalTo(TRUE)
              );
-                   
-    $option = new Base('a', 'long', NULL);
+
     $option->set_value($switcher, NULL);
   }
   
@@ -156,15 +157,16 @@ class BaseTest extends PHPUnit_Framework_TestCase {
    */
   public function set_value_for_multiple_pushes_value()
   {
+    $option = new Base('a', 'long', 'PARAM [+]');
+    
     $switcher = $this->getMock('Getopti\\Switcher', array('push'));
     $switcher->expects($this->once())
              ->method('push')
              ->with(
-               $this->equalTo('long'),
+               $this->equalTo($option),
                $this->equalTo('some value')
              );
-                   
-    $option = new Base('a', 'long', 'PARAM [+]');
+
     $option->set_value($switcher, 'some value');
   }
 }

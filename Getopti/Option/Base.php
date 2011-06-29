@@ -161,12 +161,14 @@ class Base {
     if ($this->multiple)
     {
       // If it's a multiple, push the value to the option array
-      $switcher->push("$this", $value);
+      $switcher->push($this, $value);
     }
     else
     {
-      $switcher->set("$this", $value); 
+      $switcher->set($this, $value); 
     }
+    
+    $this->run_callback($value);
   }
 }
 
