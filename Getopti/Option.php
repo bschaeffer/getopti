@@ -46,10 +46,10 @@ class Option {
    * @param   closure the optional callback
    * @return  Getopti\Option\Base
    */
-  public static function build($opts, $param = NULL, $callback = NULL)
+  public static function build($opts, $params = NULL, $callback = NULL)
   {
     list($short, $long) = self::parse_opts($opts);
-    list($param, $type) = self::parse_param($param);
+    list($param, $type) = self::parse_params($params);
     
     switch ($type)
     {
@@ -98,18 +98,18 @@ class Option {
    * @param   mixed   a single parameter string or a param configuration array
    * @return  array   the parameter string, the option type
    */
-  public static function parse_param($param)
+  public static function parse_params($params)
   {
-    if ( ! is_array($param))
+    if ( ! is_array($params))
     {
-      $param = array($param, self::TYPE_DEFAULT);
+      $params = array($params, self::TYPE_DEFAULT);
     }
-    elseif ( ! isset($param[1]))
+    elseif ( ! isset($params[1]))
     {
-      $param[1] = self::TYPE_DEFAULT;
+      $params[1] = self::TYPE_DEFAULT;
     }
 
-    return $param;
+    return $params;
   }
 }
 
