@@ -194,8 +194,8 @@ class Getopti {
    * </code>
    * 
    * @access  public
-   * @param   mixed   string (single option), array (multiple), or a Getopt\Option object
-   * @param   mixed   the parameter string or description if the first param is a Getopti\Option object
+   * @param   mixed   string (single option), array (multiple), or a Getopt\Option\Base object
+   * @param   mixed   the parameter string or description if the first param is a Getopti\Option\Base object
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void
@@ -204,7 +204,7 @@ class Getopti {
   {
     $option = $opts;
     
-    if ( ! $option instanceof Getopti\Option)
+    if ( ! $option instanceof Getopti\Option\Base)
     {
       $option = Getopti\Option::build($opts, $parameter, $callback);
     }

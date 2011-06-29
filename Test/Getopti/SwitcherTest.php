@@ -77,9 +77,9 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_short2long_association()
   {
-    $this->switcher->add(new Option('a', NULL));
-    $this->switcher->add(new Option(NULL, 'long'));
-    $this->switcher->add(new Option('b', 'other'));
+    $this->switcher->add(Option::build(array('a', NULL)));
+    $this->switcher->add(Option::build(array(NULL, 'long')));
+    $this->switcher->add(Option::build(array('b', 'other')));
     
     $this->assertFalse(
       isset($this->switcher->_short2long['a']),
@@ -103,7 +103,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function sets_parse_results_properties()
   {
     $args = array('-a', 'value', 'nonopt', '--', 'breakopts');
-    $option = new Option('a', NULL);
+    $option = Option::build(array('a', NULL));
     
     $expected = Getopti\Parser::parse($args, array('a' => $option->rule));
     
@@ -150,7 +150,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_non_parameter_options_to_TRUE_when_specified()
   {
-    $option = new Option('a', NULL);
+    $option = Option::build(array('a', NULL));
     
     $this->switcher->add($option);
     $this->switcher->parse(array('-a'));
