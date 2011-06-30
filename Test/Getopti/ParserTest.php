@@ -218,7 +218,35 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       "Final option in a consecutive short option string did not have it's value set correctly."
     );
   }
+
+  // --------------------------------------------------------------------
+
+  /**
+   * @test
+   * @covers  Getopti\Parser::parse
+   */
+  public function sets_non_opts_correctly()
+  {
+    $args = array('-a', 'a-value', 'non-one', '--long', 'non-two');
+    list($opts, $nonopts) = Parser::parse($args, $this->optional('a'), $this->none('long'));
+
+    $this->assertNotContains(
+      'a-value', $nonopts,
+      'Parser extracted the "-a" option value "a-value" as a non-option.'
+    );
+
+    $this->assertContains(
+      'non-one', $nonopts,
+      'Parser failed to extract "non-one" non-option.'
+    );
+
+    $this->assertContains(
+      'non-two', $nonopts,
+      'Parser failed to extract "non-two" non-option.'
+    );
+  }
   
+
   // --------------------------------------------------------------------
   
   /**
