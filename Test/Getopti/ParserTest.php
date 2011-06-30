@@ -364,6 +364,31 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       'Parser should not set one option as the value of another option.'
     );
   }
+  
+  // --------------------------------------------------------------------
+  
+  public function nonEmptyGetoptiValuesProvider()
+  {
+    return array(
+      array(0),
+      array(0.0),
+      array('0'),
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Parser::is_empty
+   * 
+   * @dataProvider nonEmptyGetoptiValuesProvider
+   */
+  public function certain_user_submittable_empty_values_are_not_considered_empty($value)
+  {
+    $this->assertFalse(
+      Parser::is_empty($value),
+      "Certain values PHP considers empty should not be considered empty by Getopti."
+    );
+  }
 }
 
 /* End of file ParserTest.php */
