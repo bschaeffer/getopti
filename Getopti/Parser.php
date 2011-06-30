@@ -13,9 +13,9 @@
 namespace Getopti;
 
 /**
- * Getopt Parser Class 
+ * Getopti Parser Class 
  *
- * Parses a given set of options and arguements
+ * Parses a given set of options and arguments
  *
  * @package     Getopti
  */
