@@ -149,7 +149,9 @@ class OptionTest extends PHPUnit_Framework_TestCase {
         'PARAM',              // expected pared string
         Option::TYPE_DEFAULT, // expected parsed type
       ),
-      array(array('PARAM'), 'PARAM', Option::TYPE_DEFAULT)
+      array(array('PARAM'), 'PARAM', Option::TYPE_DEFAULT),
+      array(NULL,           NULL, Option::TYPE_BOOL),
+      array(array(NULL),    NULL, Option::TYPE_BOOL)
     );
   }
 

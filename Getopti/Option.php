@@ -102,16 +102,17 @@ class Option {
    */
   public static function parse_params($params)
   {
-    if ( ! is_array($params))
+    $params = (array)$params;
+
+    $string = (isset($params[0])) ? $params[0] : NULL;
+    $type = (isset($params[1])) ? $params[1] : NULL;
+    
+    if (empty($type))
     {
-      $params = array($params, self::TYPE_DEFAULT);
-    }
-    elseif ( ! isset($params[1]))
-    {
-      $params[1] = self::TYPE_DEFAULT;
+      $type = (empty($string)) ? self::TYPE_BOOL : self::TYPE_DEFAULT;
     }
 
-    return $params;
+    return array($string, $type);
   }
 }
 
