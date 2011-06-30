@@ -67,7 +67,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
         'Setting an argument to any type of empty value should not raise a Getopt\Exception. ' .
         'Parser ERROR: '.$e->getMessage()
       );
-      return;
     }
   }
   
