@@ -21,7 +21,8 @@ class Option {
   /**
    * Option TYPE constants.
    */
-  const TYPE_DEFAULT = 'default';
+  const TYPE_DEFAULT  = 'default';
+  const TYPE_BOOL     = 'bool';
 
   /**
    * The string indicator for specifying an argument can be specified multiple times.
@@ -54,6 +55,7 @@ class Option {
     switch ($type)
     {
       case self::TYPE_DEFAULT:  return new Option\Base($short, $long, $param, $callback);
+      case self::TYPE_BOOL:     return new Option\Bool($short, $long, NULL, $callback);
       
       default:
         throw new \InvalidArgumentException(sprintf("Invalid option type: '%s'", $type));
