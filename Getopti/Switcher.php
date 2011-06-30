@@ -177,6 +177,7 @@ class Switcher {
   public function set(\Getopti\Option\Base $option, $value)
   {
     $this->options["$option"] = $value;
+    $option->run_callback($value);
   }
   
   /**
@@ -198,6 +199,8 @@ class Switcher {
     
     $this->options[$ref][] = $value;
     $this->options[$ref] = array_unique($this->options[$ref]);
+    
+    $option->run_callback();
   }
 }
 

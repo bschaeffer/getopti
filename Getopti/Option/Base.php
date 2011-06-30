@@ -167,8 +167,6 @@ class Base {
     {
       $switcher->set($this, $value); 
     }
-    
-    $this->run_callback($value);
   }
 }
 
