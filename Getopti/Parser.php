@@ -24,7 +24,7 @@ class Parser {
   /**
    * Default value for all options.
    */
-  const OPTION_DEFAULT = NULL;
+  const OPTION_DEFAULT = TRUE;
 
   // Parsing variables
   private static $_args = array();

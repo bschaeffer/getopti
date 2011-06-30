@@ -359,7 +359,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     
     list($opts, $nonopts) = Parser::parse(array($arg_one, $arg_two), $short, $long);
     
-    $this->assertNotEquals(
+    $this->assertNotSame(
       $arg_two, $opts[0][1],
       'Parser should not set one option as the value of another option.'
     );

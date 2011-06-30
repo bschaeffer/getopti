@@ -148,10 +148,10 @@ class Switcher {
    * 
    * @access  public
    * @param   string  the option specified
-   * @param   mixed   either NULL or the value of the item
+   * @param   mixed   the value of the item
    * @return  void
    */
-  private function _run_option($opt, $value = NULL)
+  private function _run_option($opt, $value = TRUE)
   {
     $switch = $opt;
     
@@ -162,9 +162,6 @@ class Switcher {
     }
     
     $option = $this->_opts_cache[$switch];
-    
-    // Tmp fix
-    $value = (is_null($value)) ? TRUE : $value;
     
     $option->set_value($this, $value);
   }
