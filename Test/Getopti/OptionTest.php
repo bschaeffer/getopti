@@ -50,6 +50,38 @@ class OptionTest extends PHPUnit_Framework_TestCase {
 
   // --------------------------------------------------------------------
 
+  public function optionTypeProvider()
+  {
+    return array(
+      array(Option::TYPE_DEFAULT, 'Getopti\\Option\\Base'),
+      array(OPTION::TYPE_BOOL,    'Getopti\\Option\\Bool')
+    );
+  }
+
+  /**
+   * @test
+   * @covers  Getopti\Option::build
+   *
+   * @dataProvider  optionTypeProvider
+   */
+  public function build_returns_correct_option_type($type, $expected_class)
+  {
+    $option = Option::build('a', array('PARAM', $type));
+    $this->assertInstanceOf($expected_class, $option);
+  }
+
+  /**
+   * @test
+   * @covers  Getopti\Option::build
+   */
+  public function build_throws_exception_for_invalid_option_type()
+  {
+    $this->setExpectedException('InvalidArgumentException');
+    $option = Option::build('a', array(NULL, 'invalid_type'));
+  }
+
+  // --------------------------------------------------------------------
+
   public function optsProvider()
   {
     return array(
