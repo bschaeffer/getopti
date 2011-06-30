@@ -336,69 +336,6 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       'Parser should not set one option as the value of another option.'
     );
   }
-  
-  // --------------------------------------------------------------------
-  
-  public function mixedArgumentProvider()
-  {
-    return array(
-      array(
-        array('-a', '--long'),      // arguments
-        array($this->none('a'), $this->none('long')),  // rules
-        array(                      // option results
-          array('a', NULL),
-          array('long', NULL)
-        ),
-        array()                     // nonopt results
-      ),
-      array(
-        array('--long', 'value', '-a', 'othervalue'),
-        array($this->none('a'), $this->none('long')),
-        array(
-          array('long', NULL),
-          array('a', NULL)
-        ),
-        array('value', 'othervalue')
-      ),
-      array(
-        array('--long', 'value', '-a', 'othervalue'),
-        array($this->optional('a'), $this->optional('long')),
-        array(
-          array('long', 'value'),
-          array('a', 'othervalue'),
-        ),
-        array()
-      ),
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Parser::parse
-   * @covers  Getopti\Parser::_parse_shortopt
-   * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @dataProvider  mixedArgumentProvider
-   */
-  public function parses_mixed_arguments_correctly($args, $rules, $expected)
-  {
-    list($opts, $nonopts) = Parser::parse($args, $rules[0], $rules[1]);
-    $this->assertSame($expected, $opts);
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Parser::parse
-   * @covers  Getopti\Parser::_parse_shortopt
-   * @covers  Getopti\Parser::_parse_longopt
-   * 
-   * @dataProvider mixedArgumentProvider
-   */
-  public function returns_correct_nonoptions($args, $rules, $ignore, $expected)
-  {
-    list($opts, $nonopts) = Parser::parse($args, $rules[0], $rules[1]);
-    $this->assertSame($expected, $nonopts);
-  }
 }
 
 /* End of file ParserTest.php */
