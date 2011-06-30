@@ -69,41 +69,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
       );
     }
   }
-  
-  // --------------------------------------------------------------------
-  
-  public function longoptProvider()
-  {
-    return array(
-      array(
-        '--a0',   // the longopt
-        TRUE      // expected validity
-      ),
-      array('--a0=',    TRUE),
-      array('--a-0',    TRUE),
-      array('--a-0=',   TRUE),
-      array('-a',       FALSE),
-      array('-ab',      FALSE),
-      array('--a',      FALSE),
-      array('--a=',     FALSE),
-      array('-',        FALSE),
-      array('--',       FALSE),
-      array('---',      FALSE),
-      array('non-opt',  FALSE),
-    );
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Parser::is_longopt
-   * 
-   * @dataProvider longoptProvider
-   */
-  public function is_longopt($long, $validity)
-  {
-    $this->assertEquals($validity, Parser::is_longopt($long));
-  }
-  
+
   // --------------------------------------------------------------------
 
   public function shortoptProvider()
@@ -136,6 +102,40 @@ class ParserTest extends PHPUnit_Framework_TestCase {
   public function is_shortopt($short, $validity)
   {
     $this->assertEquals($validity, Parser::is_shortopt($short));
+  }
+  
+  // --------------------------------------------------------------------
+
+  public function longoptProvider()
+  {
+    return array(
+      array(
+        '--a0',   // the longopt
+        TRUE      // expected validity
+      ),
+      array('--a0=',    TRUE),
+      array('--a-0',    TRUE),
+      array('--a-0=',   TRUE),
+      array('-a',       FALSE),
+      array('-ab',      FALSE),
+      array('--a',      FALSE),
+      array('--a=',     FALSE),
+      array('-',        FALSE),
+      array('--',       FALSE),
+      array('---',      FALSE),
+      array('non-opt',  FALSE),
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Parser::is_longopt
+   * 
+   * @dataProvider longoptProvider
+   */
+  public function is_longopt($long, $validity)
+  {
+    $this->assertEquals($validity, Parser::is_longopt($long));
   }
   
   // --------------------------------------------------------------------
