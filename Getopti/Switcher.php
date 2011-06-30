@@ -163,6 +163,9 @@ class Switcher {
     
     $option = $this->_opts_cache[$switch];
     
+    // Tmp fix
+    $value = (is_null($value)) ? TRUE : $value;
+    
     $option->set_value($this, $value);
   }
   
