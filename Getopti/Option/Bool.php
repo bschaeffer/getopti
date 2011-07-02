@@ -17,7 +17,8 @@ namespace Getopti\Option;
 class Bool extends Base {
   
   /**
-   * Formats the value
+   * Boolean option values are either TRUE or FALSE, so let's make sure
+   * they get set like that.
    * 
    * @access  public
    * @param   Getopti\Switcher

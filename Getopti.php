@@ -34,12 +34,13 @@ class Getopti {
    * Getopti Version
    */
   const VERSION = '0.1.4';
-    
-  /**
+   
+  /**#@+
    * Separator matchers for optional argument parameters
    */
   const OPTIONAL_SEP_LEFT   = "[";
   const OPTIONAL_SEP_RIGHT  = "]";
+  /**#@-*/
   
   /**
    * The default output width
@@ -237,12 +238,12 @@ class Getopti {
   }
   
   /**
-   * A warpper for Getopti\Switcher::parse. Requires that you pass your
-   * own arguments
+   * A wrapper for Getopti\Switcher::parse. Requires that you pass your
+   * own arguments.
    * 
    * @access  public
    * @param   array   the arguments to parse
-   * @param   array   whether or not to return a flat, organized array of results
+   * @param   bool    whether or not to return a flat, organized array of results
    * @return  array   an array of options, depending on $flatten
    */
   public function parse(array $args, $flatten = FALSE)

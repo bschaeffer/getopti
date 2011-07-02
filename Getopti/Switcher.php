@@ -82,7 +82,7 @@ class Switcher {
    * to be used by the Getopti\Parser.
    * 
    * @access  public
-   * @param   Getopti\Option
+   * @param   Getopti\Option\Base
    * @return  void
    */
   public function add(\Getopti\Option\Base $option)

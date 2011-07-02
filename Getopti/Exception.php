@@ -12,8 +12,11 @@
 namespace Getopti;
 
 /**
- * Getopti Exception Class
- *
+ * Getopti Exception Class.
+ * 
+ * These exceptions will be thrown for errors pertaining to the user,
+ * not runtime errors.
+ * 
  * @package     Getopti
  */
 class Exception extends \Exception {}

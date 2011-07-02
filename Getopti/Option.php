@@ -17,12 +17,13 @@ namespace Getopti;
  * @package     Getopti
  */
 class Option {
-  
-  /**
+   
+  /**#@+
    * Option TYPE constants.
    */
   const TYPE_DEFAULT  = 'default';
   const TYPE_BOOL     = 'bool';
+  /**#@-*/
 
   /**
    * The string indicator for specifying an argument can be specified multiple times.
@@ -30,7 +31,7 @@ class Option {
   const MULTIPLE_INDICATOR = '[+]';
   
   /**
-   * The multpile indicator matcher.
+   * The multiple indicator matcher.
    */
   const MULTIPLE_MATCHER = "/\[\+\]$/";
   
@@ -38,8 +39,6 @@ class Option {
   
   /**
    * Fast way to build the correct properties for a new option object.
-   * 
-   * 
    * 
    * @access  public
    * @param   mixed   a single option or an array of short/long options
@@ -94,7 +93,7 @@ class Option {
   }
   
   /**
-   * Parses out the param configuration from a single parameter.
+   * Parses out the param configuration from a parameter string/array.
    * 
    * @access  public
    * @param   mixed   a single parameter string or a param configuration array
