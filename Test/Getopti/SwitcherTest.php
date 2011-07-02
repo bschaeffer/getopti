@@ -237,7 +237,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
              ->method('callback')
              ->with('some_value');
     
-    $option = Option::build(array('a', NULL), '[VALUE]', array($callback, 'callback'));
+    $option = Option::build(array('a', 'long'), '[VALUE]', array($callback, 'callback'));
 
     $this->switcher->add($option);
     $this->switcher->parse(array('-a', 'some_value'));
