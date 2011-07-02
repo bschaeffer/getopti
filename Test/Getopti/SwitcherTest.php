@@ -242,6 +242,66 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
     $this->switcher->add($option);
     $this->switcher->parse(array('-a', 'some_value'));
   }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::set
+   */
+  public function set_sets_value_correctly()
+  {
+    $option = Option::build('a');
+    $this->switcher->add($option);
+    $this->switcher->set($option, 'value');
+    
+    $this->assertEquals(
+      'value', $this->switcher->options['a'],
+      "Switcher::set did not set the option value correctly."
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::set
+   */
+  public function set_called_twice_overrides_previous_value()
+  {
+    $option = Option::build('a');
+    $this->switcher->add($option);
+    $this->switcher->set($option, 'value');
+    $this->switcher->set($option, 'another_value');
+    
+    $this->assertEquals(
+      'another_value', $this->switcher->options['a'],
+      "Switcher::set did not override the option value correctly."
+    );
+  }
+  
+  /**
+   * @test
+   * @covers  Getopti\Switcher::push
+   */
+  public function push_adds_value_correctly()
+  {
+    $option = Option::build('a');
+    $this->switcher->add($option);
+    $this->switcher->push($option, 'value');
+    $this->switcher->push($option, 'another_value');
+    
+    $this->assertInternalType(
+      'array', $this->switcher->options['a'],
+      "Switcher::push did not set the the option value to an array."
+    );
+    
+    $this->assertContains(
+      'value', $this->switcher->options['a'],
+      "Switcher::push did add the option value correctly to the array."
+    );
+    
+    $this->assertContains(
+      'another_value', $this->switcher->options['a'],
+      "Switcher::push did add the option value correctly to the array."
+    );
+  }
 }
 
 /* End of file SwitcherTest.php */

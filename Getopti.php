@@ -193,6 +193,13 @@ class Getopti {
    * $opts->on($option, $description);
    * </code>
    * 
+   * Using with a specific Option object:
+   * 
+   * <code>
+   * $option = new Getopti\Bool($short, $long, NULL, $callback);
+   * $opts->on($option, $description);
+   * </code>
+   * 
    * @access  public
    * @param   mixed   string (single option), array (multiple), or a Getopt\Option\Base object
    * @param   mixed   the parameter string or description if the first param is a Getopti\Option\Base object
