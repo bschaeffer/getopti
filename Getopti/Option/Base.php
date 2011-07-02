@@ -124,10 +124,11 @@ class Base {
    * Helper to ensure we are always referencing the long option first
    * before the short one.
    * 
+   * @final
    * @access  public
    * @return  string  the option string representation
    */
-  public function __toString()
+  final public function __toString()
   {
     return $this->reference;
   }
