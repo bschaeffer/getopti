@@ -85,7 +85,7 @@ class Switcher {
    * @param   Getopti\Option
    * @return  void
    */
-  public function add(\Getopti\Option $option)
+  public function add(\Getopti\Option\Base $option)
   { 
     if ( ! empty($option->short))
     { 
@@ -118,8 +118,8 @@ class Switcher {
       $this->_short2long[$option->short] = $option->long;
     }
     
-    $this->options["$option"] = self::OPTION_DEFAULT;
-    $this->_opts_cache["$option"] = $option;
+    $this->options[$option->reference] = self::OPTION_DEFAULT;
+    $this->_opts_cache[$option->reference] = $option;
   }
   
   /**
@@ -148,42 +148,59 @@ class Switcher {
    * 
    * @access  public
    * @param   string  the option specified
-   * @param   mixed   either NULL or the value of the item
+   * @param   mixed   the value of the item
    * @return  void
    */
-  private function _run_option($opt, $value = NULL)
+  private function _run_option($opt, $value = TRUE)
   {
-    // If we have a short option and can covert it to a long,
-    // let's do that
-    
     $switch = $opt;
     
+    // If we have a short option and can covert it to a long, let's do that.
     if (strlen($opt) == 1 && isset($this->_short2long[$opt]))
     {
       $switch = $this->_short2long[$opt];
     }
     
-    // Retrieve the associated cached Getopti\Option object
     $option = $this->_opts_cache[$switch];
     
-    if (empty($value) && empty($option->parameter))
+    $option->set_value($this, $value);
+  }
+  
+  /**
+   * Sets the option value to the given value.
+   * 
+   * @access  public
+   * @param   Getopti\Option\Base
+   * @param   the value
+   * @return  void
+   */
+  public function set(\Getopti\Option\Base $option, $value)
+  {
+    $this->options[$option->reference] = $value;
+    $option->run_callback($value);
+  }
+  
+  /**
+   * Adds the given value to the option value array.
+   * 
+   * @access  public
+   * @param   Getopti\Option\Base
+   * @param   the value
+   * @return  void
+   */
+  public function push(\Getopti\Option\Base $option, $value)
+  {
+    $ref = $option->reference;
+    
+    if ( ! is_array($this->options[$ref]))
     {
-      // If we have an empty value, it's not technically empty. It has
-      // certainly been indicated by the user, so we set it TRUE and
-      // move on.
-      $this->options[$switch] = TRUE;
-    }
-    elseif ($option->multiple)
-    {
-      // If it's a multipe, push the value to the option array
-      $this->options[$switch][] = (empty($value)) ? self::OPTION_DEFAULT : $value;
-    }
-    else
-    {
-      $this->options[$switch] = (empty($value)) ? self::OPTION_DEFAULT : $value; 
+      $this->options[$ref] = array();
     }
     
-    $option->run_callback($value);
+    $this->options[$ref][] = $value;
+    $this->options[$ref] = array_unique($this->options[$ref]);
+    
+    $option->run_callback();
   }
 }
 

@@ -10,23 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.html MIT
  */
 
-// We are either being required from source
 if(strpos('@php_bin@', '@php_bin') === 0)
 {
-  define('GETOPTI_BASEPATH', __DIR__.'/Getopti/');
-}
-// or a PEAR installation
-else
-{
-  define('GETOPTI_BASEPATH', 'Getopti/Getopti/');
+  set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
 }
 
-require GETOPTI_BASEPATH.'Parser.php';
-require GETOPTI_BASEPATH.'Switcher.php';
-require GETOPTI_BASEPATH.'Option.php';
-require GETOPTI_BASEPATH.'Output.php';
-require GETOPTI_BASEPATH.'Exception.php';
-require GETOPTI_BASEPATH.'Utils.php';
+require 'Getopti/Autoload.php';
+Getopti\Autoload::register();
 
 // --------------------------------------------------------------------
 
@@ -204,8 +194,8 @@ class Getopti {
    * </code>
    * 
    * @access  public
-   * @param   mixed   string (single option), array (multiple), or a Getopt\Option object
-   * @param   mixed   the parameter string or description if the first param is a Getopti\Option object
+   * @param   mixed   string (single option), array (multiple), or a Getopt\Option\Base object
+   * @param   mixed   the parameter string or description if the first param is a Getopti\Option\Base object
    * @param   string  description of what the option does
    * @param   closure a callback function to be invoked when the option is specified
    * @return  void
@@ -214,7 +204,7 @@ class Getopti {
   {
     $option = $opts;
     
-    if ( ! $option instanceof Getopti\Option)
+    if ( ! $option instanceof Getopti\Option\Base)
     {
       $option = Getopti\Option::build($opts, $parameter, $callback);
     }

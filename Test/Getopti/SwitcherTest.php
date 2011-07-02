@@ -31,7 +31,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function adds_option()
   {
-    $option = new Option('a', 'long', 'VALUE');
+    $option = Option::build(array('a', 'long'), 'VALUE');
     $this->switcher->add($option);
     
     $this->assertEquals($option->rule, $this->switcher->_shortopts['a']);
@@ -62,8 +62,8 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function options_can_only_be_registered_once($short, $long)
   {
     $this->setExpectedException('InvalidArgumentException');
-    $first = new Option('a', 'long');
-    $repeat = new Option($short, $long);
+    $first = Option::build(array('a', 'long'));
+    $repeat = Option::build(array($short, $long));
     
     $this->switcher->add($first);
     $this->switcher->add($repeat);
@@ -77,9 +77,9 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_short2long_association()
   {
-    $this->switcher->add(new Option('a', NULL));
-    $this->switcher->add(new Option(NULL, 'long'));
-    $this->switcher->add(new Option('b', 'other'));
+    $this->switcher->add(Option::build(array('a', NULL)));
+    $this->switcher->add(Option::build(array(NULL, 'long')));
+    $this->switcher->add(Option::build(array('b', 'other')));
     
     $this->assertFalse(
       isset($this->switcher->_short2long['a']),
@@ -103,7 +103,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
   public function sets_parse_results_properties()
   {
     $args = array('-a', 'value', 'nonopt', '--', 'breakopts');
-    $option = new Option('a', NULL);
+    $option = Option::build(array('a', NULL));
     
     $expected = Getopti\Parser::parse($args, array('a' => $option->rule));
     
@@ -150,7 +150,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function sets_non_parameter_options_to_TRUE_when_specified()
   {
-    $option = new Option('a', NULL);
+    $option = Option::build(array('a', NULL));
     
     $this->switcher->add($option);
     $this->switcher->parse(array('-a'));
@@ -167,7 +167,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function non_multiple_allowed_option_values_are_overridden_on_consecutive_calls()
   {
-    $option = new Option('a', NULL, '[VALUE]');
+    $option = Option::build(array('a', NULL), '[VALUE]');
     
     $this->switcher->add($option);
     $this->switcher->parse(array('-a', 'first_call', '-a', 'second_call'));
@@ -184,7 +184,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function multiple_allowed_options_values_are_pushed_to_an_array()
   {
-    $option = new Option('a', NULL, '[VALUE] [+]');
+    $option = Option::build(array('a', NULL), '[VALUE] [+]');
     
     $this->switcher->add($option);
     $this->switcher->parse(array('-a', 'first_call', '-a', 'second_call'));
@@ -211,7 +211,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
    */
   public function uses_longopts_to_set_option_values_when_available()
   {
-    $option = new Option('a', 'long', '[VALUE]');
+    $option = Option::build(array('a', 'long'), '[VALUE]');
     
     $this->switcher->add($option);
 
@@ -237,7 +237,7 @@ class SwitcherTest extends PHPUnit_Framework_TestCase {
              ->method('callback')
              ->with('some_value');
     
-    $option = new Option('a', NULL, '[VALUE]', array($callback, 'callback'));
+    $option = Option::build(array('a', NULL), '[VALUE]', array($callback, 'callback'));
 
     $this->switcher->add($option);
     $this->switcher->parse(array('-a', 'some_value'));

@@ -10,7 +10,7 @@ class OptionTest extends PHPUnit_Framework_TestCase {
    */
   public function build()
   {
-    $this->assertInstanceOf('Getopti\\Option', Option::build('a'));
+    $this->assertInstanceOf('Getopti\\Option\\Base', Option::build('a'));
   }
   
   // --------------------------------------------------------------------
@@ -47,136 +47,147 @@ class OptionTest extends PHPUnit_Framework_TestCase {
     $long = ($is_long) ? 'long' : NULL;
     $this->assertEquals($long, $option->long);
   }
-  
+
   // --------------------------------------------------------------------
-  
-  /**
-   * @test
-   * @covers  Getopti\Option::__construct
-   */
-  public function requires_at_least_a_short_or_long_option()
-  {
-    $this->setExpectedException('InvalidArgumentException');
-    $void = new Option(NULL, NULL);
-  }
-  
-  // --------------------------------------------------------------------
-  
-  public function optionProvider()
+
+  public function optionTypeProvider()
   {
     return array(
-      array('a', NULL),
-      array(NULL, 'long'),
-      array('a', 'long'),
+      array(Option::TYPE_DEFAULT, 'Getopti\\Option\\Base'),
+      array(OPTION::TYPE_BOOL,    'Getopti\\Option\\Bool')
     );
   }
-  
+
   /**
    * @test
-   * @covers  Getopti\Option::__construct
-   * 
-   * @dataProvider  optionProvider
-   */
-  public function sets_options_correctly($short, $long)
-  {
-    $option = new Option($short, $long);
-    $this->assertEquals($short, $option->short);
-    $this->assertEquals($long, $option->long);
-  }
-  
-  /**
-   * @test
-   * @covers  Getopti\Option::__toString
+   * @covers  Getopti\Option::build
    *
-   * @dataProvider  optionProvider
+   * @dataProvider  optionTypeProvider
    */
-  public function toString_returns_correct_string_reference($short, $long)
+  public function build_returns_correct_option_type($type, $expected_class)
   {
-    $option = new Option($short, $long);
-    
-    $index = (empty($long)) ? $short : $long;
-    $this->assertEquals($index, (string)$option);
+    $option = Option::build('a', array('PARAM', $type));
+    $this->assertInstanceOf($expected_class, $option);
   }
-  
-  // --------------------------------------------------------------------
-  
+
   /**
    * @test
-   * @covers  Getopti\Option::__construct
+   * @covers  Getopti\Option::build
    */
-  public function invalid_callback_raises_an_error()
+  public function build_throws_exception_for_invalid_option_type()
   {
     $this->setExpectedException('InvalidArgumentException');
-    $void = new Option('a', NULL, NULL, 'not_a_valid_callback_function');
+    $option = Option::build('a', array(NULL, 'invalid_type'));
   }
-  
+
   // --------------------------------------------------------------------
-  
-  public function parameterProvider()
-  { 
+
+  public function optsProvider()
+  {
     return array(
       array(
-        NULL,     // the param option
-        NULL,     // the param string
-        FALSE,    // is it required?
-        FALSE,    // can it be specified multiple times?
+        'a',                  // opts argument
+        'a',                  // expected short opt
+        NULL,                 // expected long opt
       ),
-      array('VALUE',        'VALUE', TRUE),
-      array('[VALUE]',      '[VALUE]', FALSE),
-      array('VALUE[+]',     'VALUE[+]', TRUE, TRUE),
-      array('[VALUE] [+]',  '[VALUE] [+]', FALSE, TRUE),
+      array('long',               NULL, 'long'),
+      array(array('a'),           'a', NULL),
+      array(array('long'),        NULL, 'long'),
+      array(array('a', NULL),     'a', NULL),
+      array(array(NULL, 'long'),  NULL, 'long'),
+      array(array('a', 'long'),   'a', 'long'),
+
+      // We don't throw errors here, so empty options should work
+      array(NULL,                 NULL, NULL),
+      array(array(NULL),          NULL, NULL),
+      array(array(NULL, NULL),    NULL, NULL)
+    );
+  }
+
+  /**
+   * @test
+   * @covers  Getopti\Option::parse_opts
+   *
+   * @dataProvider  optsProvider
+   */
+  public function parses_opts_correctly($opts, $expected_short, $expected_long)
+  {
+    $results = Option::parse_opts($opts);
+
+    $this->assertEquals(
+      $expected_short, $results[0],
+      'Option::parse_opts did not extract the SHORT option correctly.'
+    );
+
+    $this->assertEquals(
+      $expected_long, $results[1],
+      'Option::parse_opts did not extract the LONG option correctly.'
     );
   }
   
   /**
    * @test
-   * @covers  Getopti\Option::__construct
-   * @covers  Getopti\Option::_parse_parameter
-   * 
-   * @dataProvider  parameterProvider
+   * @covers  Getopti\Option::parse_opts
    */
-  public function parses_given_parameters_correctly($opts, $string, $required, $multiple = FALSE)
+  public function parse_opts_returns_correct_number_of_results()
   {
-    $option = new Option('a', NULL, $opts);
+    $results = Option::parse_opts('a');
     
-    $this->assertSame(
-      $string, $option->parameter,
-      "The option's parameter string was not set correctly."
+    $this->assertEquals(
+      2, count($results),
+      'Option::parse_opts did not return exactly two (2) results.'
     );
-    
-    $this->assertSame(
-      $required, $option->required,
-      "The option's required property was not parsed correctly."
-    );
-    
-    $this->assertSame(
-      $multiple, $option->multiple,
-      "The option's multiple property was not parsed correctly."
-    );
-    
-    $rules = array( ! empty($string), $required);
-    
-    $this->assertSame(
-      $rules, $option->rule,
-      "The option's parsing rule (the rule property) was not set correctly." 
-    );
-  }
-  
+  }  
+
   // --------------------------------------------------------------------
-  
+
+  public function paramProvider()
+  {
+    return array(
+      array(
+        'PARAM',              // param argument
+        'PARAM',              // expected pared string
+        Option::TYPE_DEFAULT, // expected parsed type
+      ),
+      array(array('PARAM'), 'PARAM', Option::TYPE_DEFAULT),
+      array(NULL,           NULL, Option::TYPE_BOOL),
+      array(array(NULL),    NULL, Option::TYPE_BOOL)
+    );
+  }
+
   /**
    * @test
-   * @covers  Getopti\Option::run_callback
+   * @covers  Getopti\Option::parse_params
+   *
+   * @dataProvider  paramProvider
    */
-  public function runs_callbacks_correctly()
+  public function parses_params_correctly($params, $expected_string, $expected_type)
   {
-    $callback = $this->getMock('stdClass', array('callback'));
-    $callback->expects($this->once())
-             ->method('callback')
-             ->with('some_value');
+    $results = Option::parse_params($params);
+
+    $this->assertEquals(
+      $expected_string, $results[0],
+      'Option::parse_param did not extract the parameter STRING correctly.'
+    );
+
+    $this->assertEquals(
+      $expected_type, $results[1],
+      'Option::parse_param did not extract the parameter TYPE correctly.'
+    );
+  }
+
+  /**
+   * @test
+   * @covers  Getopti\Option::parse_params
+   */
+  public function parse_params_returns_correct_number_of_results()
+  {
+    $results = Option::parse_params('PARAM');
     
-    $option = Option::build('a', 'VALUE', array($callback, 'callback'));
-    $option->run_callback('some_value');
+    $this->assertEquals(
+      2, count($results),
+      'Option::parse_param did not return exactly two (2) results.'
+    );
   }
 }
 

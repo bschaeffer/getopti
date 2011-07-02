@@ -13,9 +13,9 @@
 namespace Getopti;
 
 /**
- * Getopt Parser Class 
+ * Getopti Parser Class 
  *
- * Parses a given set of options and arguements
+ * Parses a given set of options and arguments
  *
  * @package     Getopti
  */
@@ -24,7 +24,7 @@ class Parser {
   /**
    * Default value for all options.
    */
-  const OPTION_DEFAULT = NULL;
+  const OPTION_DEFAULT = TRUE;
 
   // Parsing variables
   private static $_args = array();
@@ -128,7 +128,7 @@ class Parser {
         throw new \Getopti\Exception("illegal option: -$opt");
       }
       
-      $value = self::OPTION_DEFAULT;
+      $value = NULL;
       
       if (static::$_shortopts[$opt][0])
       {  
@@ -142,18 +142,20 @@ class Parser {
           $next = $index + 1;
           $possible = (isset(static::$_args[$next])) ? static::$_args[$next] : FALSE;
           
-          if ( ! empty($possible) && ! self::is_option($possible))
+          if ( ! self::is_empty($possible) && ! self::is_option($possible))
           {
             $value = $possible;
             unset(static::$_args[$next]);
           }
         }
         
-        if (empty($value) && static::$_shortopts[$opt][1])
+        if (self::is_empty($value) && static::$_shortopts[$opt][1])
         {
           throw new \Getopti\Exception("option requires a parameter: '$opt' in -$arg");
         }
       }
+      
+      $value = (self::is_empty($value)) ? self::OPTION_DEFAULT : $value;
     
       static::$opts[] = array($opt, $value);
     }
@@ -176,7 +178,7 @@ class Parser {
     if (preg_match("/^[a-zA-Z\-]+=/", substr($arg, 2)))
     {
       list($opt, $value) = explode("=", $arg, 2);
-      $value = (empty($value)) ? NULL : $value;
+      $value = (self::is_empty($value)) ? NULL : $value;
     }
     
     $opt = ltrim($opt, '-');
@@ -186,25 +188,24 @@ class Parser {
       throw new \Getopti\Exception("illegal option: --$opt");
     }
     
-    if (static::$_longopts[$opt][0])
+    if (static::$_longopts[$opt][0] && self::is_empty($value))
     {
-      if (empty($value))
+      $next = $index + 1;
+      $possible = (isset(static::$_args[$next])) ? static::$_args[$next] : NULL;
+    
+      if ( ! self::is_empty($possible) && ! self::is_option($possible))
       {
-        $next = $index + 1;
-        $possible = (isset(static::$_args[$next])) ? static::$_args[$next] : FALSE;
+        $value = $possible;
+        unset(static::$_args[$next]);
+      }
       
-        if ( ! empty($possible) && ! self::is_option($possible))
-        {
-          $value = $possible;
-          unset(static::$_args[$next]);
-        }
-        
-        if (empty($value) && static::$_longopts[$opt][1])
-        {
-          throw new \Getopti\Exception("option requires a parameter: --$opt");
-        }
+      if (self::is_empty($value) && static::$_longopts[$opt][1])
+      {
+        throw new \Getopti\Exception("option requires a parameter: --$opt");
       }
     }
+    
+    $value = (self::is_empty($value)) ? self::OPTION_DEFAULT : $value;
   
     static::$opts[] = array($opt, $value);
   }
@@ -290,6 +291,22 @@ class Parser {
       && $string[0] == '-'
       && $string[1] == '-'
       && (bool)preg_match('/^[a-z0-9][a-z0-9\-]+=?/i', substr($string, 2));
+  }
+  
+  /**
+   * Is the value really empty?
+   * 
+   * @static
+   * @access  public
+   * @param   mixed   the value to test
+   * @return  bool    whether or not the value is empty by Getopti standards
+   */
+  public static function is_empty($value)
+  {
+    return is_null($value)
+      || $value === array()
+      || $value === ''
+      || $value === FALSE;
   }
 }
 
