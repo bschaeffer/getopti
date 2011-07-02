@@ -146,12 +146,12 @@ class Switcher {
   /**
    * Break down the specified options. Organize. Run callbacks. Go!
    * 
-   * @access  public
+   * @access  protected
    * @param   string  the option specified
    * @param   mixed   the value of the item
    * @return  void
    */
-  private function _run_option($opt, $value = TRUE)
+  protected function _run_option($opt, $value = TRUE)
   {
     $switch = $opt;
     

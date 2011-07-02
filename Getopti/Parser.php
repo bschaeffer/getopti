@@ -110,12 +110,12 @@ class Parser {
    * Parse Shortopt
    * 
    * @static
-   * @access  private
+   * @access  protected
    * @param   string  the shortopt(s) to parse
    * @param   int     the index of the current argument
    * @return  void
    */
-  private static function _parse_shortopt($arg, $index)
+  protected static function _parse_shortopt($arg, $index)
   {
     $arg = ltrim($arg, '-');
     
@@ -165,12 +165,12 @@ class Parser {
    * Parse Longopts
    * 
    * @static
-   * @access  private
+   * @access  protected
    * @param   string  the longopt(s) to parse
    * @param   int     the index of the current argument
    * @return  void
    */
-  private static function _parse_longopt($arg, $index)
+  protected static function _parse_longopt($arg, $index)
   {  
     $opt = $arg;
     $value = NULL;
