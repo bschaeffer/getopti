@@ -31,6 +31,12 @@ class Base {
    * @var     string  the long option flag
    */
   public $long = NULL;
+
+  /**
+   * @access  public
+   * @var     string  the option reference (either the short or long option)
+   */
+  public $reference = NULL;
   
   /**
    * @access  public
@@ -88,13 +94,14 @@ class Base {
       throw new \InvalidArgumentException("The callback supplied is invalid for the option '$_option'.");
     }
     
-    $this->short = empty($short) ? NULL : $short;
-    $this->long = empty($long) ? NULL : $long;
-    $this->callback = empty($callback) ? NULL : $callback;
+    $this->short     = empty($short) ? NULL : $short;
+    $this->long      = empty($long) ? NULL : $long;
+    $this->reference = empty($long) ? $short : $long;
+    $this->callback  = empty($callback) ? NULL : $callback;
     
     if ( ! empty($param))
     {
-      $param= trim($param);
+      $param = trim($param);
       $this->parameter = $param;
 
       if (strpos($param, \Getopti\Option::MULTIPLE_INDICATOR) )
@@ -122,7 +129,7 @@ class Base {
    */
   public function __toString()
   {
-    return ( ! empty($this->long)) ? $this->long : $this->short;
+    return $this->reference;
   }
   
   /**

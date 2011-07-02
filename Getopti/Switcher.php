@@ -118,8 +118,8 @@ class Switcher {
       $this->_short2long[$option->short] = $option->long;
     }
     
-    $this->options["$option"] = self::OPTION_DEFAULT;
-    $this->_opts_cache["$option"] = $option;
+    $this->options[$option->reference] = self::OPTION_DEFAULT;
+    $this->_opts_cache[$option->reference] = $option;
   }
   
   /**
@@ -176,7 +176,7 @@ class Switcher {
    */
   public function set(\Getopti\Option\Base $option, $value)
   {
-    $this->options["$option"] = $value;
+    $this->options[$option->reference] = $value;
     $option->run_callback($value);
   }
   
@@ -190,7 +190,7 @@ class Switcher {
    */
   public function push(\Getopti\Option\Base $option, $value)
   {
-    $ref = (string)$option;
+    $ref = $option->reference;
     
     if ( ! is_array($this->options[$ref]))
     {
