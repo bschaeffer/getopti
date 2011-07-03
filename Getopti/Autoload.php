@@ -37,7 +37,7 @@ class Autoload {
   public static function register()
   {
     // @codeCoverageIgnoreStart
-    spl_autoload_register(array(__CLASS__, 'load'), FALSE, TRUE);
+    spl_autoload_register(array(__CLASS__, 'load'));
   }
   // @codeCoverageIgnoreEnd
 
@@ -51,7 +51,7 @@ class Autoload {
    * @return bool
    */
   public static function load($class)
-  {
+  { 
     if (strpos($class, 'Getopti') !== 0)
     {
       return FALSE;
@@ -64,7 +64,7 @@ class Autoload {
 
     $load_class = str_replace('\\', '/', $class);
 
-    $file = $load_class.self::EXT;
+    $file = GETOPTI_BASEPATH.'/'.$load_class.self::EXT;
 
     if (file_exists($file))
     {
