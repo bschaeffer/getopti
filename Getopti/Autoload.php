@@ -64,7 +64,7 @@ class Autoload {
 
     $load_class = str_replace('\\', '/', $class);
 
-    $file = GETOPTI_BASEPATH.'/'.$load_class.self::EXT;
+    $file = $load_class.self::EXT;
 
     if (file_exists($file))
     {

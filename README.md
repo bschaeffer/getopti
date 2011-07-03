@@ -28,7 +28,7 @@ To install using PEAR, you first have to discover my [Pearfarm Channel](http://b
 Just require the library and get a new instance:
 
     require 'Getopti/Getopti.php';
-    $opts = new Getopti;
+    $opts = new Getopti\Command;
 
 ### banner
 

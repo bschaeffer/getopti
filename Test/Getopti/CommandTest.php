@@ -1,6 +1,8 @@
 <?php
 
-class GetoptiTest extends PHPUnit_Framework_TestCase {
+use Getopti\Command;
+
+class CommmandTest extends PHPUnit_Framework_TestCase {
   
   /**
    * Setup method for each test
@@ -8,28 +10,26 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   public function setUp()
   {
     Getopti::$columns = 0;
-    $this->opts = new Getopti();
+    $this->opts = new Command();
   }
 
   // --------------------------------------------------------------------
   
   /**
    * @test
-   * @covers  Getopti::__construct
+   * @covers  Getopti\Command::__construct
    */
   public function construct()
   {
     Getopti::$columns = 0;
     
-    $obj = new Getopti();
-    
-    $this->assertInstanceOf('Getopti\\Switcher', $obj->switcher);
-    $this->assertInstanceOf('Getopti\\Output', $obj->output);
+    $this->assertInstanceOf('Getopti\\Switcher', $this->opts->switcher);
+    $this->assertInstanceOf('Getopti\\Output', $this->opts->output);
   }
   
   /**
    * @test
-   * @covers  Getopti::__toString
+   * @covers  Getopti\Command::__toString
    */
   public function obj_toString()
   {
@@ -39,7 +39,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
     
   /**
    * @test
-   * @covers  Getopti::banner
+   * @covers  Getopti\Command::banner
    */
   public function banner()
   {
@@ -49,7 +49,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::usage
+   * @covers  Getopti\Command::usage
    */
   public function usage()
   { 
@@ -76,7 +76,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::on
+   * @covers  Getopti\Command::on
    * 
    * @dataProvider onProvider
    */
@@ -96,11 +96,11 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::on
+   * @covers  Getopti\Command::on
    */
   public function on_allows_an_Option_object_as_parameter()
   {
-    $option = Getopti\Option::build('a');
+    $option = \Getopti\Option::build('a');
     
     try
     {
@@ -122,7 +122,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::command
+   * @covers  Getopti\Command::command
    */
   public function command()
   { 
@@ -132,7 +132,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::help
+   * @covers  Getopti\Command::help
    */
   public function help()
   {
@@ -144,7 +144,7 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   
   /**
    * @test
-   * @covers  Getopti::parse
+   * @covers  Getopti\Command::parse
    */
   public function parse()
   {
@@ -172,5 +172,5 @@ class GetoptiTest extends PHPUnit_Framework_TestCase {
   }
 }
 
-/* End of file GetoptiTest.php */
-/* Location: ./test/GetoptiTest.php */
+/* End of file CommandTest.php */
+/* Location: ./test/CommandTest.php */
